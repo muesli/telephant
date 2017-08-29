@@ -16,8 +16,6 @@ A lightweight but modern Twitter client, written in Go & QML.
 - [ ] Shortened URL resolving
 - [ ] Support for other networks (like Mastodon/GNU social or even GitHub)
 
-![chirp logo](/assets/chirp.png)
-
 ## Installation
 
 Make sure you have a working Go environment. See the [install instructions](http://golang.org/doc/install.html).
@@ -40,6 +38,8 @@ Before you can build Chirp you need to install the [Go/Qt bindings](https://gith
 As of now you will need to create your own Twitter app & key to use Chirp. You can do this on [https://dev.twitter.com/](https://dev.twitter.com/).
 When you run Chirp for the first time, it will create an empty config file `chirp.conf` for you. Just edit it and enter
 your consumer key and accesstoken.
+
+![chirp logo](/assets/chirp.png)
 
 ## Development
 
