@@ -1,2 +1,2 @@
-# chirp
-A lightweight but modern Twitter client, written in Go &amp; QML.
+# Chirp!
+A lightweight but modern Twitter client, written in Go & QML.
