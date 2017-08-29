@@ -47,6 +47,7 @@ RowLayout {
                     text: name
                     textFormat: Text.PlainText
                     Layout.fillWidth: true
+                    Layout.maximumWidth: implicitWidth + 1
                     elide: Text.ElideRight
                 }
                 Label {
