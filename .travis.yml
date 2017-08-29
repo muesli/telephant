@@ -56,7 +56,7 @@ script:
   - if [[ "$ANDROID" == "true" ]]; then $GOPATH/bin/qtsetup full android; fi
   - if [[ "$IOS" == "true" ]]; then $GOPATH/bin/qtsetup full ios; fi
   - cd $GOPATH/src/github.com/muesli/chirp
-  - go get -u -v
+  - go get -u -v || true
   - if [[ "$DESKTOP" == "true" ]]; then $GOPATH/bin/qtdeploy build desktop $GOPATH/src/github.com/muesli/chirp; fi
   - if [[ "$ANDROID" == "true" ]]; then $GOPATH/bin/qtdeploy build android $GOPATH/src/github.com/muesli/chirp; fi
   - if [[ "$IOS" == "true" ]]; then $GOPATH/bin/qtdeploy build ios $GOPATH/src/github.com/muesli/chirp; fi
