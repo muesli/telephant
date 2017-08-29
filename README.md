@@ -3,6 +3,14 @@ Chirp!
 
 A lightweight but modern Twitter client, written in Go & QML.
 
+## Features
+
+- [x] Live feed via Twitter's Streaming API
+- [x] Multi pane support
+- [ ] Multiple Twitter accounts (work-in-progress)
+- [ ] Media previews
+- [ ] Desktop notifications
+
 ## Installation
 
 Make sure you have a working Go environment. See the [install instructions](http://golang.org/doc/install.html).
