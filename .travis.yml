@@ -41,6 +41,11 @@ matrix:
       osx_image: xcode8.2
       env: DESKTOP=false ANDROID=false IOS_SIMULATOR=true
 
+before_install:
+  - mkdir -p "$GOPATH/src/github.com/therecipe"
+  - cd "$GOPATH/src/github.com/therecipe"
+  - git clone https://github.com/therecipe/qt.git
+
 install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then travis_wait 30 $GOPATH/src/github.com/therecipe/qt/internal/ci/linux.sh; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then travis_wait 45 $GOPATH/src/github.com/therecipe/qt/internal/ci/darwin.sh; fi
