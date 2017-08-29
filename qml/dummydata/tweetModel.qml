@@ -18,7 +18,7 @@ ListModel {
          like: false
     }
     ListElement {
-         name: "Some Guy"
+         name: "Some Guy With A Really Really Long Name"
          messageid: "901223685058703361"
          author: "someguy"
          avatar: "https://pbs.twimg.com/profile_images/707382834827120640/R-Eb9YZB_normal.jpg"

@@ -33,8 +33,7 @@ RowLayout {
             opacity: 0.8
         }
         ColumnLayout {
-            anchors.top: parent.top
-            Layout.fillWidth: true
+            width: parent.width
             spacing: 4
 
             RowLayout {
@@ -46,6 +45,9 @@ RowLayout {
                     id: namelabel
                     font.bold: true
                     text: name
+                    textFormat: Text.PlainText
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
                 }
                 Label {
                     // anchors.bottom: parent.bottom
