@@ -12,3 +12,19 @@
 
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
 .glide/
+
+# IDE stuff
+.vscode
+
+# Generated sources
+*.cpp
+*.h
+moc*
+rcc*
+*.qmlc
+
+# Builds
+deploy/
+
+# Config files
+chirp.conf
