@@ -54,8 +54,8 @@ script:
   - go get -v github.com/therecipe/qt/cmd/...
   - if [[ "$DESKTOP" == "true" ]]; then $GOPATH/bin/qtsetup prep desktop && $GOPATH/bin/qtsetup check desktop && $GOPATH/bin/qtsetup generate desktop && $GOPATH/bin/qtsetup install desktop; fi
   - if [[ "$ANDROID" == "true" ]]; then $GOPATH/bin/qtsetup full android; fi
-  - if [[ "$DESKTOP" == "true" ]]; then qtdeploy build desktop; fi
-  - if [[ "$ANDROID" == "true" ]]; then qtdeploy build android; fi
+  - if [[ "$DESKTOP" == "true" ]]; then $GOPATH/bin/qtdeploy build desktop; fi
+  - if [[ "$ANDROID" == "true" ]]; then $GOPATH/bin/qtdeploy build android; fi
 #  - if [[ "$IOS" == "true" ]]; then $GOPATH/bin/qtsetup full ios; fi
 #  - if [[ "$IOS_SIMULATOR" == "true" ]]; then $GOPATH/bin/qtsetup full ios-simulator; fi
 #  - if [[ "$QT_MXE" == "true" ]]; then $GOPATH/bin/qtsetup full windows; fi
