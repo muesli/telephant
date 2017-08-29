@@ -213,13 +213,14 @@ func (m *MessageModel) addMessage(p *Message) {
 	m.EndInsertRows()
 
 	if len(m.Messages()) > maxMessageCount {
-		m.removeMessage(0)
+		m.removeMessage(len(m.Messages()) - 1)
 	}
 }
 
 func (m *MessageModel) removeMessage(row int) {
+	trow := len(m.Messages()) - 1 - row
 	m.BeginRemoveRows(core.NewQModelIndex(), row, row)
-	m.SetMessages(append(m.Messages()[:row], m.Messages()[len(m.Messages())-1-row:]...))
+	m.SetMessages(append(m.Messages()[:trow], m.Messages()[trow+1:]...))
 	m.EndRemoveRows()
 }
 
