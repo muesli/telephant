@@ -12,7 +12,7 @@ import (
 )
 
 func linkify(in []byte) []byte {
-	return []byte(fmt.Sprintf("<a href=\"%s\">%s</a>", in, in))
+	return []byte(fmt.Sprintf("<a style=\"text-decoration: none; color: orange;\" href=\"%s\">%s</a>", in, in))
 }
 
 // handleEvents handles incoming events and puts them into the right models
