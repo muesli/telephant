@@ -3,7 +3,7 @@ Chirp!
 
 A lightweight but modern Twitter client, written in Go & QML.
 
-![chirp Screenshot](/assets/chirp.png)
+![chirp Screenshot](/assets/screenshot.png)
 
 ## Features
 
@@ -15,6 +15,8 @@ A lightweight but modern Twitter client, written in Go & QML.
 - [ ] System notifications
 - [ ] Shortened URL resolving
 - [ ] Support for other networks (like Mastodon/GNU social or even GitHub)
+
+![chirp logo](/assets/chirp.png)
 
 ## Installation
 
