@@ -14,6 +14,7 @@ A lightweight but modern Twitter client, written in Go & QML.
 - [ ] Media previews
 - [ ] System notifications
 - [ ] Shortened URL resolving
+- [ ] Support for other networks (like Mastodon/GNU social or even GitHub)
 
 ## Installation
 
