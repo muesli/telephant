@@ -13,6 +13,7 @@ A lightweight but modern Twitter client, written in Go & QML.
 - [ ] Multiple Twitter accounts (work-in-progress)
 - [ ] Media previews
 - [ ] System notifications
+- [ ] Shortened URL resolving
 
 ## Installation
 
