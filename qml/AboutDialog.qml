@@ -25,6 +25,12 @@ import QtQuick.Layouts 1.3
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
                 onLinkActivated: Qt.openUrlExternally(link)
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
             }
 
             Label {
@@ -34,6 +40,12 @@ import QtQuick.Layouts 1.3
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
                 onLinkActivated: Qt.openUrlExternally(link)
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
             }
         }
     }

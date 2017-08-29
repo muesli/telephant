@@ -57,6 +57,7 @@ RowLayout {
 
                     MouseArea {
                         anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             Qt.openUrlExternally(
                                         "https://twitter.com/" + author)
@@ -70,6 +71,7 @@ RowLayout {
 
                     MouseArea {
                         anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             Qt.openUrlExternally(
                                         "https://twitter.com/statuses/" + messageid)
@@ -85,8 +87,15 @@ RowLayout {
                     text: body
                     textFormat: Text.RichText
                     onLinkActivated: Qt.openUrlExternally(link)
+                    font.pixelSize: 13
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
+
+                    MouseArea {
+                        anchors.fill: parent
+                        acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
+                        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                    }
                 }
                 RowLayout {
                     anchors.left: parent.left
@@ -101,6 +110,7 @@ RowLayout {
 
                             MouseArea {
                                 anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
                                 onClicked: {
                                     Qt.openUrlExternally(
                                                 "https://twitter.com/statuses/" + replytoid)
