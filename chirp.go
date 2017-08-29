@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"strconv"
 
@@ -19,31 +19,31 @@ func reply(replyid string, message string) {
 	var err error
 	iid, _ := strconv.ParseInt(replyid, 10, 64)
 	if iid > 0 {
-		fmt.Println("Sending reply to:", iid, message)
+		log.Println("Sending reply to:", iid, message)
 		err = tc.Reply(iid, message)
 	} else {
-		fmt.Println("Sending tweet:", message)
+		log.Println("Sending tweet:", message)
 		err = tc.Tweet(message)
 	}
 	if err != nil {
-		fmt.Println("Error posting to Twitter:", err)
+		log.Println("Error posting to Twitter:", err)
 	}
 }
 
 // retweet a message
 func retweet(id string) {
 	iid, _ := strconv.ParseInt(id, 10, 64)
-	fmt.Println("Retweeting:", iid)
+	log.Println("Retweeting:", iid)
 	err := tc.Retweet(iid)
-	fmt.Println("Error posting to Twitter:", err)
+	log.Println("Error posting to Twitter:", err)
 }
 
 // like a message
 func like(id string) {
 	iid, _ := strconv.ParseInt(id, 10, 64)
-	fmt.Println("Liking:", iid)
+	log.Println("Liking:", iid)
 	err := tc.Like(iid)
-	fmt.Println("Error posting to Twitter:", err)
+	log.Println("Error posting to Twitter:", err)
 }
 
 // runApp loads and executes the QML UI

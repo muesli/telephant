@@ -45,7 +45,7 @@ func LoadConfig() Config {
 
 	var config Config
 	if _, err := toml.DecodeFile(configFile, &config); err != nil {
-		log.Fatal(err)
+		log.Fatal("Could not decode config file: ", err)
 	}
 
 	return config
@@ -55,9 +55,9 @@ func LoadConfig() Config {
 func SaveConfig(config Config) {
 	f, err := os.Create(configFile)
 	if err != nil {
-		panic(err)
+		log.Fatal("Could not open config file: ", err)
 	}
 	if err := toml.NewEncoder(f).Encode(config); err != nil {
-		panic(err)
+		log.Fatal("Could not encode config: ", err)
 	}
 }

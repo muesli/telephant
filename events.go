@@ -56,7 +56,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				// markup links
 				re, err := regexp.Compile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,16}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)
 				if err != nil {
-					panic(err)
+					log.Fatal("URL detection regexp does not compile: ", err)
 				}
 				p.Body = string(re.ReplaceAllFunc([]byte(p.Body), linkify))
 
