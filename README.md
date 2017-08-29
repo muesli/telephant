@@ -3,6 +3,8 @@ Chirp!
 
 A lightweight but modern Twitter client, written in Go & QML.
 
+![chirp Screenshot](/assets/chirp.png)
+
 ## Features
 
 - [x] Live feed via Twitter's Streaming API
