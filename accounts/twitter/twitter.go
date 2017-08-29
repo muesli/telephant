@@ -14,7 +14,8 @@ import (
 )
 
 const (
-	initialFeedCount = 200
+	initialFeedCount          = 200
+	initialNotificationsCount = 50
 )
 
 // Account is a twitter account for Chirp.
@@ -97,6 +98,13 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	v.Set("count", strconv.FormatInt(initialFeedCount, 10))
 	tweets, err := mod.twitterAPI.GetHomeTimeline(v)
 	mod.handleAnacondaError(err, "Could not get timeline from Twitter API")
+	for i := len(tweets) - 1; i >= 0; i-- {
+		mod.handleStreamEvent(tweets[i])
+	}
+
+	v.Set("count", strconv.FormatInt(initialNotificationsCount, 10))
+	tweets, err = mod.twitterAPI.GetMentionsTimeline(v)
+	mod.handleAnacondaError(err, "Could not get mention feed from Twitter API")
 	for i := len(tweets) - 1; i >= 0; i-- {
 		mod.handleStreamEvent(tweets[i])
 	}
