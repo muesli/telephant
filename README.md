@@ -34,5 +34,5 @@ Before you can build Chirp you need to install the [Go/Qt bindings](https://gith
 
 API docs can be found [here](http://godoc.org/github.com/muesli/chirp).
 
-[![Build Status](https://secure.travis-ci.org/muesli/chirp.png)](http://travis-ci.org/muesli/chirp)
+[![Build Status](https://travis-ci.org/muesli/chirp.svg?branch=master)](https://travis-ci.org/muesli/chirp)
 [![Go ReportCard](http://goreportcard.com/badge/muesli/chirp)](http://goreportcard.com/report/muesli/chirp)
