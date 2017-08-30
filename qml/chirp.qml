@@ -184,7 +184,9 @@ ApplicationWindow {
         columns: 2
         rows: 1
         anchors.fill: parent
-        anchors.margins: 8
+        anchors.margins: 0
+        columnSpacing: 0
+        rowSpacing: 0
 
         TweetView {
             Layout.row: 0

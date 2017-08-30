@@ -17,17 +17,26 @@ ColumnLayout {
 
         headerPositioning: ListView.OverlayHeader
 
-        header: Rectangle {
-            width: parent.width
-            height: 32
+        header: Item {
+            SystemPalette { id: headerPalette; colorGroup: SystemPalette.Active }
             z: 2
-            color: Material.background
-
+            width: parent.width
+            height: 36
             Label {
+                z: 3
                 anchors.fill: parent
+                anchors.leftMargin: 10
                 text: name
                 font.pixelSize: 18
                 font.weight: Font.Light
+                verticalAlignment: Label.AlignVCenter
+                color: headerPalette.windowText
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: headerPalette.window
+                opacity: 0.8
             }
         }
     }
