@@ -1,4 +1,4 @@
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Controls 2.1
 import QtGraphicalEffects 1.0
 
@@ -36,6 +36,7 @@ Image {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
 
         onClicked: parent.onClicked()
     }
