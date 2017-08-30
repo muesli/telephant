@@ -28,6 +28,7 @@ type MessageEvent struct {
 	Like         bool
 	Notification bool
 	Post         Post
+	Media        []string
 }
 
 // LoginEvent describes a login event.

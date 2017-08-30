@@ -29,6 +29,7 @@ const (
 	Forward
 	Mention
 	Like
+	Media
 	Editing
 )
 
@@ -64,6 +65,7 @@ type Message struct {
 	Forward       bool
 	Mention       bool
 	Like          bool
+	Media         string
 	Editing       bool
 }
 
@@ -83,6 +85,7 @@ func (m *MessageModel) init() {
 		Forward:       core.NewQByteArray2("forward", -1),
 		Mention:       core.NewQByteArray2("mention", -1),
 		Like:          core.NewQByteArray2("like", -1),
+		Media:         core.NewQByteArray2("media", -1),
 		Editing:       core.NewQByteArray2("editing", -1),
 	})
 
@@ -182,6 +185,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case Like:
 		{
 			return core.NewQVariant11(p.Like)
+		}
+	case Media:
+		{
+			return core.NewQVariant14(p.Media)
 		}
 	case Editing:
 		{

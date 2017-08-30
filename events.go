@@ -6,8 +6,6 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
-
 	"github.com/muesli/chirp/accounts"
 )
 
@@ -34,8 +32,8 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 			}
 		case accounts.MessageEvent:
 			{
-				spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
-				log.Println("Message received:", spw.Sdump(event))
+				// spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
+				// log.Println("Message received:", spw.Sdump(event))
 
 				var p = NewMessage(nil)
 				p.MessageID = event.Post.MessageID
@@ -52,6 +50,9 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				p.Forward = event.Forward
 				p.Actor = event.Post.Actor
 				p.ActorName = event.Post.ActorName
+				if len(event.Media) > 0 {
+					p.Media = event.Media[0]
+				}
 
 				// markup links
 				re, err := regexp.Compile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,16}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)

@@ -206,6 +206,10 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			ev.Post.ActorName = status.User.Name
 		}
 
+		for _, media := range status.Entities.Media {
+			ev.Media = append(ev.Media, media.Media_url_https)
+		}
+
 		mod.evchan <- ev
 
 	case anaconda.EventTweet:
