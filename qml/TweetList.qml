@@ -8,6 +8,9 @@ ListView {
 
     ScrollBar.vertical: ScrollBar {
         width: 8
+        background: Rectangle {
+            color: "transparent"
+        }
     }
 
     delegate: messagesDelegate

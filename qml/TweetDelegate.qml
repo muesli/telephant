@@ -4,12 +4,14 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-RowLayout {
-    width: parent.width - messagePane.Material.elevation * 2
+ColumnLayout {
+    x: messagePane.Material.elevation
+    width: parent.width - messagePane.Material.elevation * 2 - 12
     Pane {
+        anchors.horizontalCenter: parent.horizontalCenter
         id: messagePane
         Material.elevation: 6
-        anchors.fill: parent
+        Layout.fillWidth: true
 
         MessageView {
             id: messageView
