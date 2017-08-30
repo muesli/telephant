@@ -16,6 +16,7 @@ ListModel {
          forward: false
          mention: false
          like: false
+         media: ""
     }
     ListElement {
          name: "Some Guy With A Really Really Long Name"
@@ -32,6 +33,7 @@ ListModel {
          forward: false
          mention: false
          like: false
+         media: ""
     }
     ListElement {
          name: "Dummy User"
@@ -48,6 +50,7 @@ ListModel {
          forward: true
          mention: false
          like: false
+         media: "https://pbs.twimg.com/media/DIfdvcxXkAUXAvs.jpg"
     }
     ListElement {
          name: "Another User"
@@ -64,6 +67,7 @@ ListModel {
          forward: false
          mention: true
          like: false
+         media: ""
     }
     ListElement {
          name: "This Tweeter"
@@ -80,5 +84,6 @@ ListModel {
          forward: false
          mention: false
          like: true
+         media: ""
     }
 }

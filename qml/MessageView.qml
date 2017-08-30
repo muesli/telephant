@@ -1,4 +1,4 @@
-import QtQuick 2.4
+import QtQuick 2.5
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
@@ -19,6 +19,7 @@ RowLayout {
     property bool forward: model.forward
     property bool mention: model.mention
     property bool like: model.like
+    property string media: model.media
 
     RowLayout {
         spacing: 8
@@ -33,11 +34,10 @@ RowLayout {
             opacity: 0.8
         }
         ColumnLayout {
-            width: parent.width
+            Layout.fillWidth: true
             spacing: 4
 
             RowLayout {
-                anchors.top: parent.top
                 anchors.left: parent.left
                 anchors.right: parent.right
 
@@ -82,7 +82,7 @@ RowLayout {
             }
             ColumnLayout {
                 width: parent.width
-                anchors.bottom: parent.bottom
+                // anchors.bottom: parent.bottom
                 spacing: 4
                 Label {
                     text: body
@@ -150,15 +150,7 @@ RowLayout {
 
                     RowLayout {
                         anchors.right: parent.right
-                        /* Button {
-                                    highlighted: true
-                                    Material.accent: Material.Green
-                                    text: qsTr("Reply")
-                                    onClicked: {
-                                        tweetPopup.open()
-                                        // tweetModel.setData(tweetModel.index(index, 0) , true, "editing");
-                                    }
-                                } */
+
                         ImageButton {
                             source: "images/reply.svg"
                             sourceSize.height: 16
@@ -194,6 +186,22 @@ RowLayout {
                                 uiBridge.likeButton(messageid)
                             }
                         }
+                    }
+                }
+
+                ImageButton {
+                    visible: media != ""
+                    Layout.fillWidth: true
+                    // Layout.maximumWidth: sourceSize.width
+                    Layout.maximumHeight: Math.min(384, paintedHeight + 8)
+                    source: media
+                    fillMode: Image.PreserveAspectFit
+                    verticalAlignment: Image.AlignBottom
+                    autoTransform: true
+                    opacity: 0.2
+
+                    onClicked: function() {
+                        Qt.openUrlExternally(media)
                     }
                 }
             }

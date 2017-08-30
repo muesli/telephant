@@ -19,6 +19,7 @@ Popup {
     property bool forward
     property bool mention
     property bool like
+    property string media
 
     modal: true
     // focus: true
@@ -43,6 +44,7 @@ Popup {
             forward: popup.forward
             mention: popup.mention
             like: popup.like
+            media: popup.media
         }
 
         Label {
