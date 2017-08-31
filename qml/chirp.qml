@@ -123,11 +123,11 @@ ApplicationWindow {
                     transformOrigin: Menu.TopRight
 
                     MenuItem {
-                        text: "Settings"
+                        text: qsTr("Settings")
                         onTriggered: settingsDialog.open()
                     }
                     MenuItem {
-                        text: "About"
+                        text: qsTr("About")
                         onTriggered: aboutDialog.open()
                     }
                 }
