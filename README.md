@@ -11,9 +11,9 @@ A lightweight but modern Twitter client, written in Go & QML.
 - [x] Multi pane support
 - [x] Linux/macOS/Windows (Android & iOS should be working, but aren't tested yet)
 - [x] Media previews
+- [x] Shortened URL resolving
 - [ ] Multiple Twitter accounts (work-in-progress)
 - [ ] System notifications
-- [ ] Shortened URL resolving
 - [ ] Support for other networks (like Mastodon/GNU social or even GitHub)
 
 ## Installation
