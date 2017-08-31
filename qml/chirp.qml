@@ -90,6 +90,10 @@ ApplicationWindow {
                     verticalAlignment: Image.AlignVCenter
                     source: accountBridge.avatar
                     sourceSize.height: 32
+                    onClicked: function() {
+                        Qt.openUrlExternally(
+                                    "https://twitter.com/" + accountBridge.username)
+                    }
                 }
 
                 Label {
