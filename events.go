@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"regexp"
 	"strings"
 
 	"github.com/muesli/chirp/accounts"
@@ -55,11 +54,11 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				}
 
 				// markup links
-				re, err := regexp.Compile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,16}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)
+				/* re, err := regexp.Compile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,16}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)
 				if err != nil {
 					log.Fatal("URL detection regexp does not compile: ", err)
 				}
-				p.Body = string(re.ReplaceAllFunc([]byte(p.Body), linkify))
+				p.Body = string(re.ReplaceAllFunc([]byte(p.Body), linkify)) */
 
 				if event.Notification {
 					notifications.AddMessage(p)

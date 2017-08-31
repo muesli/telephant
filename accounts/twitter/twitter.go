@@ -2,6 +2,7 @@
 package twitter
 
 import (
+	"fmt"
 	"log"
 	"net/url"
 	"strconv"
@@ -154,6 +155,19 @@ func handleReplyStatus(status string) string {
 	return status
 }
 
+func parseTweet(ents anaconda.Entities, ev *accounts.MessageEvent) {
+	for _, u := range ents.Urls {
+		r := fmt.Sprintf("<a style=\"text-decoration: none; color: orange;\" href=\"%s\">%s</a>", u.Expanded_url, u.Display_url)
+		ev.Post.Body = strings.Replace(ev.Post.Body, u.Url, r, -1)
+	}
+	for _, media := range ents.Media {
+		ev.Media = append(ev.Media, media.Media_url_https)
+		ev.Post.Body = strings.Replace(ev.Post.Body, media.Url, "", -1)
+		// FIXME:
+		break
+	}
+}
+
 func (mod *Account) handleStreamEvent(item interface{}) {
 	switch status := item.(type) {
 	case anaconda.Tweet:
@@ -204,11 +218,11 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			ev.Post.Avatar = status.RetweetedStatus.User.ProfileImageUrlHttps
 			ev.Post.Actor = status.User.ScreenName
 			ev.Post.ActorName = status.User.Name
+			parseTweet(status.RetweetedStatus.Entities, &ev)
+			parseTweet(status.RetweetedStatus.ExtendedEntities, &ev)
 		}
-
-		for _, media := range status.Entities.Media {
-			ev.Media = append(ev.Media, media.Media_url_https)
-		}
+		parseTweet(status.Entities, &ev)
+		parseTweet(status.ExtendedEntities, &ev)
 
 		mod.evchan <- ev
 
@@ -246,6 +260,9 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			if status.TargetObject.RetweetedStatus.User.ScreenName == mod.self.ScreenName {
 				ev.Notification = true
 			}
+
+			parseTweet(status.TargetObject.RetweetedStatus.Entities, &ev)
+
 			fallthrough
 		case "favorite":
 			ev.Like = true
