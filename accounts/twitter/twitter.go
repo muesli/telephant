@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ChimeraCoder/anaconda"
+	"github.com/muesli/anaconda"
 
 	"github.com/muesli/chirp/accounts"
 )
@@ -157,14 +157,14 @@ func handleReplyStatus(status string) string {
 func (mod *Account) handleStreamEvent(item interface{}) {
 	switch status := item.(type) {
 	case anaconda.Tweet:
-		log.Printf("Tweet: %s %s", status.Text, status.User.ScreenName)
+		// log.Printf("Tweet: %s %s", status.FullText, status.User.ScreenName)
 
 		ev := accounts.MessageEvent{
 			Account: "twitter",
 			Name:    "tweet",
 			Post: accounts.Post{
 				MessageID:  status.Id,
-				Body:       status.Text,
+				Body:       status.FullText,
 				Author:     status.User.ScreenName,
 				AuthorName: status.User.Name,
 				Avatar:     status.User.ProfileImageUrlHttps,
@@ -198,7 +198,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		if status.RetweetedStatus != nil {
 			// a retweet
 			ev.Forward = true
-			ev.Post.Body = handleRetweetStatus(ev.Post.Body)
+			ev.Post.Body = handleRetweetStatus(status.RetweetedStatus.FullText)
 			ev.Post.Author = status.RetweetedStatus.User.ScreenName
 			ev.Post.AuthorName = status.RetweetedStatus.User.Name
 			ev.Post.Avatar = status.RetweetedStatus.User.ProfileImageUrlHttps
@@ -213,14 +213,14 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		mod.evchan <- ev
 
 	case anaconda.EventTweet:
-		log.Printf("Event: %s %s", status.TargetObject.Text, status.Source.ScreenName)
+		log.Printf("Event: %s %s", status.TargetObject.FullText, status.Source.ScreenName)
 
 		ev := accounts.MessageEvent{
 			Account: "twitter",
 			Name:    "tweet",
 			Post: accounts.Post{
 				MessageID:  status.TargetObject.Id,
-				Body:       status.TargetObject.Text,
+				Body:       status.TargetObject.FullText,
 				Author:     status.Source.ScreenName,
 				AuthorName: status.Source.Name,
 				Avatar:     status.Source.ProfileImageUrlHttps,
