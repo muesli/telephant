@@ -88,8 +88,11 @@ Popup {
 
                 onClicked: {
                     popup.close()
-                    uiBridge.tweetButton(popup.messageid,
-                                         "@" + author + " " + messageArea.text)
+                    var msg = messageArea.text
+                    if (popup.messageid > 0) {
+                        msg = "@" + author + " " + msg
+                    }
+                    uiBridge.tweetButton(popup.messageid, msg)
                     messageArea.clear()
                 }
             }
