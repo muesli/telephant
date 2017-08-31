@@ -40,12 +40,10 @@ ApplicationWindow {
     Component {
         id: messagesDelegate
 
-        TweetDelegate {
-        }
+        TweetDelegate { }
     }
 
     header: ToolBar {
-
         /* MouseArea {
             anchors.fill: parent;
             property variant clickPos: "1,1"
@@ -60,6 +58,7 @@ ApplicationWindow {
                 mainWindow.y += delta.y;
             }
         } */
+
         RowLayout {
             spacing: 20
             anchors.fill: parent
