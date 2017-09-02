@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/muesli/anaconda"
+	"github.com/ChimeraCoder/anaconda"
 
 	"github.com/muesli/chirp/accounts"
 )
