@@ -248,7 +248,21 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		}
 
 		switch status.Event.Event {
-		case "favorited_retweeted":
+		case "retweeted_retweet":
+			ev.Forward = true
+			ev.Post.Body = handleRetweetStatus(ev.Post.Body)
+			ev.Post.Author = status.TargetObject.User.ScreenName
+			ev.Post.AuthorName = status.TargetObject.User.Name
+			ev.Post.Avatar = status.TargetObject.User.ProfileImageUrlHttps
+			ev.Post.Actor = status.Source.ScreenName
+			ev.Post.ActorName = status.Source.Name
+			if status.TargetObject.RetweetedStatus.User.ScreenName == mod.self.ScreenName {
+				ev.Notification = true
+			}
+
+			parseTweet(status.TargetObject.RetweetedStatus.Entities, &ev)
+
+		case "favorited_retweet":
 			ev.Forward = true
 			ev.Like = true
 			ev.Post.Body = handleRetweetStatus(ev.Post.Body)
@@ -263,7 +277,6 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 
 			parseTweet(status.TargetObject.RetweetedStatus.Entities, &ev)
 
-			fallthrough
 		case "favorite":
 			ev.Like = true
 
