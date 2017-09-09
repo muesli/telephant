@@ -85,6 +85,7 @@ RowLayout {
                 // anchors.bottom: parent.bottom
                 spacing: 4
                 Label {
+                    visible: body.length > 0
                     text: body
                     textFormat: Text.RichText
                     onLinkActivated: Qt.openUrlExternally(link)
