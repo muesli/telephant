@@ -74,7 +74,7 @@ Popup {
                 anchors.rightMargin: 12
 
                 font.pixelSize: 16
-                text: 140 - messageArea.text.length
+                text: 280 - messageArea.text.length
             }
 
             Button {
