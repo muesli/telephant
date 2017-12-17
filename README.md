@@ -44,7 +44,6 @@ your consumer key and accesstoken.
 
 ## Development
 
-API docs can be found [here](http://godoc.org/github.com/muesli/chirp).
-
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/chirp)
 [![Build Status](https://travis-ci.org/muesli/chirp.svg?branch=master)](https://travis-ci.org/muesli/chirp)
 [![Go ReportCard](http://goreportcard.com/badge/muesli/chirp)](http://goreportcard.com/report/muesli/chirp)
