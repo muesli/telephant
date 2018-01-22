@@ -18,7 +18,8 @@ A lightweight but modern Twitter client, written in Go & QML.
 
 ## Installation
 
-Make sure you have a working Go environment. See the [install instructions](http://golang.org/doc/install.html).
+Make sure you have a working Go environment (Go 1.8 or higher is required).
+See the [install instructions](http://golang.org/doc/install.html).
 
 ### Dependencies
 
