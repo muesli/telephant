@@ -1,7 +1,6 @@
 package main
 
 import (
-	"strconv"
 	"time"
 
 	humanize "github.com/dustin/go-humanize"
@@ -21,6 +20,7 @@ const (
 	Avatar
 	Body
 	CreatedAt
+	PostURL
 	Actor
 	ActorName
 	Reply
@@ -56,7 +56,7 @@ type Message struct {
 	Avatar        string
 	Body          string
 	CreatedAt     time.Time
-	URL           string
+	PostURL       string
 	Actor         string
 	ActorName     string
 	Reply         bool
@@ -77,6 +77,7 @@ func (m *MessageModel) init() {
 		Avatar:        core.NewQByteArray2("avatar", -1),
 		Body:          core.NewQByteArray2("body", -1),
 		CreatedAt:     core.NewQByteArray2("createdat", -1),
+		PostURL:       core.NewQByteArray2("posturl", -1),
 		Actor:         core.NewQByteArray2("actor", -1),
 		ActorName:     core.NewQByteArray2("actorname", -1),
 		Reply:         core.NewQByteArray2("reply", -1),
@@ -153,6 +154,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case CreatedAt:
 		{
 			return core.NewQVariant14(humanize.Time(p.CreatedAt))
+		}
+	case PostURL:
+		{
+			return core.NewQVariant14(p.PostURL)
 		}
 	case Actor:
 		{

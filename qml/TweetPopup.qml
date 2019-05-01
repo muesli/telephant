@@ -11,6 +11,7 @@ Popup {
     property string avatar
     property string body
     property string createdat
+    property string posturl
     property string actor
     property string actorname
     property bool reply
@@ -36,6 +37,7 @@ Popup {
             avatar: popup.avatar
             body: popup.body
             createdat: popup.createdat
+            posturl: popup.posturl
             actor: popup.actor
             actorname: popup.actorname
             reply: popup.reply

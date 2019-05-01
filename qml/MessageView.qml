@@ -11,6 +11,7 @@ RowLayout {
     property string avatar: model.avatar
     property string body: model.body
     property string createdat: model.createdat
+    property string posturl: model.posturl
     property string actor: model.actor
     property string actorname: model.actorname
     property bool reply: model.reply
@@ -74,8 +75,7 @@ RowLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            Qt.openUrlExternally(
-                                        "https://twitter.com/statuses/" + messageid)
+                            Qt.openUrlExternally(posturl)
                         }
                     }
                 }
@@ -114,8 +114,7 @@ RowLayout {
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
                                 onClicked: {
-                                    Qt.openUrlExternally(
-                                                "https://twitter.com/statuses/" + replytoid)
+                                    Qt.openUrlExternally(posturl)
                                 }
                             }
                         }
@@ -162,6 +161,7 @@ RowLayout {
                                 tweetPopup.avatar = avatar
                                 tweetPopup.body = body
                                 tweetPopup.createdat = createdat
+                                tweetPopup.posturl = posturl
                                 tweetPopup.actor = actor
                                 tweetPopup.actorname = actorname
                                 tweetPopup.reply = reply

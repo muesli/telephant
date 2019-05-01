@@ -41,6 +41,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				p.Avatar = event.Post.Avatar
 				p.Body = strings.TrimSpace(event.Post.Body)
 				p.CreatedAt = event.Post.CreatedAt
+				p.PostURL = event.Post.URL
 				p.Reply = event.Reply
 				p.ReplyToID = event.Post.ReplyToID
 				p.ReplyToAuthor = event.Post.ReplyToAuthor
