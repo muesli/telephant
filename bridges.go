@@ -9,7 +9,7 @@ import (
 type UIBridge struct {
 	core.QObject
 
-	_ func(replyid string, message string) `slot:"tweetButton"`
+	_ func(replyid string, message string) `slot:"postButton"`
 	_ func(id string)                      `slot:"retweetButton"`
 	_ func(id string)                      `slot:"likeButton"`
 
@@ -51,7 +51,7 @@ func setupQmlBridges() {
 	accountBridge.SetUsername("Chirp!")
 
 	uiBridge = NewUIBridge(nil)
-	uiBridge.ConnectTweetButton(reply)
+	uiBridge.ConnectPostButton(reply)
 	uiBridge.ConnectRetweetButton(retweet)
 	uiBridge.ConnectLikeButton(like)
 

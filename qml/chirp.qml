@@ -168,7 +168,7 @@ ApplicationWindow {
 
             model: ListModel {
                 ListElement {
-                    title: qsTr("New Tweet")
+                    title: qsTr("New Post")
                     property int sid: 0
                 }
                 ListElement {

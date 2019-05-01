@@ -23,7 +23,7 @@ func reply(replyid string, message string) {
 		err = tc.Reply(iid, message)
 	} else {
 		log.Println("Sending tweet:", message)
-		err = tc.Tweet(message)
+		err = tc.Post(message)
 	}
 	if err != nil {
 		log.Println("Error posting to Account:", err)

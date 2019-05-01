@@ -113,8 +113,8 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	mod.handleStream()
 }
 
-// Tweet posts a new tweet
-func (mod *Account) Tweet(message string) error {
+// Post posts a new status
+func (mod *Account) Post(message string) error {
 	_, err := mod.twitterAPI.PostTweet(message, url.Values{})
 	return err
 }

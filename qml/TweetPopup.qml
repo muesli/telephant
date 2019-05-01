@@ -60,7 +60,7 @@ Popup {
             Layout.fillWidth: true
             Layout.fillHeight: true
             focus: true
-            placeholderText: popup.messageid > 0 ? qsTr("Tweet your reply") : qsTr(
+            placeholderText: popup.messageid > 0 ? qsTr("Post your reply") : qsTr(
                                                        "What's happening?")
             wrapMode: TextArea.Wrap
         }
@@ -86,7 +86,7 @@ Popup {
                 anchors.right: parent.right
                 highlighted: true
                 Material.accent: Material.Blue
-                text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Tweet")
+                text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Post")
 
                 onClicked: {
                     popup.close()
@@ -94,7 +94,7 @@ Popup {
                     if (popup.messageid > 0) {
                         msg = "@" + author + " " + msg
                     }
-                    uiBridge.tweetButton(popup.messageid, msg)
+                    uiBridge.postButton(popup.messageid, msg)
                     messageArea.clear()
                 }
             }

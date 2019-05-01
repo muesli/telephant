@@ -75,12 +75,15 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	mod.handleStream()
 }
 
-// Tweet posts a new tweet
-func (mod *Account) Tweet(message string) error {
+// Post posts a new status
+func (mod *Account) Post(message string) error {
+	mod.client.PostStatus(context.Background(), &mastodon.Toot{
+		Status: message,
+	})
 	return nil
 }
 
-// Reply posts a new reply-tweet
+// Reply posts a new reply-status
 func (mod *Account) Reply(replyid int64, message string) error {
 	return nil
 }
