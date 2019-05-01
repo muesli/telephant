@@ -51,7 +51,7 @@ type Message struct {
 	core.QObject
 
 	Name          string
-	MessageID     int64
+	MessageID     string
 	Author        string
 	Avatar        string
 	Body          string
@@ -60,7 +60,7 @@ type Message struct {
 	Actor         string
 	ActorName     string
 	Reply         bool
-	ReplyToID     int64
+	ReplyToID     string
 	ReplyToAuthor string
 	Forward       bool
 	Mention       bool
@@ -136,7 +136,7 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		}
 	case MessageID:
 		{
-			return core.NewQVariant14(strconv.FormatInt(p.MessageID, 10))
+			return core.NewQVariant14(p.MessageID)
 		}
 	case Author:
 		{
@@ -168,7 +168,7 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		}
 	case ReplyToID:
 		{
-			return core.NewQVariant14(strconv.FormatInt(p.ReplyToID, 10))
+			return core.NewQVariant14(p.ReplyToID)
 		}
 	case ReplyToAuthor:
 		{

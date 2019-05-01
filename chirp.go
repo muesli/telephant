@@ -10,7 +10,7 @@ import (
 	"github.com/therecipe/qt/qml"
 	"github.com/therecipe/qt/quickcontrols2"
 
-	"github.com/muesli/chirp/accounts/twitter"
+	"github.com/muesli/chirp/accounts/mastodon"
 )
 
 // reply is used to post a new tweet
@@ -26,7 +26,7 @@ func reply(replyid string, message string) {
 		err = tc.Tweet(message)
 	}
 	if err != nil {
-		log.Println("Error posting to Twitter:", err)
+		log.Println("Error posting to Account:", err)
 	}
 }
 
@@ -35,7 +35,7 @@ func retweet(id string) {
 	iid, _ := strconv.ParseInt(id, 10, 64)
 	log.Println("Retweeting:", iid)
 	err := tc.Retweet(iid)
-	log.Println("Error posting to Twitter:", err)
+	log.Println("Error posting to Account:", err)
 }
 
 // like a message
@@ -43,7 +43,7 @@ func like(id string) {
 	iid, _ := strconv.ParseInt(id, 10, 64)
 	log.Println("Liking:", iid)
 	err := tc.Like(iid)
-	log.Println("Error posting to Twitter:", err)
+	log.Println("Error posting to Account:", err)
 }
 
 // runApp loads and executes the QML UI
@@ -59,9 +59,9 @@ func runApp(config Config) {
 	gui.QGuiApplication_Exec()
 }
 
-// setupTwitter starts a new Twitter client and sets up event handling & models for it
-func setupTwitter(config Account) {
-	tc = twitter.NewAccount(config.ConsumerKey, config.ConsumerSecret, config.AccessToken, config.AccessTokenSecret)
+// setupMastodon starts a new Mastodon client and sets up event handling & models for it
+func setupMastodon(config Account) {
+	tc = mastodon.NewAccount(config.Username, config.Password, config.Instance, config.ClientID, config.ClientSecret)
 	tweetModel := NewMessageModel(nil)
 	notificationModel := NewMessageModel(nil)
 
@@ -78,7 +78,7 @@ func setupTwitter(config Account) {
 
 func main() {
 	core.QCoreApplication_SetApplicationName("Chirp")
-	core.QCoreApplication_SetOrganizationName("chris.de")
+	core.QCoreApplication_SetOrganizationName("fribbledom.com")
 	core.QCoreApplication_SetAttribute(core.Qt__AA_EnableHighDpiScaling, true)
 	gui.NewQGuiApplication(len(os.Args), os.Args)
 
@@ -91,7 +91,7 @@ func main() {
 	}
 	configBridge.SetStyle(config.Style)
 
-	setupTwitter(config.Account[0])
+	setupMastodon(config.Account[0])
 	runApp(config)
 
 	// save config

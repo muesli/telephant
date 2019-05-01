@@ -5,13 +5,13 @@ import "time"
 
 // Post represents a message.
 type Post struct {
-	MessageID     int64
+	MessageID     string
 	Body          string
 	Author        string
 	AuthorName    string
 	Actor         string
 	ActorName     string
-	ReplyToID     int64
+	ReplyToID     string
 	ReplyToAuthor string
 	Avatar        string
 	URL           string

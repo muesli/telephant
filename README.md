@@ -1,20 +1,21 @@
 Chirp!
 ======
 
-A lightweight but modern Twitter client, written in Go & QML.
+A lightweight but modern Social Media client, written in Go & QML.
 
 ![chirp Screenshot](/assets/screenshot.png)
 
 ## Features
 
+- [x] Live feed via Mastodon's Streaming API
 - [x] Live feed via Twitter's Streaming API
 - [x] Multi pane support
 - [x] Linux/macOS/Windows (Android & iOS should be working, but aren't tested yet)
 - [x] Media previews
 - [x] Shortened URL resolving
-- [ ] Multiple Twitter accounts (work-in-progress)
 - [ ] System notifications
-- [ ] Support for other networks (like Mastodon/GNU social or even GitHub)
+- [ ] Multiple accounts (work-in-progress)
+- [ ] Support for more networks
 
 ## Installation
 
@@ -36,7 +37,7 @@ Before you can build Chirp you need to install the [Go/Qt bindings](https://gith
 
 ### Config
 
-As of now you will need to create your own Twitter app & key to use Chirp. You can do this on [https://dev.twitter.com/](https://dev.twitter.com/).
+As of now you will need to create your own API apps & keys to use Chirp. You can do this on [https://dev.twitter.com/](https://dev.twitter.com/).
 When you run Chirp for the first time, it will create an empty config file `chirp.conf` for you. Just edit it and enter
 your consumer key and accesstoken.
 

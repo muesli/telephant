@@ -25,7 +25,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 		switch event := ev.(type) {
 		case accounts.LoginEvent:
 			{
-				log.Println("Twitter login succeeded:", event.Username, event.Name, event.Avatar)
+				log.Println("Account login succeeded:", event.Username, event.Name, event.Avatar)
 				accountBridge.SetUsername(event.Username)
 				accountBridge.SetAvatar(event.Avatar)
 			}

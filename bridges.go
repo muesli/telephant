@@ -1,9 +1,8 @@
 package main
 
 import (
+	"github.com/muesli/chirp/accounts/mastodon"
 	"github.com/therecipe/qt/core"
-
-	"github.com/muesli/chirp/accounts/twitter"
 )
 
 // UIBridge lets us trigger Go methods from QML
@@ -41,7 +40,7 @@ var (
 	uiBridge      *UIBridge
 	accountBridge *AccountBridge
 	configBridge  *ConfigBridge
-	tc            *twitter.Account
+	tc            *mastodon.Account
 )
 
 // setupQmlBridges initializes the QML bridges

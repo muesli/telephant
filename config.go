@@ -9,10 +9,17 @@ import (
 
 // Account holds the settings for one account
 type Account struct {
-	ConsumerKey       string
-	ConsumerSecret    string
-	AccessToken       string
-	AccessTokenSecret string
+	/*
+		ConsumerKey       string
+		ConsumerSecret    string
+		AccessToken       string
+		AccessTokenSecret string
+	*/
+	Instance     string
+	Username     string
+	Password     string
+	ClientID     string
+	ClientSecret string
 }
 
 // Config holds chirp's config settings
@@ -33,10 +40,11 @@ func LoadConfig() Config {
 			Style: "Material",
 			Account: []Account{
 				{
-					ConsumerKey:       "your consumer key",
-					ConsumerSecret:    "your consumer secret",
-					AccessToken:       "your access token",
-					AccessTokenSecret: "your access token secret",
+					Instance:     "your instance",
+					Username:     "your username",
+					Password:     "your password",
+					ClientID:     "your client id",
+					ClientSecret: "your client secret",
 				},
 			},
 		})
