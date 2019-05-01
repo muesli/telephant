@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	"os"
-	"strconv"
 
 	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
@@ -17,12 +16,11 @@ import (
 // if replyid is > 0, it's send as a reply
 func reply(replyid string, message string) {
 	var err error
-	iid, _ := strconv.ParseInt(replyid, 10, 64)
-	if iid > 0 {
-		log.Println("Sending reply to:", iid, message)
-		err = tc.Reply(iid, message)
+	if replyid != "" {
+		log.Println("Sending reply to:", replyid, message)
+		err = tc.Reply(replyid, message)
 	} else {
-		log.Println("Sending tweet:", message)
+		log.Println("Posting:", message)
 		err = tc.Post(message)
 	}
 	if err != nil {
@@ -30,20 +28,20 @@ func reply(replyid string, message string) {
 	}
 }
 
-// retweet a message
-func retweet(id string) {
-	iid, _ := strconv.ParseInt(id, 10, 64)
-	log.Println("Retweeting:", iid)
-	err := tc.Retweet(iid)
-	log.Println("Error posting to Account:", err)
+// share a message
+func share(id string) {
+	log.Println("Sharing:", id)
+	if err := tc.Share(id); err != nil {
+		log.Println("Error posting to Account:", err)
+	}
 }
 
 // like a message
 func like(id string) {
-	iid, _ := strconv.ParseInt(id, 10, 64)
-	log.Println("Liking:", iid)
-	err := tc.Like(iid)
-	log.Println("Error posting to Account:", err)
+	log.Println("Liking:", id)
+	if err := tc.Like(id); err != nil {
+		log.Println("Error posting to Account:", err)
+	}
 }
 
 // runApp loads and executes the QML UI

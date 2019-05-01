@@ -77,25 +77,27 @@ func (mod *Account) Run(eventChan chan interface{}) {
 
 // Post posts a new status
 func (mod *Account) Post(message string) error {
-	mod.client.PostStatus(context.Background(), &mastodon.Toot{
+	_, err := mod.client.PostStatus(context.Background(), &mastodon.Toot{
 		Status: message,
 	})
-	return nil
+	return err
 }
 
 // Reply posts a new reply-status
-func (mod *Account) Reply(replyid int64, message string) error {
+func (mod *Account) Reply(replyid string, message string) error {
 	return nil
 }
 
-// Retweet posts a retweet
-func (mod *Account) Retweet(id int64) error {
-	return nil
+// Share boosts a post
+func (mod *Account) Share(id string) error {
+	_, err := mod.client.Reblog(context.Background(), mastodon.ID(id))
+	return err
 }
 
-// Like likes a tweet
-func (mod *Account) Like(id int64) error {
-	return nil
+// Like favourites a post
+func (mod *Account) Like(id string) error {
+	_, err := mod.client.Favourite(context.Background(), mastodon.ID(id))
+	return err
 }
 
 func handleRetweetStatus(status string) string {

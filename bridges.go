@@ -10,7 +10,7 @@ type UIBridge struct {
 	core.QObject
 
 	_ func(replyid string, message string) `slot:"postButton"`
-	_ func(id string)                      `slot:"retweetButton"`
+	_ func(id string)                      `slot:"shareButton"`
 	_ func(id string)                      `slot:"likeButton"`
 
 	_ func(object *core.QObject) `slot:"registerToGo"`
@@ -52,7 +52,7 @@ func setupQmlBridges() {
 
 	uiBridge = NewUIBridge(nil)
 	uiBridge.ConnectPostButton(reply)
-	uiBridge.ConnectRetweetButton(retweet)
+	uiBridge.ConnectShareButton(share)
 	uiBridge.ConnectLikeButton(like)
 
 	/*	uiBridge.ConnectRegisterToGo(func(object *core.QObject) {

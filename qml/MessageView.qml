@@ -129,7 +129,7 @@ RowLayout {
                         }
                         Label {
                             font.pixelSize: 12
-                            text: qsTr("%1 retweeted").arg(actorname)
+                            text: qsTr("%1 shared").arg(actorname)
                             opacity: 0.3
                         }
                     }
@@ -177,7 +177,7 @@ RowLayout {
                             source: "images/retweet.svg"
                             sourceSize.height: 16
                             onClicked: function () {
-                                uiBridge.retweetButton(messageid)
+                                uiBridge.shareButton(messageid)
                             }
                         }
                         ImageButton {
