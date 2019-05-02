@@ -165,9 +165,11 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 
 		switch status.Notification.Type {
 		case "mention":
-			ev.Mention = true
-			ev.Post.ReplyToAuthor = status.Notification.Status.InReplyToAccountID.(string)
-			ev.Post.ReplyToID = status.Notification.Status.InReplyToID.(string)
+			if status.Notification.Status.InReplyToID != nil {
+				ev.Mention = true
+				ev.Post.ReplyToAuthor = status.Notification.Status.InReplyToAccountID.(string)
+				ev.Post.ReplyToID = status.Notification.Status.InReplyToID.(string)
+			}
 
 		case "reblog":
 			ev.Forward = true
