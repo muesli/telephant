@@ -16,11 +16,12 @@ const (
 const (
 	Name = int(core.Qt__UserRole) + 1<<iota
 	MessageID
+	PostURL
 	Author
+	AuthorURL
 	Avatar
 	Body
 	CreatedAt
-	PostURL
 	Actor
 	ActorName
 	Reply
@@ -52,11 +53,12 @@ type Message struct {
 
 	Name          string
 	MessageID     string
+	PostURL       string
 	Author        string
+	AuthorURL     string
 	Avatar        string
 	Body          string
 	CreatedAt     time.Time
-	PostURL       string
 	Actor         string
 	ActorName     string
 	Reply         bool
@@ -73,11 +75,12 @@ func (m *MessageModel) init() {
 	m.SetRoles(map[int]*core.QByteArray{
 		Name:          core.NewQByteArray2("name", -1),
 		MessageID:     core.NewQByteArray2("messageid", -1),
+		PostURL:       core.NewQByteArray2("posturl", -1),
 		Author:        core.NewQByteArray2("author", -1),
+		AuthorURL:     core.NewQByteArray2("authorurl", -1),
 		Avatar:        core.NewQByteArray2("avatar", -1),
 		Body:          core.NewQByteArray2("body", -1),
 		CreatedAt:     core.NewQByteArray2("createdat", -1),
-		PostURL:       core.NewQByteArray2("posturl", -1),
 		Actor:         core.NewQByteArray2("actor", -1),
 		ActorName:     core.NewQByteArray2("actorname", -1),
 		Reply:         core.NewQByteArray2("reply", -1),
@@ -139,9 +142,17 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		{
 			return core.NewQVariant14(p.MessageID)
 		}
+	case PostURL:
+		{
+			return core.NewQVariant14(p.PostURL)
+		}
 	case Author:
 		{
 			return core.NewQVariant14(p.Author)
+		}
+	case AuthorURL:
+		{
+			return core.NewQVariant14(p.AuthorURL)
 		}
 	case Avatar:
 		{
@@ -154,10 +165,6 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case CreatedAt:
 		{
 			return core.NewQVariant14(humanize.Time(p.CreatedAt))
-		}
-	case PostURL:
-		{
-			return core.NewQVariant14(p.PostURL)
 		}
 	case Actor:
 		{

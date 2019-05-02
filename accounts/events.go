@@ -8,6 +8,7 @@ type Post struct {
 	MessageID     string
 	Body          string
 	Author        string
+	AuthorURL     string
 	AuthorName    string
 	Actor         string
 	ActorName     string

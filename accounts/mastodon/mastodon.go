@@ -155,6 +155,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 					Body:       status.Notification.Status.Content,
 					Author:     status.Notification.Account.DisplayName,
 					AuthorName: status.Notification.Account.Username,
+					AuthorURL:  status.Notification.Account.URL,
 					Avatar:     status.Notification.Account.Avatar,
 					CreatedAt:  time.Now(),
 					URL:        status.Notification.Status.URL,
@@ -172,6 +173,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			ev.Forward = true
 			ev.Post.Author = status.Notification.Status.Account.DisplayName
 			ev.Post.AuthorName = status.Notification.Status.Account.Username
+			ev.Post.AuthorURL = status.Notification.Status.Account.URL
 			// ev.Post.Avatar = status.Notification.Status.Account.Avatar
 			ev.Post.Actor = status.Notification.Account.DisplayName
 			ev.Post.ActorName = status.Notification.Account.Username
@@ -181,6 +183,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 
 			ev.Post.Author = status.Notification.Status.Account.DisplayName
 			ev.Post.AuthorName = status.Notification.Status.Account.Username
+			ev.Post.AuthorURL = status.Notification.Status.Account.URL
 			// ev.Post.Avatar = status.Notification.Status.Account.Avatar
 			ev.Post.Actor = status.Notification.Account.DisplayName
 			ev.Post.ActorName = status.Notification.Account.Username
@@ -201,6 +204,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 				Body:       status.Status.Content,
 				Author:     status.Status.Account.DisplayName,
 				AuthorName: status.Status.Account.Username,
+				AuthorURL:  status.Status.Account.URL,
 				Avatar:     status.Status.Account.Avatar,
 				CreatedAt:  time.Now(),
 				URL:        status.Status.URL,
@@ -213,6 +217,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			ev.Post.URL = status.Status.Reblog.URL
 			ev.Post.Author = status.Status.Reblog.Account.DisplayName
 			ev.Post.AuthorName = status.Status.Reblog.Account.Username
+			ev.Post.AuthorURL = status.Status.Reblog.Account.URL
 			ev.Post.Actor = status.Status.Account.DisplayName
 			ev.Post.ActorName = status.Status.Account.Username
 		}

@@ -7,11 +7,12 @@ import QtGraphicalEffects 1.0
 RowLayout {
     property string name: model.name
     property string messageid: model.messageid
+    property string posturl: model.posturl
     property string author: model.author
+    property string authorurl: model.authorurl
     property string avatar: model.avatar
     property string body: model.body
     property string createdat: model.createdat
-    property string posturl: model.posturl
     property string actor: model.actor
     property string actorname: model.actorname
     property bool reply: model.reply
@@ -61,8 +62,7 @@ RowLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            Qt.openUrlExternally(
-                                        "https://twitter.com/" + author)
+                            Qt.openUrlExternally(authorurl)
                         }
                     }
                 }
