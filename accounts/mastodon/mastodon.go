@@ -161,6 +161,10 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 					URL:        status.Notification.Status.URL,
 				},
 			}
+
+			for _, v := range status.Notification.Status.MediaAttachments {
+				ev.Media = append(ev.Media, v.PreviewURL)
+			}
 		}
 
 		switch status.Notification.Type {
@@ -213,8 +217,16 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			},
 		}
 
+		for _, v := range status.Status.MediaAttachments {
+			ev.Media = append(ev.Media, v.PreviewURL)
+		}
+
 		if status.Status.Reblog != nil {
 			ev.Forward = true
+
+			for _, v := range status.Status.Reblog.MediaAttachments {
+				ev.Media = append(ev.Media, v.PreviewURL)
+			}
 
 			ev.Post.URL = status.Status.Reblog.URL
 			ev.Post.Author = status.Status.Reblog.Account.DisplayName
