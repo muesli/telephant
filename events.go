@@ -28,6 +28,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				log.Println("Account login succeeded:", event.Username, event.Name, event.Avatar)
 				accountBridge.SetUsername(event.Username)
 				accountBridge.SetAvatar(event.Avatar)
+				accountBridge.SetProfileURL(event.ProfileURL)
 			}
 		case accounts.MessageEvent:
 			{

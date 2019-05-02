@@ -91,8 +91,7 @@ ApplicationWindow {
                     source: accountBridge.avatar
                     sourceSize.height: 32
                     onClicked: function() {
-                        Qt.openUrlExternally(
-                                    "https://twitter.com/" + accountBridge.username)
+                        Qt.openUrlExternally(accountBridge.profileURL)
                     }
                 }
 

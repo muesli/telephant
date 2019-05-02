@@ -34,7 +34,8 @@ type MessageEvent struct {
 
 // LoginEvent describes a login event.
 type LoginEvent struct {
-	Username string
-	Name     string
-	Avatar   string
+	Username   string
+	Name       string
+	Avatar     string
+	ProfileURL string
 }

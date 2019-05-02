@@ -65,9 +65,10 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	}
 
 	ev := accounts.LoginEvent{
-		Username: mod.self.Username,
-		Name:     mod.self.DisplayName,
-		Avatar:   mod.self.Avatar,
+		Username:   mod.self.Username,
+		Name:       mod.self.DisplayName,
+		Avatar:     mod.self.Avatar,
+		ProfileURL: mod.self.URL,
 	}
 	mod.evchan <- ev
 

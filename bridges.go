@@ -23,6 +23,7 @@ type AccountBridge struct {
 
 	_ string `property:"username"`
 	_ string `property:"avatar"`
+	_ string `property:"profileURL"`
 
 	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`
