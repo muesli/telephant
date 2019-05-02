@@ -30,6 +30,7 @@ RowLayout {
             anchors.top: parent.top
             source: avatar
             sourceSize.width: 48
+            width: 48
             fillMode: Image.PreserveAspectCrop
             roundness: 8
             rounded: true
