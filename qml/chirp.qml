@@ -14,8 +14,8 @@ ApplicationWindow {
     minimumHeight: 480
 
     Item {
-        TweetPopup {
-            id: tweetPopup
+        MessagePopup {
+            id: messagePopup
             width: 480
             height: 300
             x: mainWindow.width / 2 - width / 2
@@ -40,7 +40,7 @@ ApplicationWindow {
     Component {
         id: messagesDelegate
 
-        TweetDelegate { }
+        MessageDelegate { }
     }
 
     header: ToolBar {
@@ -156,8 +156,8 @@ ApplicationWindow {
 
                     switch (model.sid) {
                     case 0:
-                        tweetPopup.messageid = 0
-                        tweetPopup.open()
+                        messagePopup.messageid = 0
+                        messagePopup.open()
                         break
                     case 1:
                         Qt.quit()
@@ -191,7 +191,7 @@ ApplicationWindow {
         columnSpacing: 0
         rowSpacing: 0
 
-        TweetView {
+        MessagePane {
             Layout.row: 0
             Layout.column: 0
 
@@ -199,7 +199,7 @@ ApplicationWindow {
             messageModel: accountBridge.messages
         }
 
-        TweetView {
+        MessagePane {
             Layout.row: 0
             Layout.column: 1
 

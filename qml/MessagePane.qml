@@ -7,11 +7,11 @@ ColumnLayout {
     property string name
     property variant messageModel
 
-    TweetList {
+    MessageList {
         Layout.fillHeight: true
         Layout.fillWidth: true
 
-        id: tweetView
+        id: messagePane
         anchors.margins: 16
         model: messageModel
 

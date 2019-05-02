@@ -147,7 +147,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		if status.Notification.Status != nil {
 			ev = accounts.MessageEvent{
 				Account:      "mastodon",
-				Name:         "tweet",
+				Name:         "post",
 				Notification: true,
 
 				Post: accounts.Post{
@@ -200,7 +200,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 	case *mastodon.UpdateEvent:
 		ev := accounts.MessageEvent{
 			Account: "mastodon",
-			Name:    "tweet",
+			Name:    "post",
 			Post: accounts.Post{
 				MessageID:  string(status.Status.ID),
 				Body:       status.Status.Content,

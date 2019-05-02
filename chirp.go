@@ -12,7 +12,7 @@ import (
 	"github.com/muesli/chirp/accounts/mastodon"
 )
 
-// reply is used to post a new tweet
+// reply is used to post a new message
 // if replyid is > 0, it's send as a reply
 func reply(replyid string, message string) {
 	var err error
@@ -60,15 +60,15 @@ func runApp(config Config) {
 // setupMastodon starts a new Mastodon client and sets up event handling & models for it
 func setupMastodon(config Account) {
 	tc = mastodon.NewAccount(config.Username, config.Password, config.Instance, config.ClientID, config.ClientSecret)
-	tweetModel := NewMessageModel(nil)
+	postModel := NewMessageModel(nil)
 	notificationModel := NewMessageModel(nil)
 
 	accountBridge.SetUsername("Logging in...")
-	accountBridge.SetMessages(tweetModel)
+	accountBridge.SetMessages(postModel)
 	accountBridge.SetNotifications(notificationModel)
 
 	evchan := make(chan interface{})
-	go handleEvents(evchan, tweetModel, notificationModel)
+	go handleEvents(evchan, postModel, notificationModel)
 	go func() {
 		tc.Run(evchan)
 	}()

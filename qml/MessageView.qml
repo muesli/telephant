@@ -155,22 +155,22 @@ RowLayout {
                             source: "images/reply.svg"
                             sourceSize.height: 16
                             onClicked: function () {
-                                tweetPopup.name = name
-                                tweetPopup.messageid = messageid
-                                tweetPopup.author = author
-                                tweetPopup.avatar = avatar
-                                tweetPopup.body = body
-                                tweetPopup.createdat = createdat
-                                tweetPopup.posturl = posturl
-                                tweetPopup.actor = actor
-                                tweetPopup.actorname = actorname
-                                tweetPopup.reply = reply
-                                tweetPopup.replytoid = replytoid
-                                tweetPopup.replytoauthor = replytoauthor
-                                tweetPopup.forward = forward
-                                tweetPopup.mention = mention
-                                tweetPopup.like = like
-                                tweetPopup.open()
+                                messagePopup.name = name
+                                messagePopup.messageid = messageid
+                                messagePopup.author = author
+                                messagePopup.avatar = avatar
+                                messagePopup.body = body
+                                messagePopup.createdat = createdat
+                                messagePopup.posturl = posturl
+                                messagePopup.actor = actor
+                                messagePopup.actorname = actorname
+                                messagePopup.reply = reply
+                                messagePopup.replytoid = replytoid
+                                messagePopup.replytoauthor = replytoauthor
+                                messagePopup.forward = forward
+                                messagePopup.mention = mention
+                                messagePopup.like = like
+                                messagePopup.open()
                             }
                         }
                         ImageButton {
