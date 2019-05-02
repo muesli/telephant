@@ -1,65 +1,20 @@
 language: go
-
-dist: trusty
 sudo: required
 
+services:
+  - docker
+
 go:
-  - 1.8
-  - 1.9
+  - 1.12.x
 
 notifications:
   email:
     on_success: change
     on_failure: always
 
-env: DESKTOP=true ANDROID=false
-
-matrix:
-  include:
-    - os: linux
-      env: DESKTOP=true ANDROID=false QT_PKG_CONFIG=true PKG_CONFIG_PATH=/opt/qt58/lib/pkgconfig QT_DOC_DIR=/opt/qt58/doc QT_MISC_DIR=/opt/qt58
-
-#    - os: linux
-#      env: DESKTOP=false ANDROID=true
-
-#    - os: osx
-#      osx_image: xcode8.2
-#      env: DESKTOP=true ANDROID=false
-
-    - os: osx
-      osx_image: xcode8.2
-      env: DESKTOP=true ANDROID=false QT_HOMEBREW=true
-
-#    - os: osx
-#      osx_image: xcode8.2
-#      env: DESKTOP=false ANDROID=true
-
-#    - os: osx
-#      osx_image: xcode8.2
-#      env: DESKTOP=false ANDROID=false IOS=true
-
-#    - os: osx
-#      osx_image: xcode8.2
-#      env: DESKTOP=false ANDROID=false IOS_SIMULATOR=true
-
-before_install:
-  - mkdir -p "$GOPATH/src/github.com/therecipe"
-  - cd "$GOPATH/src/github.com/therecipe"
-  - git clone https://github.com/therecipe/qt.git
-
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then travis_wait 30 $GOPATH/src/github.com/therecipe/qt/internal/ci/linux.sh; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then travis_wait 45 $GOPATH/src/github.com/therecipe/qt/internal/ci/darwin.sh; fi
+  - docker pull therecipe/qt:linux
+  - go get -v -tags=no_env github.com/therecipe/qt/cmd/...
 
 script:
-  - go get -v github.com/therecipe/qt/cmd/...
-  - if [[ "$DESKTOP" == "true" ]]; then $GOPATH/bin/qtsetup prep desktop && $GOPATH/bin/qtsetup check desktop && $GOPATH/bin/qtsetup generate desktop && $GOPATH/bin/qtsetup install desktop; fi
-  - if [[ "$ANDROID" == "true" ]]; then $GOPATH/bin/qtsetup full android; fi
-  - if [[ "$IOS" == "true" ]]; then $GOPATH/bin/qtsetup full ios; fi
-  - cd $GOPATH/src/github.com/muesli/chirp
-  - go get -u -v || true
-  - if [[ "$DESKTOP" == "true" ]]; then $GOPATH/bin/qtdeploy build desktop $GOPATH/src/github.com/muesli/chirp; fi
-  - if [[ "$ANDROID" == "true" ]]; then $GOPATH/bin/qtdeploy build android $GOPATH/src/github.com/muesli/chirp; fi
-  - if [[ "$IOS" == "true" ]]; then $GOPATH/bin/qtdeploy build ios $GOPATH/src/github.com/muesli/chirp; fi
-#  - if [[ "$IOS_SIMULATOR" == "true" ]]; then $GOPATH/bin/qtsetup full ios-simulator; fi
-#  - if [[ "$QT_MXE" == "true" ]]; then $GOPATH/bin/qtsetup full windows; fi
+  - $GOPATH/bin/qtdeploy -docker build linux
