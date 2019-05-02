@@ -60,6 +60,7 @@ Popup {
             Layout.fillWidth: true
             Layout.fillHeight: true
             focus: true
+            selectByMouse: true
             placeholderText: popup.messageid > 0 ? qsTr("Post your reply") : qsTr(
                                                        "What's happening?")
             wrapMode: TextArea.Wrap
