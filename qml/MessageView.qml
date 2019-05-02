@@ -4,7 +4,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
-RowLayout {
+ColumnLayout {
     property string name: model.name
     property string messageid: model.messageid
     property string posturl: model.posturl
@@ -24,7 +24,43 @@ RowLayout {
     property string media: model.media
 
     RowLayout {
+        visible: forward && !like
+        Item {
+            width: 32
+        }
+        Image {
+            smooth: true
+            source: "images/retweet.svg"
+            sourceSize.height: 14
+            opacity: 0.5
+        }
+        Label {
+            font.pixelSize: 12
+            text: qsTr("%1 shared").arg(actorname)
+            opacity: 0.3
+        }
+    }
+    RowLayout {
+        visible: like
+        Item {
+            width: 32
+        }
+        Image {
+            smooth: true
+            source: "images/like.svg"
+            sourceSize.height: 14
+            opacity: 0.5
+        }
+        Label {
+            font.pixelSize: 12
+            text: qsTr("%1 liked").arg(actorname)
+            opacity: 0.3
+        }
+    }
+
+    RowLayout {
         spacing: 8
+
         ImageButton {
             id: image
             anchors.top: parent.top
@@ -118,34 +154,6 @@ RowLayout {
                                     Qt.openUrlExternally(posturl)
                                 }
                             }
-                        }
-                    }
-                    RowLayout {
-                        visible: forward && !like
-                        Image {
-                            smooth: true
-                            source: "images/retweet.svg"
-                            sourceSize.height: 14
-                            opacity: 0.5
-                        }
-                        Label {
-                            font.pixelSize: 12
-                            text: qsTr("%1 shared").arg(actorname)
-                            opacity: 0.3
-                        }
-                    }
-                    RowLayout {
-                        visible: like
-                        Image {
-                            smooth: true
-                            source: "images/like.svg"
-                            sourceSize.height: 14
-                            opacity: 0.5
-                        }
-                        Label {
-                            font.pixelSize: 12
-                            text: qsTr("%1 liked").arg(actorname)
-                            opacity: 0.3
                         }
                     }
 
