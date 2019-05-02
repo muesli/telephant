@@ -7,7 +7,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/ChimeraCoder/anaconda"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mattn/go-mastodon"
 
@@ -121,7 +120,7 @@ func handleReplyStatus(status string) string {
 	return status
 }
 
-func parseTweet(ents anaconda.Entities, ev *accounts.MessageEvent) {
+func parsePost(ev *accounts.MessageEvent) {
 	return
 
 	/*
