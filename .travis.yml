@@ -17,4 +17,5 @@ install:
   - go get -v -tags=no_env github.com/therecipe/qt/cmd/...
 
 script:
+  - go get -u -v
   - $GOPATH/bin/qtdeploy -docker build linux
