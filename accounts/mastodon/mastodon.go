@@ -85,7 +85,11 @@ func (mod *Account) Post(message string) error {
 
 // Reply posts a new reply-status
 func (mod *Account) Reply(replyid string, message string) error {
-	return nil
+	_, err := mod.client.PostStatus(context.Background(), &mastodon.Toot{
+		Status:      message,
+		InReplyToID: mastodon.ID(replyid),
+	})
+	return err
 }
 
 // Share boosts a post
