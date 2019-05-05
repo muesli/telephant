@@ -14,7 +14,8 @@ import (
 )
 
 var (
-	config Config
+	config            Config
+	conversationModel = NewMessageModel(nil)
 )
 
 func connectToInstance(instance string) {
@@ -74,6 +75,23 @@ func like(id string) {
 	}
 }
 
+// loadConversation loads a message thread
+func loadConversation(id string) {
+	log.Println("Loading conversation:", id)
+	messages, err := tc.LoadConversation(id)
+	if err != nil {
+		log.Println("Error loading conversation:", err)
+		return
+	}
+
+	fmt.Println("Found conversation posts:", len(messages))
+	conversationModel.Clear()
+	for _, m := range messages {
+		p := messageFromEvent(m)
+		conversationModel.AppendMessage(p)
+	}
+}
+
 // runApp loads and executes the QML UI
 func runApp(config Config) {
 	quickcontrols2.QQuickStyle_SetStyle(config.Style)
@@ -96,6 +114,7 @@ func setupMastodon(config Account) {
 	accountBridge.SetUsername("Logging in...")
 	accountBridge.SetMessages(postModel)
 	accountBridge.SetNotifications(notificationModel)
+	accountBridge.SetConversation(conversationModel)
 
 	evchan := make(chan interface{})
 	go handleEvents(evchan, postModel, notificationModel)

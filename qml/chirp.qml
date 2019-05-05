@@ -19,7 +19,15 @@ ApplicationWindow {
             width: 480
             height: 300
             x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
+        }
+
+        ConversationPopup {
+            id: conversationPopup
+            width: mainWindow.width * 0.8
+            height: mainWindow.height * 0.8
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
         }
 
         AboutDialog {
@@ -32,7 +40,7 @@ ApplicationWindow {
         ConnectDialog {
             id: connectDialog
             x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
             width: 340
             height: 340
         }

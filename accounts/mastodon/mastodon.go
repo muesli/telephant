@@ -150,6 +150,33 @@ func (mod *Account) Like(id string) error {
 	return err
 }
 
+// LoadConversation loads a message conversation
+func (mod *Account) LoadConversation(id string) ([]accounts.MessageEvent, error) {
+	var r []accounts.MessageEvent
+
+	status, err := mod.client.GetStatus(context.Background(), mastodon.ID(id))
+	if err != nil {
+		return r, err
+	}
+	contexts, err := mod.client.GetStatusContext(context.Background(), mastodon.ID(id))
+	if err != nil {
+		return r, err
+	}
+
+	fmt.Printf("Found %d ancestors and %d descendants\n", len(contexts.Ancestors), len(contexts.Descendants))
+	for _, m := range contexts.Ancestors {
+		r = append(r, mod.handleStatus(m))
+	}
+
+	r = append(r, mod.handleStatus(status))
+
+	for _, m := range contexts.Descendants {
+		r = append(r, mod.handleStatus(m))
+	}
+
+	return r, nil
+}
+
 func handleRetweetStatus(status string) string {
 	/*
 		if strings.HasPrefix(status, "RT ") && strings.Count(status, " ") >= 2 {

@@ -15,6 +15,7 @@ type UIBridge struct {
 	_ func(replyid string, message string) `slot:"postButton"`
 	_ func(id string)                      `slot:"shareButton"`
 	_ func(id string)                      `slot:"likeButton"`
+	_ func(id string)                      `slot:"loadConversation"`
 
 	_ func(object *core.QObject) `slot:"registerToGo"`
 	_ func(objectName string)    `slot:"deregisterToGo"`
@@ -34,6 +35,7 @@ type AccountBridge struct {
 
 	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`
+	_ *core.QAbstractListModel `property:"conversation"`
 }
 
 // ConfigBridge allows QML to access the app's config
@@ -64,6 +66,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectPostButton(reply)
 	uiBridge.ConnectShareButton(share)
 	uiBridge.ConnectLikeButton(like)
+	uiBridge.ConnectLoadConversation(loadConversation)
 
 	/*	uiBridge.ConnectRegisterToGo(func(object *core.QObject) {
 			qmlObjects[object.ObjectName()] = object
