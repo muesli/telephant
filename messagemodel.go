@@ -46,6 +46,7 @@ type MessageModel struct {
 	_ []*Message               `property:"messages"`
 
 	_ func(*Message) `slot:"addMessage"`
+	_ func(*Message) `slot:"appendMessage"`
 	_ func(row int)  `slot:"removeMessage"`
 }
 
@@ -106,6 +107,7 @@ func (m *MessageModel) init() {
 	m.ConnectRoleNames(m.roleNames)
 
 	m.ConnectAddMessage(m.addMessage)
+	m.ConnectAppendMessage(m.appendMessage)
 	m.ConnectRemoveMessage(m.removeMessage)
 
 	// keep time stamps ("1 minute ago") updated
@@ -248,6 +250,12 @@ func (m *MessageModel) addMessage(p *Message) {
 	if len(m.Messages()) > maxMessageCount {
 		m.removeMessage(len(m.Messages()) - 1)
 	}
+}
+
+func (m *MessageModel) appendMessage(p *Message) {
+	m.BeginInsertRows(core.NewQModelIndex(), len(m.Messages()), len(m.Messages()))
+	m.SetMessages(append([]*Message{p}, m.Messages()...))
+	m.EndInsertRows()
 }
 
 func (m *MessageModel) removeMessage(row int) {
