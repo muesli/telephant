@@ -14,12 +14,11 @@ Popup {
     ColumnLayout {
         anchors.fill: parent
 
-        MessagePane {
-            Layout.row: 0
-            Layout.column: 0
+        MessageList {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
 
-            name: qsTr("Conversation")
-            messageModel: accountBridge.conversation
+            model: accountBridge.conversation
         }
     }
 }
