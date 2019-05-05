@@ -125,7 +125,7 @@ ColumnLayout {
                 spacing: 4
                 Label {
                     visible: body.length > 0
-                    text: body
+                    text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + body
                     textFormat: Text.RichText
                     onLinkActivated: Qt.openUrlExternally(link)
                     font.pixelSize: 13
