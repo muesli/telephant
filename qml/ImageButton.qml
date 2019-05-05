@@ -7,6 +7,7 @@ Image {
     property var onClicked: function () {}
     property bool rounded: false
     property int roundness: 250
+    property int animationDuration: 500
 
     fillMode: Image.Pad
     horizontalAlignment: Image.AlignHCenter
@@ -28,7 +29,7 @@ Image {
         NumberAnimation {
             properties: "opacity"
             easing.type: Easing.InOutQuad
-            duration: 500
+            duration: animationDuration
         }
     }
 
