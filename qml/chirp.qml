@@ -148,43 +148,57 @@ ApplicationWindow {
         height: mainWindow.height
         dragMargin: 0
 
-        ListView {
-            id: listView
-            currentIndex: -1
+        ColumnLayout {
             anchors.fill: parent
 
-            delegate: ItemDelegate {
-                width: parent.width
-                text: model.title
-                highlighted: ListView.isCurrentItem
-                onClicked: {
-                    listView.currentIndex = -1
-                    drawer.close()
+            AccountSummary {}
+            ToolSeparator {
+                Layout.fillWidth: true
+                orientation: Qt.Horizontal
+            }
 
-                    switch (model.sid) {
-                    case 0:
-                        messagePopup.messageid = 0
-                        messagePopup.open()
-                        break
-                    case 1:
-                        Qt.quit()
-                        break
+            ListView {
+                id: listView
+                currentIndex: -1
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                delegate: ItemDelegate {
+                    width: parent.width
+                    text: model.title
+                    highlighted: ListView.isCurrentItem
+                    onClicked: {
+                        listView.currentIndex = -1
+                        drawer.close()
+                        switch (model.sid) {
+                        case 0:
+                            connectDialog.open()
+                            break
+                        case 1:
+                            messagePopup.messageid = 0
+                            messagePopup.open()
+                            break
+                        case 2:
+                            Qt.quit()
+                            break
+                        }
                     }
                 }
-            }
-
-            model: ListModel {
-                ListElement {
-                    title: qsTr("New Post")
-                    property int sid: 0
+                model: ListModel {
+                    ListElement {
+                        title: qsTr("Connect")
+                        property int sid: 0
+                    }
+                    ListElement {
+                        title: qsTr("New Post")
+                        property int sid: 1
+                    }
+                    ListElement {
+                        title: qsTr("Exit")
+                        property int sid: 2
+                    }
                 }
-                ListElement {
-                    title: qsTr("Exit")
-                    property int sid: 1
+                ScrollIndicator.vertical: ScrollIndicator {
                 }
-            }
-
-            ScrollIndicator.vertical: ScrollIndicator {
             }
         }
     }
