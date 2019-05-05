@@ -70,7 +70,7 @@ ColumnLayout {
             sourceSize.width: 48
             width: 48
             fillMode: Image.PreserveAspectCrop
-            roundness: 8
+            // roundness: 8
             rounded: true
             opacity: 0.8
         }
