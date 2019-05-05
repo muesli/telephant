@@ -48,6 +48,7 @@ type MessageModel struct {
 	_ func(*Message) `slot:"addMessage"`
 	_ func(*Message) `slot:"appendMessage"`
 	_ func(row int)  `slot:"removeMessage"`
+	_ func()         `slot:"clear"`
 }
 
 // Message represents a single message
@@ -109,6 +110,7 @@ func (m *MessageModel) init() {
 	m.ConnectAddMessage(m.addMessage)
 	m.ConnectAppendMessage(m.appendMessage)
 	m.ConnectRemoveMessage(m.removeMessage)
+	m.ConnectClear(m.clear)
 
 	// keep time stamps ("1 minute ago") updated
 	go func() {
@@ -240,6 +242,12 @@ func (m *MessageModel) columnCount(parent *core.QModelIndex) int {
 
 func (m *MessageModel) roleNames() map[int]*core.QByteArray {
 	return m.Roles()
+}
+
+func (m *MessageModel) clear() {
+	m.BeginResetModel()
+	m.SetMessages([]*Message{})
+	m.EndResetModel()
 }
 
 func (m *MessageModel) addMessage(p *Message) {
