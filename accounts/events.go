@@ -38,4 +38,7 @@ type LoginEvent struct {
 	Name       string
 	Avatar     string
 	ProfileURL string
+	Posts      int64
+	Follows    int64
+	Followers  int64
 }

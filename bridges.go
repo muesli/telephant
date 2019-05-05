@@ -25,8 +25,12 @@ type AccountBridge struct {
 	core.QObject
 
 	_ string `property:"username"`
+	_ string `property:"name"`
 	_ string `property:"avatar"`
 	_ string `property:"profileURL"`
+	_ int64  `property:"posts"`
+	_ int64  `property:"follows"`
+	_ int64  `property:"followers"`
 
 	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`

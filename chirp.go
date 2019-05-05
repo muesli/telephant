@@ -24,7 +24,7 @@ func connectToInstance(instance string) {
 	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
 
 	fmt.Println("auth uri:", authURI)
-	// fmt.Println("redirect uri:", redirectURI)
+	fmt.Println("redirect uri:", redirectURI)
 	fmt.Println(err)
 }
 
