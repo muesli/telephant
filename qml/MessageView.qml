@@ -22,6 +22,8 @@ ColumnLayout {
     property bool mention: model.mention
     property bool like: model.like
     property string media: model.media
+    property bool liked: model.liked
+    property bool shared: model.shared
 
     RowLayout {
         visible: forward && !like

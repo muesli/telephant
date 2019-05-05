@@ -32,6 +32,8 @@ const (
 	Like
 	Media
 	Editing
+	Liked
+	Shared
 )
 
 // MessageModel holds a collection of messages
@@ -69,6 +71,8 @@ type Message struct {
 	Like          bool
 	Media         string
 	Editing       bool
+	Liked         bool
+	Shared        bool
 }
 
 func (m *MessageModel) init() {
@@ -91,6 +95,8 @@ func (m *MessageModel) init() {
 		Like:          core.NewQByteArray2("like", -1),
 		Media:         core.NewQByteArray2("media", -1),
 		Editing:       core.NewQByteArray2("editing", -1),
+		Liked:         core.NewQByteArray2("liked", -1),
+		Shared:        core.NewQByteArray2("shared", -1),
 	})
 
 	m.ConnectData(m.data)
@@ -205,6 +211,14 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case Editing:
 		{
 			return core.NewQVariant11(p.Editing)
+		}
+	case Liked:
+		{
+			return core.NewQVariant11(p.Liked)
+		}
+	case Shared:
+		{
+			return core.NewQVariant11(p.Shared)
 		}
 
 	default:

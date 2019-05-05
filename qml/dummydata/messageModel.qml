@@ -33,6 +33,7 @@ ListModel {
          forward: false
          mention: false
          like: false
+         liked: true
          media: ""
     }
     ListElement {
@@ -50,6 +51,7 @@ ListModel {
          forward: true
          mention: false
          like: false
+         shared: true
          media: "https://pbs.twimg.com/media/DIfdvcxXkAUXAvs.jpg"
     }
     ListElement {
