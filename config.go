@@ -16,10 +16,10 @@ type Account struct {
 		AccessTokenSecret string
 	*/
 	Instance     string
-	Username     string
-	Password     string
 	ClientID     string
 	ClientSecret string
+	Token        string
+	RedirectURI  string
 }
 
 // Config holds chirp's config settings
@@ -37,18 +37,10 @@ func LoadConfig() Config {
 	_, err := os.Stat(configFile)
 	if err != nil {
 		SaveConfig(Config{
-			Style: "Material",
-			Account: []Account{
-				{
-					Instance:     "your instance",
-					Username:     "your username",
-					Password:     "your password",
-					ClientID:     "your client id",
-					ClientSecret: "your client secret",
-				},
-			},
+			Style:   "Material",
+			Account: []Account{Account{}},
 		})
-		log.Fatal("Config file is missing, but a template was created for you! Please edit ", configFile)
+		//log.Fatal("Config file is missing, but a template was created for you! Please edit ", configFile)
 	}
 
 	var config Config

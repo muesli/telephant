@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -11,6 +12,35 @@ import (
 
 	"github.com/muesli/chirp/accounts/mastodon"
 )
+
+var (
+	config Config
+)
+
+func connectToInstance(instance string) {
+	var authURI string
+	var redirectURI string
+	var err error
+	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
+
+	fmt.Println("auth uri:", authURI)
+	// fmt.Println("redirect uri:", redirectURI)
+	fmt.Println(err)
+}
+
+func authInstance(code string) {
+	instance, token, clientID, clientSecret, err := tc.Authenticate(code)
+	fmt.Println("authenticate:", err)
+	if err != nil {
+		return
+	}
+
+	config.Account[0].Instance = instance
+	config.Account[0].ClientID = clientID
+	config.Account[0].ClientSecret = clientSecret
+	config.Account[0].Token = token
+	setupMastodon(config.Account[0])
+}
 
 // reply is used to post a new message
 // if replyid is > 0, it's send as a reply
@@ -59,7 +89,7 @@ func runApp(config Config) {
 
 // setupMastodon starts a new Mastodon client and sets up event handling & models for it
 func setupMastodon(config Account) {
-	tc = mastodon.NewAccount(config.Username, config.Password, config.Instance, config.ClientID, config.ClientSecret)
+	tc = mastodon.NewAccount(config.Instance, config.Token, config.ClientID, config.ClientSecret)
 	postModel := NewMessageModel(nil)
 	notificationModel := NewMessageModel(nil)
 
@@ -83,7 +113,7 @@ func main() {
 	setupQmlBridges()
 
 	// load config
-	config := LoadConfig()
+	config = LoadConfig()
 	if config.Style == "" {
 		config.Style = "Material"
 	}

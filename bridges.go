@@ -9,6 +9,9 @@ import (
 type UIBridge struct {
 	core.QObject
 
+	_ func(instance string) `slot:"connectButton"`
+	_ func(instance string) `slot:"authButton"`
+
 	_ func(replyid string, message string) `slot:"postButton"`
 	_ func(id string)                      `slot:"shareButton"`
 	_ func(id string)                      `slot:"likeButton"`
@@ -52,6 +55,8 @@ func setupQmlBridges() {
 	accountBridge.SetUsername("Chirp!")
 
 	uiBridge = NewUIBridge(nil)
+	uiBridge.ConnectConnectButton(connectToInstance)
+	uiBridge.ConnectAuthButton(authInstance)
 	uiBridge.ConnectPostButton(reply)
 	uiBridge.ConnectShareButton(share)
 	uiBridge.ConnectLikeButton(like)

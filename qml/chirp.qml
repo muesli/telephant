@@ -29,6 +29,14 @@ ApplicationWindow {
             width: Math.min(mainWindow.width, mainWindow.height) / 3 * 2
         }
 
+        ConnectDialog {
+            id: connectDialog
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height / 2
+            width: 340
+            height: 340
+        }
+
         SettingsDialog {
             id: settingsDialog
             x: (mainWindow.width - width) / 2

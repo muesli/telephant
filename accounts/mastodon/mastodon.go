@@ -20,13 +20,8 @@ const (
 
 // Account is a Mastodon account for Chirp.
 type Account struct {
-	username     string
-	password     string
-	instance     string
-	clientID     string
-	clientSecret string
-
 	client *mastodon.Client
+	config *mastodon.Config
 	self   *mastodon.Account
 
 	evchan  chan interface{}
@@ -34,30 +29,54 @@ type Account struct {
 }
 
 // NewAccount returns a new Mastodon account.
-func NewAccount(username, password, instance, clientID, clientSecret string) *Account {
-	return &Account{
-		username:     username,
-		password:     password,
-		instance:     instance,
-		clientID:     clientID,
-		clientSecret: clientSecret,
+func NewAccount(instance, token, clientID, clientSecret string) *Account {
+	mconfig := &mastodon.Config{
+		Server:       instance,
+		AccessToken:  token,
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
 	}
+
+	return &Account{
+		config: mconfig,
+		client: mastodon.NewClient(mconfig),
+	}
+}
+
+func RegisterAccount(instance string) (*Account, string, string, error) {
+	app, err := mastodon.RegisterApp(context.Background(), &mastodon.AppConfig{
+		Server:     instance,
+		ClientName: "Telephant",
+		Scopes:     "read write follow post",
+		Website:    "",
+	})
+	if err != nil {
+		return nil, "", "", err
+	}
+
+	a := NewAccount(instance, "", app.ClientID, app.ClientSecret)
+
+	return a, app.AuthURI, app.RedirectURI, nil
+}
+
+func (mod *Account) Authenticate(code string) (string, string, string, string, error) {
+	err := mod.client.AuthenticateToken(context.Background(), code, "urn:ietf:wg:oauth:2.0:oob")
+	if err != nil {
+		return "", "", "", "", err
+	}
+
+	return mod.config.Server, mod.config.AccessToken, mod.config.ClientID, mod.config.ClientSecret, nil
 }
 
 // Run executes the account's event loop.
 func (mod *Account) Run(eventChan chan interface{}) {
 	mod.evchan = eventChan
 
-	mod.client = mastodon.NewClient(&mastodon.Config{
-		Server:       mod.instance,
-		ClientID:     mod.clientID,
-		ClientSecret: mod.clientSecret,
-	})
-	err := mod.client.Authenticate(context.Background(), mod.username, mod.password)
-	if err != nil {
-		panic(err)
+	if mod.config.AccessToken == "" {
+		return
 	}
 
+	var err error
 	mod.self, err = mod.client.GetAccountCurrentUser(context.Background())
 	if err != nil {
 		panic(err)
@@ -73,6 +92,10 @@ func (mod *Account) Run(eventChan chan interface{}) {
 
 	// FIXME: retrieve initial feed
 	mod.handleStream()
+}
+
+func (mod *Account) Logo() string {
+	return "mastodon.svg"
 }
 
 // Post posts a new status
