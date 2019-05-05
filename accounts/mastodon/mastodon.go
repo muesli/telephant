@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	initialFeedCount          = 200
-	initialNotificationsCount = 50
+	initialFeedCount          = 40
+	initialNotificationsCount = 40
 )
 
 // Account is a Mastodon account for Chirp.
@@ -105,7 +105,7 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	}
 
 	tt, err := mod.client.GetTimelineHome(context.Background(), &mastodon.Pagination{
-		Limit: initialNotificationsCount,
+		Limit: initialFeedCount,
 	})
 	if err != nil {
 		panic(err)
