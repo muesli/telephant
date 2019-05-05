@@ -5,7 +5,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"time"
+	"regexp"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mattn/go-mastodon"
@@ -147,8 +147,12 @@ func handleReplyStatus(status string) string {
 	return status
 }
 
-func parsePost(ev *accounts.MessageEvent) {
-	return
+func parseBody(body string) string {
+	r := regexp.MustCompile("<span class=\"invisible\">(.[^<]*)</span>")
+	body = r.ReplaceAllString(body, "")
+
+	r = regexp.MustCompile("<span class=\"ellipsis\">(.[^<]*)</span>")
+	return r.ReplaceAllString(body, "$1...")
 
 	/*
 		for _, u := range ents.Urls {
