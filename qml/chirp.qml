@@ -114,6 +114,20 @@ ApplicationWindow {
             }
 
             ToolButton {
+                id: postButton
+                anchors.right: menuButton.left
+                contentItem: Image {
+                    fillMode: Image.Pad
+                    horizontalAlignment: Image.AlignHCenter
+                    verticalAlignment: Image.AlignVCenter
+                    source: "images/post.png"
+                }
+                onClicked: {
+                    messagePopup.messageid = 0
+                    messagePopup.open()
+                }
+            }
+            ToolButton {
                 id: menuButton
                 anchors.right: parent.right
                 contentItem: Image {
