@@ -186,13 +186,13 @@ ColumnLayout {
                             source: "images/reply.svg"
                             sourceSize.height: 16
                             onClicked: function () {
-                                messagePopup.name = name
                                 messagePopup.messageid = messageid
+                                messagePopup.posturl = posturl
+                                messagePopup.name = name
                                 messagePopup.author = author
                                 messagePopup.avatar = avatar
                                 messagePopup.body = body
                                 messagePopup.createdat = createdat
-                                messagePopup.posturl = posturl
                                 messagePopup.actor = actor
                                 messagePopup.actorname = actorname
                                 messagePopup.reply = reply
