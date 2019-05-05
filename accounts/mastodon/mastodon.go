@@ -251,7 +251,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 	mod.evchan <- ev
 }
 
-func (mod *Account) handleStatus(s *mastodon.Status) {
+func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 	ev := accounts.MessageEvent{
 		Account: "mastodon",
 		Name:    "post",
@@ -286,7 +286,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) {
 		ev.Post.ActorName = s.Account.Username
 	}
 
-	mod.evchan <- ev
+	return ev
 }
 
 func (mod *Account) handleStreamEvent(item interface{}) {
@@ -298,7 +298,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		mod.handleNotification(e.Notification)
 
 	case *mastodon.UpdateEvent:
-		mod.handleStatus(e.Status)
+		mod.evchan <- mod.handleStatus(e.Status)
 	}
 }
 
