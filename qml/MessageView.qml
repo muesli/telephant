@@ -136,8 +136,14 @@ ColumnLayout {
 
                     MouseArea {
                         anchors.fill: parent
-                        acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
-                        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        // we don't want to eat clicks on the Label
+                        acceptedButtons: parent.hoveredLink ? Qt.NoButton : Qt.LeftButton
+                        cursorShape: Qt.PointingHandCursor
+
+                        onClicked: function() {
+                            uiBridge.loadConversation(messageid)
+                            conversationPopup.open()
+                        }
                     }
                 }
 
