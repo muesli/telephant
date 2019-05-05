@@ -140,6 +140,24 @@ ColumnLayout {
                         cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
                     }
                 }
+
+                ImageButton {
+                    visible: media != ""
+                    Layout.topMargin: 4
+                    Layout.fillWidth: true
+                    // Layout.maximumWidth: sourceSize.width
+                    Layout.maximumHeight: Math.min(384, paintedHeight + 8)
+                    source: media
+                    fillMode: Image.PreserveAspectFit
+                    verticalAlignment: Image.AlignBottom
+                    autoTransform: true
+                    opacity: 0.2
+
+                    onClicked: function() {
+                        Qt.openUrlExternally(media)
+                    }
+                }
+
                 RowLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
@@ -200,22 +218,6 @@ ColumnLayout {
                                 uiBridge.likeButton(messageid)
                             }
                         }
-                    }
-                }
-
-                ImageButton {
-                    visible: media != ""
-                    Layout.fillWidth: true
-                    // Layout.maximumWidth: sourceSize.width
-                    Layout.maximumHeight: Math.min(384, paintedHeight + 8)
-                    source: media
-                    fillMode: Image.PreserveAspectFit
-                    verticalAlignment: Image.AlignBottom
-                    autoTransform: true
-                    opacity: 0.2
-
-                    onClicked: function() {
-                        Qt.openUrlExternally(media)
                     }
                 }
             }
