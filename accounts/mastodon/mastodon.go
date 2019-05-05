@@ -100,8 +100,8 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	if err != nil {
 		panic(err)
 	}
-	for _, n := range nn {
-		mod.handleNotification(n)
+	for i := len(nn) - 1; i >= 0; i-- {
+		mod.handleNotification(nn[i])
 	}
 
 	tt, err := mod.client.GetTimelineHome(context.Background(), &mastodon.Pagination{
@@ -110,8 +110,8 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	if err != nil {
 		panic(err)
 	}
-	for _, t := range tt {
-		mod.handleStatus(t)
+	for i := len(tt) - 1; i >= 0; i-- {
+		mod.evchan <- mod.handleStatus(tt[i])
 	}
 
 	mod.handleStream()
