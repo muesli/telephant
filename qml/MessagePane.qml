@@ -27,7 +27,7 @@ ColumnLayout {
                 anchors.fill: parent
                 anchors.leftMargin: 8
                 text: name
-                font.pixelSize: 18
+                font.pointSize: 15
                 font.weight: Font.Light
                 verticalAlignment: Label.AlignVCenter
             }

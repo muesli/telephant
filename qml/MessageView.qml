@@ -37,7 +37,7 @@ ColumnLayout {
             opacity: 0.5
         }
         Label {
-            font.pixelSize: 12
+            font.pointSize: 10
             text: qsTr("%1 shared").arg(actorname)
             opacity: 0.3
         }
@@ -54,7 +54,7 @@ ColumnLayout {
             opacity: 0.5
         }
         Label {
-            font.pixelSize: 12
+            font.pointSize: 10
             text: qsTr("%1 liked").arg(actorname)
             opacity: 0.3
         }
@@ -84,6 +84,7 @@ ColumnLayout {
 
                 Label {
                     id: namelabel
+                    font.pointSize: 11
                     font.bold: true
                     text: name
                     textFormat: Text.PlainText
@@ -93,8 +94,8 @@ ColumnLayout {
                 }
                 Label {
                     // anchors.bottom: parent.bottom
-                    color: "steelblue"
-                    font.pixelSize: 11
+                    font.pointSize: 9
+                    opacity: 0.4
                     text: "@" + author
 
                     MouseArea {
@@ -107,7 +108,8 @@ ColumnLayout {
                 }
                 Label {
                     anchors.right: parent.right
-                    font.pixelSize: 11
+                    font.pointSize: 9
+                    opacity: 0.4
                     text: createdat
 
                     MouseArea {
@@ -128,7 +130,7 @@ ColumnLayout {
                     text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + body
                     textFormat: Text.RichText
                     onLinkActivated: Qt.openUrlExternally(link)
-                    font.pixelSize: 13
+                    font.pointSize: 11
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
 
@@ -144,10 +146,10 @@ ColumnLayout {
                     RowLayout {
                         visible: reply
                         Label {
-                            font.pixelSize: 12
+                            font.pointSize: 10
                             text: qsTr("Replying to %1").arg(
                                       "@" + replytoauthor)
-                            opacity: 0.3
+                            opacity: 0.4
 
                             MouseArea {
                                 anchors.fill: parent
