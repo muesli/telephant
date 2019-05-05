@@ -85,7 +85,7 @@ Popup {
                 enabled: remCharsLabel.text >= 0 && messageArea.text.length > 0
                 Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                 highlighted: true
-                Material.accent: Material.Blue
+                // Material.accent: Material.Blue
                 text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Post")
 
                 onClicked: {
