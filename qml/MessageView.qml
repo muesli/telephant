@@ -181,6 +181,7 @@ ColumnLayout {
 
                     RowLayout {
                         anchors.right: parent.right
+                        Layout.topMargin: 4
 
                         ImageButton {
                             source: "images/reply.png"
