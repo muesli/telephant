@@ -32,7 +32,7 @@ ColumnLayout {
         }
         Image {
             smooth: true
-            source: "images/retweet.svg"
+            source: "images/share.png"
             sourceSize.height: 14
             opacity: 0.5
         }
@@ -49,7 +49,7 @@ ColumnLayout {
         }
         Image {
             smooth: true
-            source: "images/like.svg"
+            source: "images/like.png"
             sourceSize.height: 14
             opacity: 0.5
         }
@@ -183,8 +183,9 @@ ColumnLayout {
                         anchors.right: parent.right
 
                         ImageButton {
-                            source: "images/reply.svg"
-                            sourceSize.height: 16
+                            source: "images/reply.png"
+                            animationDuration: 200
+                            sourceSize.height: 20
                             onClicked: function () {
                                 messagePopup.messageid = messageid
                                 messagePopup.posturl = posturl
@@ -205,15 +206,17 @@ ColumnLayout {
                             }
                         }
                         ImageButton {
-                            source: "images/retweet.svg"
-                            sourceSize.height: 16
+                            source: "images/share.png"
+                            animationDuration: 200
+                            sourceSize.height: 20
                             onClicked: function () {
                                 uiBridge.shareButton(messageid)
                             }
                         }
                         ImageButton {
-                            source: "images/like.svg"
-                            sourceSize.height: 16
+                            source: liked ? "images/liked.png" : "images/like.png"
+                            animationDuration: 200
+                            sourceSize.height: 20
                             onClicked: function () {
                                 uiBridge.likeButton(messageid)
                             }
