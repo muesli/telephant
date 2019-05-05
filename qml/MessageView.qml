@@ -65,7 +65,7 @@ ColumnLayout {
 
         ImageButton {
             id: image
-            anchors.top: parent.top
+            Layout.alignment: Qt.AlignTop
             source: avatar
             sourceSize.width: 48
             width: 48

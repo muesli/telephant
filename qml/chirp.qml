@@ -129,7 +129,7 @@ ApplicationWindow {
             }
             ToolButton {
                 id: menuButton
-                anchors.right: parent.right
+                Layout.alignment: Qt.AlignRight
                 contentItem: Image {
                     fillMode: Image.Pad
                     horizontalAlignment: Image.AlignHCenter

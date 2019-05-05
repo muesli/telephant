@@ -83,8 +83,7 @@ Popup {
             Button {
                 id: sendButton
                 enabled: remCharsLabel.text >= 0 && messageArea.text.length > 0
-                anchors.bottom: parent.bottom
-                anchors.right: parent.right
+                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                 highlighted: true
                 Material.accent: Material.Blue
                 text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Post")
