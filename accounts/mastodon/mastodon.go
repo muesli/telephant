@@ -87,10 +87,33 @@ func (mod *Account) Run(eventChan chan interface{}) {
 		Name:       mod.self.DisplayName,
 		Avatar:     mod.self.Avatar,
 		ProfileURL: mod.self.URL,
+		Posts:      mod.self.StatusesCount,
+		Follows:    mod.self.FollowingCount,
+		Followers:  mod.self.FollowersCount,
 	}
 	mod.evchan <- ev
 
-	// FIXME: retrieve initial feed
+	// seed feeds initially
+	nn, err := mod.client.GetNotifications(context.Background(), &mastodon.Pagination{
+		Limit: initialNotificationsCount,
+	})
+	if err != nil {
+		panic(err)
+	}
+	for _, n := range nn {
+		mod.handleNotification(n)
+	}
+
+	tt, err := mod.client.GetTimelineHome(context.Background(), &mastodon.Pagination{
+		Limit: initialNotificationsCount,
+	})
+	if err != nil {
+		panic(err)
+	}
+	for _, t := range tt {
+		mod.handleStatus(t)
+	}
+
 	mod.handleStream()
 }
 
@@ -168,106 +191,114 @@ func parseBody(body string) string {
 	*/
 }
 
+func (mod *Account) handleNotification(n *mastodon.Notification) {
+	var ev accounts.MessageEvent
+	if n.Status != nil {
+		ev = accounts.MessageEvent{
+			Account:      "mastodon",
+			Name:         "post",
+			Notification: true,
+
+			Post: accounts.Post{
+				MessageID:  string(n.Status.ID),
+				Body:       parseBody(n.Status.Content),
+				Author:     n.Account.Username,
+				AuthorName: n.Account.DisplayName,
+				AuthorURL:  n.Account.URL,
+				Avatar:     n.Account.Avatar,
+				CreatedAt:  n.CreatedAt,
+				URL:        n.Status.URL,
+			},
+		}
+
+		for _, v := range n.Status.MediaAttachments {
+			ev.Media = append(ev.Media, v.PreviewURL)
+		}
+	}
+
+	switch n.Type {
+	case "mention":
+		if n.Status.InReplyToID != nil {
+			ev.Mention = true
+			ev.Post.ReplyToAuthor = n.Status.InReplyToAccountID.(string)
+			ev.Post.ReplyToID = n.Status.InReplyToID.(string)
+		}
+
+	case "reblog":
+		ev.Forward = true
+		ev.Post.Author = n.Status.Account.Username
+		ev.Post.AuthorName = n.Status.Account.DisplayName
+		ev.Post.AuthorURL = n.Status.Account.URL
+		// ev.Post.Avatar = n.Status.Account.Avatar
+		ev.Post.Actor = n.Account.Username
+		ev.Post.ActorName = n.Account.DisplayName
+
+	case "favourite":
+		ev.Like = true
+
+		ev.Post.Author = n.Status.Account.Username
+		ev.Post.AuthorName = n.Status.Account.DisplayName
+		ev.Post.AuthorURL = n.Status.Account.URL
+		// ev.Post.Avatar = n.Status.Account.Avatar
+		ev.Post.Actor = n.Account.Username
+		ev.Post.ActorName = n.Account.DisplayName
+
+	default:
+		fmt.Println("Unknown type:", n.Type)
+		return
+	}
+
+	mod.evchan <- ev
+}
+
+func (mod *Account) handleStatus(s *mastodon.Status) {
+	ev := accounts.MessageEvent{
+		Account: "mastodon",
+		Name:    "post",
+		Post: accounts.Post{
+			MessageID:  string(s.ID),
+			Body:       parseBody(s.Content),
+			Author:     s.Account.Acct,
+			AuthorName: s.Account.DisplayName,
+			AuthorURL:  s.Account.URL,
+			Avatar:     s.Account.Avatar,
+			CreatedAt:  s.CreatedAt,
+			URL:        s.URL,
+		},
+	}
+
+	for _, v := range s.MediaAttachments {
+		ev.Media = append(ev.Media, v.PreviewURL)
+	}
+
+	if s.Reblog != nil {
+		ev.Forward = true
+
+		for _, v := range s.Reblog.MediaAttachments {
+			ev.Media = append(ev.Media, v.PreviewURL)
+		}
+
+		ev.Post.URL = s.Reblog.URL
+		ev.Post.Author = s.Reblog.Account.Username
+		ev.Post.AuthorName = s.Reblog.Account.DisplayName
+		ev.Post.AuthorURL = s.Reblog.Account.URL
+		ev.Post.Actor = s.Account.DisplayName
+		ev.Post.ActorName = s.Account.Username
+	}
+
+	mod.evchan <- ev
+}
+
 func (mod *Account) handleStreamEvent(item interface{}) {
 	spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
 	log.Println("Message received:", spw.Sdump(item))
 
-	switch status := item.(type) {
+	switch e := item.(type) {
 	case *mastodon.NotificationEvent:
-		var ev accounts.MessageEvent
-		if status.Notification.Status != nil {
-			ev = accounts.MessageEvent{
-				Account:      "mastodon",
-				Name:         "post",
-				Notification: true,
-
-				Post: accounts.Post{
-					MessageID:  string(status.Notification.Status.ID),
-					Body:       status.Notification.Status.Content,
-					Author:     status.Notification.Account.Username,
-					AuthorName: status.Notification.Account.DisplayName,
-					AuthorURL:  status.Notification.Account.URL,
-					Avatar:     status.Notification.Account.Avatar,
-					CreatedAt:  time.Now(),
-					URL:        status.Notification.Status.URL,
-				},
-			}
-
-			for _, v := range status.Notification.Status.MediaAttachments {
-				ev.Media = append(ev.Media, v.PreviewURL)
-			}
-		}
-
-		switch status.Notification.Type {
-		case "mention":
-			if status.Notification.Status.InReplyToID != nil {
-				ev.Mention = true
-				ev.Post.ReplyToAuthor = status.Notification.Status.InReplyToAccountID.(string)
-				ev.Post.ReplyToID = status.Notification.Status.InReplyToID.(string)
-			}
-
-		case "reblog":
-			ev.Forward = true
-			ev.Post.Author = status.Notification.Status.Account.Username
-			ev.Post.AuthorName = status.Notification.Status.Account.DisplayName
-			ev.Post.AuthorURL = status.Notification.Status.Account.URL
-			// ev.Post.Avatar = status.Notification.Status.Account.Avatar
-			ev.Post.Actor = status.Notification.Account.Username
-			ev.Post.ActorName = status.Notification.Account.DisplayName
-
-		case "favourite":
-			ev.Like = true
-
-			ev.Post.Author = status.Notification.Status.Account.Username
-			ev.Post.AuthorName = status.Notification.Status.Account.DisplayName
-			ev.Post.AuthorURL = status.Notification.Status.Account.URL
-			// ev.Post.Avatar = status.Notification.Status.Account.Avatar
-			ev.Post.Actor = status.Notification.Account.Username
-			ev.Post.ActorName = status.Notification.Account.DisplayName
-
-		default:
-			fmt.Println("Unknown type:", status.Notification.Type)
-			return
-		}
-
-		mod.evchan <- ev
+		mod.handleNotification(e.Notification)
 
 	case *mastodon.UpdateEvent:
-		ev := accounts.MessageEvent{
-			Account: "mastodon",
-			Name:    "post",
-			Post: accounts.Post{
-				MessageID:  string(status.Status.ID),
-				Body:       status.Status.Content,
-				Author:     status.Status.Account.Acct,
-				AuthorName: status.Status.Account.DisplayName,
-				AuthorURL:  status.Status.Account.URL,
-				Avatar:     status.Status.Account.Avatar,
-				CreatedAt:  time.Now(),
-				URL:        status.Status.URL,
-			},
-		}
-
-		for _, v := range status.Status.MediaAttachments {
-			ev.Media = append(ev.Media, v.PreviewURL)
-		}
-
-		if status.Status.Reblog != nil {
-			ev.Forward = true
-
-			for _, v := range status.Status.Reblog.MediaAttachments {
-				ev.Media = append(ev.Media, v.PreviewURL)
-			}
-
-			ev.Post.URL = status.Status.Reblog.URL
-			ev.Post.Author = status.Status.Reblog.Account.Username
-			ev.Post.AuthorName = status.Status.Reblog.Account.DisplayName
-			ev.Post.AuthorURL = status.Status.Reblog.Account.URL
-			ev.Post.Actor = status.Status.Account.DisplayName
-			ev.Post.ActorName = status.Status.Account.Username
-		}
-
-		mod.evchan <- ev
+		mod.handleStatus(e.Status)
 	}
 }
 
