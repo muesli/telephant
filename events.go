@@ -31,6 +31,8 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 	p.Forward = event.Forward
 	p.Actor = event.Post.Actor
 	p.ActorName = event.Post.ActorName
+	p.Liked = event.Post.Liked
+	p.Shared = event.Post.Shared
 	if len(event.Media) > 0 {
 		p.Media = event.Media[0]
 	}

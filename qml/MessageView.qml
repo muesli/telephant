@@ -221,6 +221,8 @@ ColumnLayout {
                                 messagePopup.forward = forward
                                 messagePopup.mention = mention
                                 messagePopup.like = like
+                                messagePopup.liked = liked
+                                messagePopup.shared = shared
                                 messagePopup.open()
                             }
                         }

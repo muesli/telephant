@@ -18,6 +18,8 @@ type Post struct {
 	Avatar        string
 	URL           string
 	CreatedAt     time.Time
+	Liked         bool
+	Shared        bool
 }
 
 // MessageEvent describes an incoming message event.

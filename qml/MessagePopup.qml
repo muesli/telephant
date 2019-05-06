@@ -23,6 +23,8 @@ Popup {
     property bool mention
     property bool like
     property string media
+    property bool liked
+    property bool shared
 
     modal: true
     // focus: true
@@ -58,6 +60,8 @@ Popup {
                 mention: popup.mention
                 like: popup.like
                 media: popup.media
+                liked: popup.liked
+                shared: popup.shared
             }
 
             Label {

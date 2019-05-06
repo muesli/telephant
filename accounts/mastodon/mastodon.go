@@ -275,6 +275,8 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 				URL:        n.Status.URL,
 			},
 		}
+		ev.Post.Liked, _ = n.Status.Favourited.(bool)
+		ev.Post.Shared, _ = n.Status.Reblogged.(bool)
 
 		for _, v := range n.Status.MediaAttachments {
 			ev.Media = append(ev.Media, v.PreviewURL)
@@ -332,6 +334,8 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 			URL:        s.URL,
 		},
 	}
+	ev.Post.Liked, _ = s.Favourited.(bool)
+	ev.Post.Shared, _ = s.Reblogged.(bool)
 
 	for _, v := range s.MediaAttachments {
 		ev.Media = append(ev.Media, v.PreviewURL)
@@ -350,6 +354,9 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		ev.Post.AuthorURL = s.Reblog.Account.URL
 		ev.Post.Actor = s.Account.DisplayName
 		ev.Post.ActorName = s.Account.Username
+
+		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
+		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)
 	}
 
 	return ev
