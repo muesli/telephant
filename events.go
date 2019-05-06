@@ -19,6 +19,7 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 	p.Name = event.Post.AuthorName
 	p.Author = event.Post.Author
 	p.AuthorURL = event.Post.AuthorURL
+	p.AuthorID = event.Post.AuthorID
 	p.Avatar = event.Post.Avatar
 	p.Body = strings.TrimSpace(event.Post.Body)
 	p.CreatedAt = event.Post.CreatedAt
@@ -55,6 +56,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				accountBridge.SetName(event.Name)
 				accountBridge.SetAvatar(event.Avatar)
 				accountBridge.SetProfileURL(event.ProfileURL)
+				accountBridge.SetProfileID(event.ProfileID)
 				accountBridge.SetPosts(event.Posts)
 				accountBridge.SetFollows(event.Follows)
 				accountBridge.SetFollowers(event.Followers)

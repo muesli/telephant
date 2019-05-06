@@ -7,11 +7,13 @@ Popup {
     id: popup
     property string name
     property string messageid
+    property string posturl
     property string author
+    property string authorurl
+    property string authorid
     property string avatar
     property string body
     property string createdat
-    property string posturl
     property string actor
     property string actorname
     property bool reply
@@ -33,11 +35,13 @@ Popup {
             visible: popup.messageid > 0
             name: popup.name
             messageid: popup.messageid
+            posturl: popup.posturl
             author: popup.author
+            authorid: popup.authorid
+            authorurl: popup.authorurl
             avatar: popup.avatar
             body: popup.body
             createdat: popup.createdat
-            posturl: popup.posturl
             actor: popup.actor
             actorname: popup.actorname
             reply: popup.reply

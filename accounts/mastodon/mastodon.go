@@ -177,6 +177,41 @@ func (mod *Account) LoadConversation(id string) ([]accounts.MessageEvent, error)
 	return r, nil
 }
 
+// LoadAccount loads a profile's information
+func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.MessageEvent, error) {
+	var p accounts.ProfileEvent
+	var r []accounts.MessageEvent
+
+	a, err := mod.client.GetAccount(context.Background(), mastodon.ID(id))
+	if err != nil {
+		return p, r, err
+	}
+
+	p = accounts.ProfileEvent{
+		Username:   a.Username,
+		Name:       a.DisplayName,
+		Avatar:     a.Avatar,
+		ProfileURL: a.URL,
+		ProfileID:  string(a.ID),
+		Posts:      a.StatusesCount,
+		Follows:    a.FollowingCount,
+		Followers:  a.FollowersCount,
+	}
+
+	tt, err := mod.client.GetAccountStatuses(context.Background(), mastodon.ID(id), &mastodon.Pagination{
+		Limit: 40,
+	})
+	if err != nil {
+		return p, r, err
+	}
+
+	for _, m := range tt {
+		r = append(r, mod.handleStatus(m))
+	}
+
+	return p, r, nil
+}
+
 func handleRetweetStatus(status string) string {
 	/*
 		if strings.HasPrefix(status, "RT ") && strings.Count(status, " ") >= 2 {
@@ -232,6 +267,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 				Author:     n.Account.Username,
 				AuthorName: n.Account.DisplayName,
 				AuthorURL:  n.Account.URL,
+				AuthorID:   string(n.Account.ID),
 				Avatar:     n.Account.Avatar,
 				CreatedAt:  n.CreatedAt,
 				URL:        n.Status.URL,
@@ -288,6 +324,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 			Author:     s.Account.Acct,
 			AuthorName: s.Account.DisplayName,
 			AuthorURL:  s.Account.URL,
+			AuthorID:   string(s.Account.ID),
 			Avatar:     s.Account.Avatar,
 			CreatedAt:  s.CreatedAt,
 			URL:        s.URL,

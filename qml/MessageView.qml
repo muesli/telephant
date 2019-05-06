@@ -10,6 +10,7 @@ ColumnLayout {
     property string posturl: model.posturl
     property string author: model.author
     property string authorurl: model.authorurl
+    property string authorid: model.authorid
     property string avatar: model.avatar
     property string body: model.body
     property string createdat: model.createdat
@@ -72,7 +73,12 @@ ColumnLayout {
             fillMode: Image.PreserveAspectCrop
             roundness: 4
             rounded: true
-            opacity: 0.8
+            opacity: 1.0
+
+            onClicked: function() {
+                uiBridge.loadAccount(authorid)
+                accountPopup.open()
+            }
         }
         ColumnLayout {
             Layout.fillWidth: true
@@ -198,6 +204,8 @@ ColumnLayout {
                                 messagePopup.posturl = posturl
                                 messagePopup.name = name
                                 messagePopup.author = author
+                                messagePopup.authorurl = authorurl
+                                messagePopup.authorid = authorid
                                 messagePopup.avatar = avatar
                                 messagePopup.body = body
                                 messagePopup.createdat = createdat

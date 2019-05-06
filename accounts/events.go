@@ -10,6 +10,7 @@ type Post struct {
 	Author        string
 	AuthorURL     string
 	AuthorName    string
+	AuthorID      string
 	Actor         string
 	ActorName     string
 	ReplyToID     string
@@ -32,13 +33,27 @@ type MessageEvent struct {
 	Media        []string
 }
 
-// LoginEvent describes a login event.
-type LoginEvent struct {
+// ProfileEvent describes a profile event.
+type ProfileEvent struct {
 	Username   string
 	Name       string
 	Avatar     string
 	ProfileURL string
+	ProfileID  string
 	Posts      int64
 	Follows    int64
 	Followers  int64
+}
+
+// LoginEvent describes a login event.
+type LoginEvent struct {
+	Username      string
+	Name          string
+	Avatar        string
+	ProfileURL    string
+	ProfileID     string
+	Posts         int64
+	Follows       int64
+	Followers     int64
+	PostSizeLimit int64
 }

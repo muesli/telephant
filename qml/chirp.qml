@@ -30,6 +30,14 @@ ApplicationWindow {
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
         }
 
+        AccountPopup {
+            id: accountPopup
+            width: mainWindow.width * 0.8
+            height: mainWindow.height * 0.8
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
+        }
+
         AboutDialog {
             id: aboutDialog
             x: (mainWindow.width - width) / 2
@@ -173,7 +181,9 @@ ApplicationWindow {
         ColumnLayout {
             anchors.fill: parent
 
-            AccountSummary {}
+            AccountSummary {
+                profile: accountBridge
+            }
             ToolSeparator {
                 Layout.fillWidth: true
                 orientation: Qt.Horizontal

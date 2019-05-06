@@ -14,8 +14,9 @@ import (
 )
 
 var (
-	config            Config
-	conversationModel = NewMessageModel(nil)
+	config               Config
+	conversationModel    = NewMessageModel(nil)
+	accountMessagesModel = NewMessageModel(nil)
 )
 
 func connectToInstance(instance string) {
@@ -92,6 +93,32 @@ func loadConversation(id string) {
 	}
 }
 
+// loadAccount loads an entire profile
+func loadAccount(id string) {
+	log.Println("Loading account:", id)
+	profile, messages, err := tc.LoadAccount(id)
+	if err != nil {
+		log.Println("Error loading account:", err)
+		return
+	}
+
+	profileBridge.SetUsername(profile.Username)
+	profileBridge.SetName(profile.Name)
+	profileBridge.SetAvatar(profile.Avatar)
+	profileBridge.SetProfileURL(profile.ProfileURL)
+	profileBridge.SetProfileID(profile.ProfileID)
+	profileBridge.SetPosts(profile.Posts)
+	profileBridge.SetFollows(profile.Follows)
+	profileBridge.SetFollowers(profile.Followers)
+
+	fmt.Println("Found account posts:", len(messages))
+	accountMessagesModel.Clear()
+	for _, m := range messages {
+		p := messageFromEvent(m)
+		accountMessagesModel.AppendMessage(p)
+	}
+}
+
 // runApp loads and executes the QML UI
 func runApp(config Config) {
 	quickcontrols2.QQuickStyle_SetStyle(config.Style)
@@ -99,6 +126,7 @@ func runApp(config Config) {
 	app := qml.NewQQmlApplicationEngine(nil)
 	app.RootContext().SetContextProperty("uiBridge", uiBridge)
 	app.RootContext().SetContextProperty("accountBridge", accountBridge)
+	app.RootContext().SetContextProperty("profileBridge", profileBridge)
 	app.RootContext().SetContextProperty("settings", configBridge)
 
 	app.Load(core.NewQUrl3("qrc:/qml/chirp.qml", 0))
@@ -115,6 +143,7 @@ func setupMastodon(config Account) {
 	accountBridge.SetMessages(postModel)
 	accountBridge.SetNotifications(notificationModel)
 	accountBridge.SetConversation(conversationModel)
+	accountBridge.SetAccountMessages(accountMessagesModel)
 
 	evchan := make(chan interface{})
 	go handleEvents(evchan, postModel, notificationModel)

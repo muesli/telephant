@@ -19,6 +19,7 @@ const (
 	PostURL
 	Author
 	AuthorURL
+	AuthorID
 	Avatar
 	Body
 	CreatedAt
@@ -60,6 +61,7 @@ type Message struct {
 	PostURL       string
 	Author        string
 	AuthorURL     string
+	AuthorID      string
 	Avatar        string
 	Body          string
 	CreatedAt     time.Time
@@ -84,6 +86,7 @@ func (m *MessageModel) init() {
 		PostURL:       core.NewQByteArray2("posturl", -1),
 		Author:        core.NewQByteArray2("author", -1),
 		AuthorURL:     core.NewQByteArray2("authorurl", -1),
+		AuthorID:      core.NewQByteArray2("authorid", -1),
 		Avatar:        core.NewQByteArray2("avatar", -1),
 		Body:          core.NewQByteArray2("body", -1),
 		CreatedAt:     core.NewQByteArray2("createdat", -1),
@@ -163,6 +166,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case AuthorURL:
 		{
 			return core.NewQVariant14(p.AuthorURL)
+		}
+	case AuthorID:
+		{
+			return core.NewQVariant14(p.AuthorID)
 		}
 	case Avatar:
 		{

@@ -16,6 +16,7 @@ type UIBridge struct {
 	_ func(id string)                      `slot:"shareButton"`
 	_ func(id string)                      `slot:"likeButton"`
 	_ func(id string)                      `slot:"loadConversation"`
+	_ func(id string)                      `slot:"loadAccount"`
 
 	_ func(object *core.QObject) `slot:"registerToGo"`
 	_ func(objectName string)    `slot:"deregisterToGo"`
@@ -29,6 +30,7 @@ type AccountBridge struct {
 	_ string `property:"name"`
 	_ string `property:"avatar"`
 	_ string `property:"profileURL"`
+	_ string `property:"profileID"`
 	_ int64  `property:"posts"`
 	_ int64  `property:"follows"`
 	_ int64  `property:"followers"`
@@ -36,6 +38,21 @@ type AccountBridge struct {
 	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`
 	_ *core.QAbstractListModel `property:"conversation"`
+	_ *core.QAbstractListModel `property:"accountMessages"`
+}
+
+// ProfileBridge allows QML to access profile data
+type ProfileBridge struct {
+	core.QObject
+
+	_ string `property:"username"`
+	_ string `property:"name"`
+	_ string `property:"avatar"`
+	_ string `property:"profileURL"`
+	_ string `property:"profileID"`
+	_ int64  `property:"posts"`
+	_ int64  `property:"follows"`
+	_ int64  `property:"followers"`
 }
 
 // ConfigBridge allows QML to access the app's config
@@ -50,6 +67,7 @@ var (
 	uiBridge      *UIBridge
 	accountBridge *AccountBridge
 	configBridge  *ConfigBridge
+	profileBridge *ProfileBridge
 	tc            *mastodon.Account
 )
 
@@ -67,6 +85,9 @@ func setupQmlBridges() {
 	uiBridge.ConnectShareButton(share)
 	uiBridge.ConnectLikeButton(like)
 	uiBridge.ConnectLoadConversation(loadConversation)
+	uiBridge.ConnectLoadAccount(loadAccount)
+
+	profileBridge = NewProfileBridge(nil)
 
 	/*	uiBridge.ConnectRegisterToGo(func(object *core.QObject) {
 			qmlObjects[object.ObjectName()] = object

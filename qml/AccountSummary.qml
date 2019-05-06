@@ -4,6 +4,8 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 ColumnLayout {
+    property var profile
+
     RowLayout {
         id: accountLayout
         anchors.horizontalCenter: parent.horizontalCenter
@@ -12,14 +14,18 @@ ColumnLayout {
         Layout.leftMargin: 16
         Layout.bottomMargin: 4
         ImageButton {
+            height: 64
+            width: 64
             opacity: 1.0
             rounded: true
             horizontalAlignment: Image.AlignHCenter
             verticalAlignment: Image.AlignVCenter
-            source: accountBridge.avatar
+            source: profile.avatar
             sourceSize.height: 64
             onClicked: function() {
-                Qt.openUrlExternally(accountBridge.profileURL)
+                // Qt.openUrlExternally(profile.profileURL)
+                uiBridge.loadAccount(profile.profileID)
+                accountPopup.open()
             }
         }
         ColumnLayout {
@@ -27,13 +33,13 @@ ColumnLayout {
             Label {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignLeft
-                text: accountBridge.name
+                text: profile.name
                 font.pixelSize: 16
                 font.bold: true
                 elide: Label.ElideRight
             }
             Label {
-                text: accountBridge.username
+                text: profile.username
                 font.pixelSize: 16
                 opacity: 0.7
                 elide: Label.ElideRight
@@ -44,19 +50,19 @@ ColumnLayout {
         anchors.horizontalCenter: parent.horizontalCenter
         Label {
             Layout.alignment: Qt.AlignLeft
-            text: "<b>" + accountBridge.posts + "</b> Posts"
+            text: "<b>" + profile.posts + "</b> Posts"
             font.pixelSize: 11
             elide: Label.ElideRight
         }
         Label {
             Layout.alignment: Qt.AlignCenter
-            text: "<b>" + accountBridge.follows + "</b> Follows"
+            text: "<b>" + profile.follows + "</b> Follows"
             font.pixelSize: 11
             elide: Label.ElideRight
         }
         Label {
             Layout.alignment: Qt.AlignRight
-            text: "<b>" + accountBridge.followers + "</b> Followers"
+            text: "<b>" + profile.followers + "</b> Followers"
             font.pixelSize: 11
             elide: Label.ElideRight
         }
