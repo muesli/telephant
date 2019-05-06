@@ -26,80 +26,85 @@ Popup {
 
     modal: true
     // focus: true
+    height: Math.min(mainWindow.height * 0.8, layout.implicitHeight + 32)
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-    ColumnLayout {
+    Flickable {
+        id: flickable
         anchors.fill: parent
+        clip: true
+        contentHeight: layout.height
 
-        MessageView {
-            visible: popup.messageid > 0
-            name: popup.name
-            messageid: popup.messageid
-            posturl: popup.posturl
-            author: popup.author
-            authorid: popup.authorid
-            authorurl: popup.authorurl
-            avatar: popup.avatar
-            body: popup.body
-            createdat: popup.createdat
-            actor: popup.actor
-            actorname: popup.actorname
-            reply: popup.reply
-            replytoid: popup.replytoid
-            replytoauthor: popup.replytoauthor
-            forward: popup.forward
-            mention: popup.mention
-            like: popup.like
-            media: popup.media
-        }
-
-        Label {
-            visible: popup.messageid > 0
-            text: qsTr("Replying to %1").arg(name)
-            opacity: 0.3
-        }
-
-        TextArea {
-            id: messageArea
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            focus: true
-            selectByMouse: true
-            placeholderText: popup.messageid > 0 ? qsTr("Post your reply") : qsTr(
-                                                       "What's happening?")
-            wrapMode: TextArea.Wrap
-        }
-
-        RowLayout {
-            anchors.fill: parent
-
-            Label {
-                id: remCharsLabel
-
-                anchors.verticalCenter: sendButton.verticalCenter
-                anchors.right: sendButton.left
-                anchors.rightMargin: 12
-
-                font.pixelSize: 16
-                text: accountBridge.postSizeLimit - messageArea.text.length
+        ColumnLayout {
+            id: layout
+            width: parent.width
+            MessageView {
+                visible: popup.messageid > 0
+                name: popup.name
+                messageid: popup.messageid
+                posturl: popup.posturl
+                author: popup.author
+                authorid: popup.authorid
+                authorurl: popup.authorurl
+                avatar: popup.avatar
+                body: popup.body
+                createdat: popup.createdat
+                actor: popup.actor
+                actorname: popup.actorname
+                reply: popup.reply
+                replytoid: popup.replytoid
+                replytoauthor: popup.replytoauthor
+                forward: popup.forward
+                mention: popup.mention
+                like: popup.like
+                media: popup.media
             }
 
-            Button {
-                id: sendButton
-                enabled: remCharsLabel.text >= 0 && messageArea.text.length > 0
-                Layout.alignment: Qt.AlignBottom | Qt.AlignRight
-                highlighted: true
-                // Material.accent: Material.Blue
-                text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Post")
+            Label {
+                visible: popup.messageid > 0
+                text: qsTr("Replying to %1").arg(name)
+                opacity: 0.3
+            }
 
-                onClicked: {
-                    popup.close()
-                    var msg = messageArea.text
-                    if (popup.messageid > 0) {
-                        msg = "@" + author + " " + msg
+            TextArea {
+                id: messageArea
+                Layout.fillWidth: true
+                Layout.minimumHeight: 128
+                focus: true
+                selectByMouse: true
+                placeholderText: popup.messageid > 0 ? qsTr("Post your reply") : qsTr("What's happening?")
+                wrapMode: TextArea.Wrap
+            }
+
+            RowLayout {
+                Layout.alignment: Qt.AlignRight
+
+                Label {
+                    id: remCharsLabel
+
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+
+                    font.pixelSize: 16
+                    text: accountBridge.postSizeLimit - messageArea.text.length
+                }
+
+                Button {
+                    id: sendButton
+                    enabled: remCharsLabel.text >= 0 && messageArea.text.length > 0
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                    highlighted: true
+                    // Material.accent: Material.Blue
+                    text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Post")
+
+                    onClicked: {
+                        popup.close()
+                        var msg = messageArea.text
+                        if (popup.messageid > 0) {
+                            msg = "@" + author + " " + msg
+                        }
+                        uiBridge.postButton(popup.messageid, msg)
+                        messageArea.clear()
                     }
-                    uiBridge.postButton(popup.messageid, msg)
-                    messageArea.clear()
                 }
             }
         }
