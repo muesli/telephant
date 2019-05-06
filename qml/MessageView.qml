@@ -42,7 +42,7 @@ ColumnLayout {
         Label {
             font.pointSize: 10
             text: qsTr("%1 shared").arg(actorname)
-            opacity: 0.3
+            opacity: (accountBridge.username == author && (like || forward)) ? 0.8 : 0.3
         }
     }
     RowLayout {
@@ -59,7 +59,7 @@ ColumnLayout {
         Label {
             font.pointSize: 10
             text: qsTr("%1 liked").arg(actorname)
-            opacity: 0.3
+            opacity: (accountBridge.username == author && (like || forward)) ? 0.8 : 0.3
         }
     }
 
@@ -99,6 +99,7 @@ ColumnLayout {
                     Layout.fillWidth: true
                     Layout.maximumWidth: implicitWidth + 1
                     elide: Text.ElideRight
+                    opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
                 }
                 Label {
                     // anchors.bottom: parent.bottom
@@ -141,6 +142,7 @@ ColumnLayout {
                     font.pointSize: 11
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
+                    opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
 
                     MouseArea {
                         anchors.fill: parent
