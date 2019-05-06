@@ -60,7 +60,7 @@ func reply(replyid string, message string) {
 	}
 }
 
-// share a message
+// share a post
 func share(id string) {
 	log.Println("Sharing:", id)
 	if err := tc.Share(id); err != nil {
@@ -68,10 +68,26 @@ func share(id string) {
 	}
 }
 
-// like a message
+// unshare a post
+func unshare(id string) {
+	log.Println("Unsharing:", id)
+	if err := tc.Unshare(id); err != nil {
+		log.Println("Error posting to Account:", err)
+	}
+}
+
+// like a post
 func like(id string) {
 	log.Println("Liking:", id)
 	if err := tc.Like(id); err != nil {
+		log.Println("Error posting to Account:", err)
+	}
+}
+
+// unlike a post
+func unlike(id string) {
+	log.Println("Unliking:", id)
+	if err := tc.Unlike(id); err != nil {
 		log.Println("Error posting to Account:", err)
 	}
 }

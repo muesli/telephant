@@ -146,9 +146,21 @@ func (mod *Account) Share(id string) error {
 	return err
 }
 
+// Unshare deletes a boost for a post
+func (mod *Account) Unshare(id string) error {
+	_, err := mod.client.Unreblog(context.Background(), mastodon.ID(id))
+	return err
+}
+
 // Like favourites a post
 func (mod *Account) Like(id string) error {
 	_, err := mod.client.Favourite(context.Background(), mastodon.ID(id))
+	return err
+}
+
+// Unlike un-favourites a post
+func (mod *Account) Unlike(id string) error {
+	_, err := mod.client.Unfavourite(context.Background(), mastodon.ID(id))
 	return err
 }
 

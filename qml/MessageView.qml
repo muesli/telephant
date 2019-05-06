@@ -230,8 +230,15 @@ ColumnLayout {
                             source: "images/share.png"
                             animationDuration: 200
                             sourceSize.height: 20
+                            opacity: shared ? 1.0 : 0.3
                             onClicked: function () {
-                                uiBridge.shareButton(messageid)
+                                if (shared) {
+                                    uiBridge.unshareButton(messageid)
+                                    shared = false
+                                } else {
+                                    uiBridge.shareButton(messageid)
+                                    shared = true
+                                }
                             }
                         }
                         ImageButton {
@@ -239,7 +246,13 @@ ColumnLayout {
                             animationDuration: 200
                             sourceSize.height: 20
                             onClicked: function () {
-                                uiBridge.likeButton(messageid)
+                                if (liked) {
+                                    uiBridge.unlikeButton(messageid)
+                                    liked = false
+                                } else {
+                                    uiBridge.likeButton(messageid)
+                                    liked = true
+                                }
                             }
                         }
                     }
