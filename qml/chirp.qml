@@ -61,12 +61,6 @@ ApplicationWindow {
         }
     }
 
-    Component {
-        id: messagesDelegate
-
-        MessageDelegate { }
-    }
-
     header: ToolBar {
         /* MouseArea {
             anchors.fill: parent;

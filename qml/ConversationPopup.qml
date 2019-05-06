@@ -18,6 +18,7 @@ Popup {
             Layout.fillHeight: true
             Layout.fillWidth: true
 
+            fadeMedia: false
             model: accountBridge.conversation
         }
     }

@@ -5,6 +5,9 @@ import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
 ColumnLayout {
+    property bool fadeMedia
+
+    id: messageDelegate
     x: messagePane.Material.elevation
     width: parent.width - messagePane.Material.elevation * 2 - 12
     Pane {
@@ -15,6 +18,7 @@ ColumnLayout {
 
         MessageView {
             id: messageView
+            fadeMedia: messageDelegate.fadeMedia
             anchors.left: parent.left
             anchors.right: parent.right
         }

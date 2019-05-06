@@ -5,6 +5,8 @@ import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
 ColumnLayout {
+    property bool fadeMedia
+
     property string name: model.name
     property string messageid: model.messageid
     property string posturl: model.posturl
@@ -163,7 +165,7 @@ ColumnLayout {
                     fillMode: Image.PreserveAspectFit
                     verticalAlignment: Image.AlignBottom
                     autoTransform: true
-                    opacity: 0.2
+                    opacity: fadeMedia ? 0.2 : 1.0
 
                     onClicked: function() {
                         Qt.openUrlExternally(media)
