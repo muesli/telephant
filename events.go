@@ -60,6 +60,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				accountBridge.SetPosts(event.Posts)
 				accountBridge.SetFollows(event.Follows)
 				accountBridge.SetFollowers(event.Followers)
+				accountBridge.SetPostSizeLimit(event.PostSizeLimit)
 			}
 		case accounts.MessageEvent:
 			{

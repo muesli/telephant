@@ -81,7 +81,7 @@ Popup {
                 anchors.rightMargin: 12
 
                 font.pixelSize: 16
-                text: 280 - messageArea.text.length
+                text: accountBridge.postSizeLimit - messageArea.text.length
             }
 
             Button {

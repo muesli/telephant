@@ -83,13 +83,15 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	}
 
 	ev := accounts.LoginEvent{
-		Username:   mod.self.Username,
-		Name:       mod.self.DisplayName,
-		Avatar:     mod.self.Avatar,
-		ProfileURL: mod.self.URL,
-		Posts:      mod.self.StatusesCount,
-		Follows:    mod.self.FollowingCount,
-		Followers:  mod.self.FollowersCount,
+		Username:      mod.self.Username,
+		Name:          mod.self.DisplayName,
+		Avatar:        mod.self.Avatar,
+		ProfileURL:    mod.self.URL,
+		ProfileID:     string(mod.self.ID),
+		Posts:         mod.self.StatusesCount,
+		Follows:       mod.self.FollowingCount,
+		Followers:     mod.self.FollowersCount,
+		PostSizeLimit: 500, // FIXME: retrieve from API, once possible
 	}
 	mod.evchan <- ev
 

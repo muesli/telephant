@@ -34,6 +34,7 @@ type AccountBridge struct {
 	_ int64  `property:"posts"`
 	_ int64  `property:"follows"`
 	_ int64  `property:"followers"`
+	_ int64  `property:"postSizeLimit"`
 
 	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`
