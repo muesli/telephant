@@ -212,6 +212,15 @@ func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.Me
 		FollowerCount: a.FollowersCount,
 	}
 
+	f, err := mod.client.GetAccountRelationships(context.Background(), []string{id})
+	if err != nil {
+		return p, r, err
+	}
+	if len(f) > 0 {
+		p.Following = f[0].Following
+		p.FollowedBy = f[0].FollowedBy
+	}
+
 	tt, err := mod.client.GetAccountStatuses(context.Background(), mastodon.ID(id), &mastodon.Pagination{
 		Limit: 40,
 	})

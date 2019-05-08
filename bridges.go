@@ -56,6 +56,8 @@ type ProfileBridge struct {
 	_ int64  `property:"posts"`
 	_ int64  `property:"followCount"`
 	_ int64  `property:"followerCount"`
+	_ bool   `property:"following"`
+	_ bool   `property:"followedBy"`
 }
 
 // ConfigBridge allows QML to access the app's config

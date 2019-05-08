@@ -45,6 +45,8 @@ type ProfileEvent struct {
 	Posts         int64
 	FollowCount   int64
 	FollowerCount int64
+	Following     bool
+	FollowedBy    bool
 }
 
 // LoginEvent describes a login event.
