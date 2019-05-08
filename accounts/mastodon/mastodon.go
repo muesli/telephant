@@ -83,7 +83,7 @@ func (mod *Account) Run(eventChan chan interface{}) {
 	}
 
 	ev := accounts.LoginEvent{
-		Username:      mod.self.Username,
+		Username:      mod.self.Acct,
 		Name:          mod.self.DisplayName,
 		Avatar:        mod.self.Avatar,
 		ProfileURL:    mod.self.URL,
@@ -202,7 +202,7 @@ func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.Me
 	}
 
 	p = accounts.ProfileEvent{
-		Username:   a.Username,
+		Username:   a.Acct,
 		Name:       a.DisplayName,
 		Avatar:     a.Avatar,
 		ProfileURL: a.URL,
@@ -278,7 +278,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 			Post: accounts.Post{
 				MessageID:  string(n.Status.ID),
 				Body:       parseBody(n.Status.Content),
-				Author:     n.Account.Username,
+				Author:     n.Account.Acct,
 				AuthorName: n.Account.DisplayName,
 				AuthorURL:  n.Account.URL,
 				AuthorID:   string(n.Account.ID),
@@ -305,21 +305,21 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 
 	case "reblog":
 		ev.Forward = true
-		ev.Post.Author = n.Status.Account.Username
+		ev.Post.Author = n.Status.Account.Acct
 		ev.Post.AuthorName = n.Status.Account.DisplayName
 		ev.Post.AuthorURL = n.Status.Account.URL
 		// ev.Post.Avatar = n.Status.Account.Avatar
-		ev.Post.Actor = n.Account.Username
+		ev.Post.Actor = n.Account.Acct
 		ev.Post.ActorName = n.Account.DisplayName
 
 	case "favourite":
 		ev.Like = true
 
-		ev.Post.Author = n.Status.Account.Username
+		ev.Post.Author = n.Status.Account.Acct
 		ev.Post.AuthorName = n.Status.Account.DisplayName
 		ev.Post.AuthorURL = n.Status.Account.URL
 		// ev.Post.Avatar = n.Status.Account.Avatar
-		ev.Post.Actor = n.Account.Username
+		ev.Post.Actor = n.Account.Acct
 		ev.Post.ActorName = n.Account.DisplayName
 
 	default:
@@ -361,11 +361,11 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		}
 
 		ev.Post.URL = s.Reblog.URL
-		ev.Post.Author = s.Reblog.Account.Username
+		ev.Post.Author = s.Reblog.Account.Acct
 		ev.Post.AuthorName = s.Reblog.Account.DisplayName
 		ev.Post.AuthorURL = s.Reblog.Account.URL
 		ev.Post.Actor = s.Account.DisplayName
-		ev.Post.ActorName = s.Account.Username
+		ev.Post.ActorName = s.Account.Acct
 
 		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
 		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)
