@@ -92,6 +92,25 @@ func unlike(id string) {
 	}
 }
 
+// follow changes the relationship to another user
+func follow(id string, follow bool) {
+	if follow {
+		log.Println("Following:", id)
+		if err := tc.Follow(id); err != nil {
+			log.Println("Error following user:", err)
+			return
+		}
+	} else {
+		log.Println("Unfollowing:", id)
+		if err := tc.Unfollow(id); err != nil {
+			log.Println("Error unfollowing user:", err)
+			return
+		}
+	}
+
+	profileBridge.SetFollowing(follow)
+}
+
 // loadConversation loads a message thread
 func loadConversation(id string) {
 	log.Println("Loading conversation:", id)

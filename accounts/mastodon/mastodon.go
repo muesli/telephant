@@ -164,6 +164,18 @@ func (mod *Account) Unlike(id string) error {
 	return err
 }
 
+// Follow follows another user
+func (mod *Account) Follow(id string) error {
+	_, err := mod.client.AccountFollow(context.Background(), mastodon.ID(id))
+	return err
+}
+
+// Unfollow unfollows another user
+func (mod *Account) Unfollow(id string) error {
+	_, err := mod.client.AccountUnfollow(context.Background(), mastodon.ID(id))
+	return err
+}
+
 // LoadConversation loads a message conversation
 func (mod *Account) LoadConversation(id string) ([]accounts.MessageEvent, error) {
 	var r []accounts.MessageEvent

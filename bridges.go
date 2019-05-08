@@ -17,6 +17,7 @@ type UIBridge struct {
 	_ func(id string)                      `slot:"unshareButton"`
 	_ func(id string)                      `slot:"likeButton"`
 	_ func(id string)                      `slot:"unlikeButton"`
+	_ func(id string, follow bool)         `slot:"followButton"`
 	_ func(id string)                      `slot:"loadConversation"`
 	_ func(id string)                      `slot:"loadAccount"`
 
@@ -91,6 +92,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectUnshareButton(unshare)
 	uiBridge.ConnectLikeButton(like)
 	uiBridge.ConnectUnlikeButton(unlike)
+	uiBridge.ConnectFollowButton(follow)
 	uiBridge.ConnectLoadConversation(loadConversation)
 	uiBridge.ConnectLoadAccount(loadAccount)
 

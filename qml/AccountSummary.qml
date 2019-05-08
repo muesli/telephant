@@ -32,17 +32,27 @@ ColumnLayout {
             Layout.fillWidth: true
             Label {
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignLeft
                 text: profile.name
                 font.pixelSize: 16
                 font.bold: true
                 elide: Label.ElideRight
             }
             Label {
-                text: profile.username
+                text: profile.username + (profile.followedBy ? " (follows you)" : "")
                 font.pixelSize: 16
                 opacity: 0.7
                 elide: Label.ElideRight
+            }
+        }
+        Button {
+            id: followButton
+            Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+            visible: profile.profileID != accountBridge.profileID
+            highlighted: true
+            text: profile.following ? qsTr("Unfollow") : qsTr("Follow")
+
+            onClicked: {
+                uiBridge.followButton(profile.profileID, !profile.following)
             }
         }
     }
