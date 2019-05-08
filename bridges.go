@@ -34,8 +34,8 @@ type AccountBridge struct {
 	_ string `property:"profileURL"`
 	_ string `property:"profileID"`
 	_ int64  `property:"posts"`
-	_ int64  `property:"follows"`
-	_ int64  `property:"followers"`
+	_ int64  `property:"followCount"`
+	_ int64  `property:"followerCount"`
 	_ int64  `property:"postSizeLimit"`
 
 	_ *core.QAbstractListModel `property:"messages"`
@@ -54,8 +54,8 @@ type ProfileBridge struct {
 	_ string `property:"profileURL"`
 	_ string `property:"profileID"`
 	_ int64  `property:"posts"`
-	_ int64  `property:"follows"`
-	_ int64  `property:"followers"`
+	_ int64  `property:"followCount"`
+	_ int64  `property:"followerCount"`
 }
 
 // ConfigBridge allows QML to access the app's config

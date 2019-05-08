@@ -124,8 +124,8 @@ func loadAccount(id string) {
 	profileBridge.SetProfileURL(profile.ProfileURL)
 	profileBridge.SetProfileID(profile.ProfileID)
 	profileBridge.SetPosts(profile.Posts)
-	profileBridge.SetFollows(profile.Follows)
-	profileBridge.SetFollowers(profile.Followers)
+	profileBridge.SetFollowCount(profile.FollowCount)
+	profileBridge.SetFollowerCount(profile.FollowerCount)
 
 	fmt.Println("Found account posts:", len(messages))
 	accountMessagesModel.Clear()

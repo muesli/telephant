@@ -89,8 +89,8 @@ func (mod *Account) Run(eventChan chan interface{}) {
 		ProfileURL:    mod.self.URL,
 		ProfileID:     string(mod.self.ID),
 		Posts:         mod.self.StatusesCount,
-		Follows:       mod.self.FollowingCount,
-		Followers:     mod.self.FollowersCount,
+		FollowCount:   mod.self.FollowingCount,
+		FollowerCount: mod.self.FollowersCount,
 		PostSizeLimit: 500, // FIXME: retrieve from API, once possible
 	}
 	mod.evchan <- ev
@@ -202,14 +202,14 @@ func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.Me
 	}
 
 	p = accounts.ProfileEvent{
-		Username:   a.Acct,
-		Name:       a.DisplayName,
-		Avatar:     a.Avatar,
-		ProfileURL: a.URL,
-		ProfileID:  string(a.ID),
-		Posts:      a.StatusesCount,
-		Follows:    a.FollowingCount,
-		Followers:  a.FollowersCount,
+		Username:      a.Acct,
+		Name:          a.DisplayName,
+		Avatar:        a.Avatar,
+		ProfileURL:    a.URL,
+		ProfileID:     string(a.ID),
+		Posts:         a.StatusesCount,
+		FollowCount:   a.FollowingCount,
+		FollowerCount: a.FollowersCount,
 	}
 
 	tt, err := mod.client.GetAccountStatuses(context.Background(), mastodon.ID(id), &mastodon.Pagination{

@@ -56,13 +56,13 @@ ColumnLayout {
         }
         Label {
             Layout.alignment: Qt.AlignCenter
-            text: "<b>" + profile.follows + "</b> Follows"
+            text: "<b>" + profile.followCount + "</b> Follows"
             font.pixelSize: 11
             elide: Label.ElideRight
         }
         Label {
             Layout.alignment: Qt.AlignRight
-            text: "<b>" + profile.followers + "</b> Followers"
+            text: "<b>" + profile.followerCount + "</b> Followers"
             font.pixelSize: 11
             elide: Label.ElideRight
         }

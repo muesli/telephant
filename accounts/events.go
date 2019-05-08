@@ -37,14 +37,14 @@ type MessageEvent struct {
 
 // ProfileEvent describes a profile event.
 type ProfileEvent struct {
-	Username   string
-	Name       string
-	Avatar     string
-	ProfileURL string
-	ProfileID  string
-	Posts      int64
-	Follows    int64
-	Followers  int64
+	Username      string
+	Name          string
+	Avatar        string
+	ProfileURL    string
+	ProfileID     string
+	Posts         int64
+	FollowCount   int64
+	FollowerCount int64
 }
 
 // LoginEvent describes a login event.
@@ -55,7 +55,7 @@ type LoginEvent struct {
 	ProfileURL    string
 	ProfileID     string
 	Posts         int64
-	Follows       int64
-	Followers     int64
+	FollowCount   int64
+	FollowerCount int64
 	PostSizeLimit int64
 }
