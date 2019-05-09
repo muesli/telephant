@@ -116,7 +116,7 @@ ApplicationWindow {
                 Label {
                     id: titleLabel
                     text: accountBridge.username
-                    font.pixelSize: 16
+                    font.pointSize: 13
                     elide: Label.ElideRight
                     horizontalAlignment: Image.AlignHCenter
                     verticalAlignment: Qt.AlignVCenter

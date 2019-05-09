@@ -34,13 +34,13 @@ ColumnLayout {
             Label {
                 Layout.fillWidth: true
                 text: profile.name
-                font.pixelSize: 16
+                font.pointSize: 13
                 font.bold: true
                 elide: Label.ElideRight
             }
             Label {
                 text: profile.username + (profile.followedBy ? " (follows you)" : "")
-                font.pixelSize: 16
+                font.pointSize: 11
                 opacity: 0.7
                 elide: Label.ElideRight
             }
@@ -62,19 +62,19 @@ ColumnLayout {
         Label {
             Layout.alignment: Qt.AlignLeft
             text: "<b>" + profile.posts + "</b> Posts"
-            font.pixelSize: 11
+            font.pointSize: 10
             elide: Label.ElideRight
         }
         Label {
             Layout.alignment: Qt.AlignCenter
             text: "<b>" + profile.followCount + "</b> Follows"
-            font.pixelSize: 11
+            font.pointSize: 10
             elide: Label.ElideRight
         }
         Label {
             Layout.alignment: Qt.AlignRight
             text: "<b>" + profile.followerCount + "</b> Followers"
-            font.pixelSize: 11
+            font.pointSize: 10
             elide: Label.ElideRight
         }
     }

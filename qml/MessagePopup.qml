@@ -90,7 +90,7 @@ Popup {
 
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
-                    font.pixelSize: 16
+                    font.pointSize: 12
                     text: accountBridge.postSizeLimit - messageArea.text.length
                 }
 
