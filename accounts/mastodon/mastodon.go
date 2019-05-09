@@ -391,6 +391,10 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 			ev.Follow.FollowedBy = f[0].FollowedBy
 		}
 
+		if strings.TrimSpace(ev.Follow.Name) == "" {
+			ev.Follow.Name = n.Account.Username
+		}
+
 	default:
 		fmt.Println("Unknown type:", n.Type)
 		return
