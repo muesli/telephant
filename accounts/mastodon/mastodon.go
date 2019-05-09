@@ -1,4 +1,4 @@
-// Package mastodon is a Mastodon account for Chirp.
+// Package mastodon is a Mastodon account for Telephant.
 package mastodon
 
 import (
@@ -12,7 +12,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mattn/go-mastodon"
 
-	"github.com/muesli/chirp/accounts"
+	"github.com/muesli/telephant/accounts"
 )
 
 const (
@@ -20,7 +20,7 @@ const (
 	initialNotificationsCount = 40
 )
 
-// Account is a Mastodon account for Chirp.
+// Account is a Mastodon account for Telephant.
 type Account struct {
 	client *mastodon.Client
 	config *mastodon.Config

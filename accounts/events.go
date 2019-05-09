@@ -1,4 +1,4 @@
-// Package accounts is chirp's account "plugin" system.
+// Package accounts is telephant's account "plugin" system.
 package accounts
 
 import "time"

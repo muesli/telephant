@@ -22,14 +22,14 @@ type Account struct {
 	RedirectURI  string
 }
 
-// Config holds chirp's config settings
+// Config holds telephant's config settings
 type Config struct {
 	Account []Account
 	Style   string
 }
 
 const (
-	configFile = "chirp.conf"
+	configFile = "telephant.conf"
 )
 
 // LoadConfig returns the current config as a Config struct

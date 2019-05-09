@@ -20,7 +20,7 @@ import QtQuick.Layouts 1.3
 
             Label {
                 width: aboutDialog.availableWidth
-                text: "Chirp! by <a style=\"text-decoration: none; color: orange;\" href=\"https://twitter.com/mueslix\">@mueslix</a>"
+                text: "Telephant! by <a style=\"text-decoration: none; color: orange;\" href=\"https://twitter.com/mueslix\">@mueslix</a>"
                 textFormat: Text.RichText
                 wrapMode: Label.Wrap
                 font.pixelSize: 12
@@ -35,7 +35,7 @@ import QtQuick.Layouts 1.3
 
             Label {
                 width: aboutDialog.availableWidth
-                text: qsTr("Chirp! is a light-weight but modern Twitter client")
+                text: qsTr("Telephant! is a light-weight but modern social media client")
                 textFormat: Text.RichText
                 wrapMode: Label.Wrap
                 font.pixelSize: 12

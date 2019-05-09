@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/muesli/chirp/accounts/mastodon"
+	"github.com/muesli/telephant/accounts/mastodon"
 	"github.com/therecipe/qt/core"
 )
 
@@ -84,7 +84,7 @@ func setupQmlBridges() {
 	configBridge = NewConfigBridge(nil)
 
 	accountBridge = NewAccountBridge(nil)
-	accountBridge.SetUsername("Chirp!")
+	accountBridge.SetUsername("Telephant!")
 
 	uiBridge = NewUIBridge(nil)
 	uiBridge.ConnectConnectButton(connectToInstance)

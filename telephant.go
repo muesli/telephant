@@ -10,7 +10,7 @@ import (
 	"github.com/therecipe/qt/qml"
 	"github.com/therecipe/qt/quickcontrols2"
 
-	"github.com/muesli/chirp/accounts/mastodon"
+	"github.com/muesli/telephant/accounts/mastodon"
 )
 
 var (
@@ -168,7 +168,7 @@ func runApp(config Config) {
 	app.RootContext().SetContextProperty("profileBridge", profileBridge)
 	app.RootContext().SetContextProperty("settings", configBridge)
 
-	app.Load(core.NewQUrl3("qrc:/qml/chirp.qml", 0))
+	app.Load(core.NewQUrl3("qrc:/qml/telephant.qml", 0))
 	gui.QGuiApplication_Exec()
 }
 
@@ -195,7 +195,7 @@ func setupMastodon(config Account) {
 }
 
 func main() {
-	core.QCoreApplication_SetApplicationName("Chirp")
+	core.QCoreApplication_SetApplicationName("Telephant")
 	core.QCoreApplication_SetOrganizationName("fribbledom.com")
 	core.QCoreApplication_SetAttribute(core.Qt__AA_EnableHighDpiScaling, true)
 	gui.NewQGuiApplication(len(os.Args), os.Args)

@@ -5,7 +5,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/muesli/chirp/accounts"
+	"github.com/muesli/telephant/accounts"
 )
 
 func linkify(in []byte) []byte {

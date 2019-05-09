@@ -1,9 +1,9 @@
-Chirp!
+Telephant!
 ======
 
 A lightweight but modern Social Media client, written in Go & QML.
 
-![chirp Screenshot](/assets/screenshot.png)
+![telephant Screenshot](/assets/screenshot.png)
 
 ## Features
 
@@ -24,27 +24,21 @@ See the [install instructions](http://golang.org/doc/install.html).
 
 ### Dependencies
 
-Before you can build Chirp you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
+Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
 
-### Building Chirp!
+### Building Telephant!
 
-    git clone https://github.com/muesli/chirp.git
-    qtdeploy build desktop chirp/
+    git clone https://github.com/muesli/telephant.git
+    qtdeploy build desktop telephant/
 
 ### Run it
 
-    ./chirp/deploy/linux/chirp
+    ./telephant/deploy/linux/telephant
 
-### Config
-
-As of now you will need to create your own API apps & keys to use Chirp. You can do this on [https://dev.twitter.com/](https://dev.twitter.com/).
-When you run Chirp for the first time, it will create an empty config file `chirp.conf` for you. Just edit it and enter
-your consumer key and accesstoken.
-
-![chirp logo](/assets/chirp.png)
+![telephant logo](/assets/telephant.png)
 
 ## Development
 
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/chirp)
-[![Build Status](https://travis-ci.org/muesli/chirp.svg?branch=master)](https://travis-ci.org/muesli/chirp)
-[![Go ReportCard](http://goreportcard.com/badge/muesli/chirp)](http://goreportcard.com/report/muesli/chirp)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/telephant)
+[![Build Status](https://travis-ci.org/muesli/telephant.svg?branch=master)](https://travis-ci.org/muesli/telephant)
+[![Go ReportCard](http://goreportcard.com/badge/muesli/telephant)](http://goreportcard.com/report/muesli/telephant)

@@ -1,4 +1,4 @@
-// Package twitter is a Twitter account for Chirp.
+// Package twitter is a Twitter account for Telephant.
 package twitter
 
 import (
@@ -11,7 +11,7 @@ import (
 
 	"github.com/ChimeraCoder/anaconda"
 
-	"github.com/muesli/chirp/accounts"
+	"github.com/muesli/telephant/accounts"
 )
 
 const (
@@ -19,7 +19,7 @@ const (
 	initialNotificationsCount = 50
 )
 
-// Account is a twitter account for Chirp.
+// Account is a twitter account for Telephant.
 type Account struct {
 	consumerKey       string
 	consumerSecret    string
