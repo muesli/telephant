@@ -26,15 +26,26 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 	p.Reply = event.Reply
 	p.ReplyToID = event.Post.ReplyToID
 	p.ReplyToAuthor = event.Post.ReplyToAuthor
+	p.Forward = event.Forward
 	p.Mention = event.Mention
 	p.Like = event.Like
-	p.Forward = event.Forward
+	p.Followed = event.Followed
 	p.Actor = event.Post.Actor
 	p.ActorName = event.Post.ActorName
 	p.Liked = event.Post.Liked
 	p.Shared = event.Post.Shared
 	if len(event.Media) > 0 {
 		p.Media = event.Media[0]
+	}
+
+	if p.Followed {
+		p.Actor = event.Follow.Account
+		p.ActorName = event.Follow.Name
+		p.Avatar = event.Follow.Avatar
+		p.AuthorURL = event.Follow.ProfileURL
+		p.AuthorID = event.Follow.ProfileID
+		p.Following = event.Follow.Following
+		p.FollowedBy = event.Follow.FollowedBy
 	}
 
 	return p

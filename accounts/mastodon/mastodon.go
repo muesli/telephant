@@ -367,6 +367,27 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 			ev.Post.ActorName = n.Account.Username
 		}
 
+	case "follow":
+		ev = accounts.MessageEvent{
+			Account:      "mastodon",
+			Name:         "follow",
+			Notification: true,
+			Followed:     true,
+			Follow: accounts.Follow{
+				Account:    n.Account.Acct,
+				Name:       n.Account.DisplayName,
+				Avatar:     n.Account.Avatar,
+				ProfileURL: n.Account.URL,
+				ProfileID:  string(n.Account.ID),
+			},
+		}
+
+		f, _ := mod.client.GetAccountRelationships(context.Background(), []string{string(n.Account.ID)})
+		if len(f) > 0 {
+			ev.Follow.Following = f[0].Following
+			ev.Follow.FollowedBy = f[0].FollowedBy
+		}
+
 	default:
 		fmt.Println("Unknown type:", n.Type)
 		return

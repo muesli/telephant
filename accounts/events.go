@@ -22,6 +22,16 @@ type Post struct {
 	Shared        bool
 }
 
+type Follow struct {
+	Account    string
+	Name       string
+	Avatar     string
+	ProfileURL string
+	ProfileID  string
+	Following  bool
+	FollowedBy bool
+}
+
 // MessageEvent describes an incoming message event.
 type MessageEvent struct {
 	Account      string
@@ -30,8 +40,10 @@ type MessageEvent struct {
 	Forward      bool
 	Mention      bool
 	Like         bool
+	Followed     bool
 	Notification bool
 	Post         Post
+	Follow       Follow
 	Media        []string
 }
 

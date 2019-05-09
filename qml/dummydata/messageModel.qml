@@ -19,6 +19,24 @@ ListModel {
          media: ""
     }
     ListElement {
+         name: ""
+         messageid: ""
+         author: ""
+         avatar: "https://pbs.twimg.com/profile_images/779041781413507072/TaqJsdzS_normal.jpg"
+         body: ""
+         createdat: "now"
+         actor: "afriend"
+         actorname: "Alex Friend"
+         reply: false
+         replytoid: ""
+         replytoauthor: ""
+         forward: false
+         mention: false
+         like: false
+         followed: true
+         media: ""
+    }
+    ListElement {
          name: "Some Guy With A Really Really Long Name"
          messageid: "901223685058703361"
          author: "someguy"

@@ -24,6 +24,9 @@ ColumnLayout {
     property bool forward: model.forward
     property bool mention: model.mention
     property bool like: model.like
+    property bool followed: model.followed
+    property bool following: model.following
+    property bool followedby: model.followedby
     property string media: model.media
     property bool liked: model.liked
     property bool shared: model.shared
@@ -82,7 +85,43 @@ ColumnLayout {
                 accountPopup.open()
             }
         }
+        RowLayout {
+            visible: followed
+            Layout.fillWidth: true
+            spacing: 4
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                Label {
+                    font.pointSize: 11
+                    font.bold: true
+                    text: qsTr("%1 followed you").arg(actorname)
+                    textFormat: Text.PlainText
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    opacity: 1.0
+                }
+                Label {
+                    font.pointSize: 11
+                    text: actor
+                    textFormat: Text.PlainText
+                    Layout.fillWidth: true
+                    elide: Text.ElideRight
+                    opacity: 1.0
+                }
+            }
+            Button {
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                highlighted: true
+                text: following ? qsTr("Unfollow") : qsTr("Follow")
+
+                onClicked: {
+                    uiBridge.followButton(authorid, !following)
+                }
+            }
+        }
         ColumnLayout {
+            visible: !followed
             Layout.fillWidth: true
             spacing: 4
 
@@ -131,7 +170,8 @@ ColumnLayout {
                 }
             }
             ColumnLayout {
-                width: parent.width
+                visible: !followed
+                // width: parent.width
                 // anchors.bottom: parent.bottom
                 spacing: 4
                 Label {
