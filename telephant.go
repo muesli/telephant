@@ -10,6 +10,7 @@ import (
 	"github.com/therecipe/qt/qml"
 	"github.com/therecipe/qt/quickcontrols2"
 
+	gap "github.com/muesli/go-app-paths"
 	"github.com/muesli/telephant/accounts/mastodon"
 )
 
@@ -203,7 +204,15 @@ func main() {
 	setupQmlBridges()
 
 	// load config
-	config = LoadConfig()
+	scope := gap.NewScope(gap.User, "fribbledom.com", "telephant")
+	configDir, err := scope.ConfigPath("")
+	if err != nil {
+		panic(err)
+	}
+	os.MkdirAll(configDir, 0700)
+
+	configFile, err := scope.ConfigPath("telephant.conf")
+	config = LoadConfig(configFile)
 	if config.Style == "" {
 		config.Style = "Material"
 	}
@@ -214,5 +223,5 @@ func main() {
 
 	// save config
 	config.Style = configBridge.Style()
-	SaveConfig(config)
+	SaveConfig(configFile, config)
 }

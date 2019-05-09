@@ -28,15 +28,11 @@ type Config struct {
 	Style   string
 }
 
-const (
-	configFile = "telephant.conf"
-)
-
 // LoadConfig returns the current config as a Config struct
-func LoadConfig() Config {
+func LoadConfig(configFile string) Config {
 	_, err := os.Stat(configFile)
 	if err != nil {
-		SaveConfig(Config{
+		SaveConfig(configFile, Config{
 			Style:   "Material",
 			Account: []Account{Account{}},
 		})
@@ -52,7 +48,7 @@ func LoadConfig() Config {
 }
 
 // SaveConfig stores the current config
-func SaveConfig(config Config) {
+func SaveConfig(configFile string, config Config) {
 	f, err := os.Create(configFile)
 	if err != nil {
 		log.Fatal("Could not open config file: ", err)
