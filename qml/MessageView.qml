@@ -240,7 +240,7 @@ ColumnLayout {
                     }
 
                     RowLayout {
-                        visible: showActionButtons
+                        visible: showActionButtons && !(accountBridge.username == author && (like || forward))
                         anchors.right: parent.right
                         Layout.topMargin: 4
 
