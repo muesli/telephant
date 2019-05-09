@@ -263,8 +263,8 @@ ColumnLayout {
                                     uiBridge.unshareButton(messageid)
                                     shared = false
                                 } else {
-                                    uiBridge.shareButton(messageid)
-                                    shared = true
+                                    sharePopup.message = model
+                                    sharePopup.open()
                                 }
                             }
                         }
