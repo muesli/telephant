@@ -433,8 +433,8 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		ev.Post.Author = s.Reblog.Account.Acct
 		ev.Post.AuthorName = s.Reblog.Account.DisplayName
 		ev.Post.AuthorURL = s.Reblog.Account.URL
-		ev.Post.Actor = s.Account.DisplayName
-		ev.Post.ActorName = s.Account.Acct
+		ev.Post.Actor = s.Account.Acct
+		ev.Post.ActorName = s.Account.DisplayName
 
 		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
 		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)
