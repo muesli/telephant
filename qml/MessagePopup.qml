@@ -4,28 +4,9 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 Popup {
+    property var message
+
     id: popup
-    property string name
-    property string messageid
-    property string posturl
-    property string author
-    property string authorurl
-    property string authorid
-    property string avatar
-    property string body
-    property string createdat
-    property string actor
-    property string actorname
-    property bool reply
-    property string replytoid
-    property string replytoauthor
-    property bool forward
-    property bool mention
-    property bool like
-    property string mediapreview
-    property string mediaurl
-    property bool liked
-    property bool shared
 
     modal: true
     // focus: true
@@ -42,32 +23,33 @@ Popup {
             id: layout
             width: parent.width
             MessageView {
-                visible: popup.messageid > 0
-                name: popup.name
-                messageid: popup.messageid
-                posturl: popup.posturl
-                author: popup.author
-                authorid: popup.authorid
-                authorurl: popup.authorurl
-                avatar: popup.avatar
-                body: popup.body
-                createdat: popup.createdat
-                actor: popup.actor
-                actorname: popup.actorname
-                reply: popup.reply
-                replytoid: popup.replytoid
-                replytoauthor: popup.replytoauthor
-                forward: popup.forward
-                mention: popup.mention
-                like: popup.like
-                mediapreview: popup.mediapreview
-                mediaurl: popup.mediaurl
-                liked: popup.liked
-                shared: popup.shared
+                showActionButtons: false
+                visible: message.messageid > 0
+                name: message.name
+                messageid: message.messageid
+                posturl: message.posturl
+                author: message.author
+                authorid: message.authorid
+                authorurl: message.authorurl
+                avatar: message.avatar
+                body: message.body
+                createdat: message.createdat
+                actor: message.actor
+                actorname: message.actorname
+                reply: message.reply
+                replytoid: message.replytoid
+                replytoauthor: message.replytoauthor
+                forward: message.forward
+                mention: message.mention
+                like: message.like
+                mediapreview: message.mediapreview
+                mediaurl: message.mediaurl
+                liked: message.liked
+                shared: message.shared
             }
 
             Label {
-                visible: popup.messageid > 0
+                visible: message.messageid > 0
                 text: qsTr("Replying to %1").arg(name)
                 opacity: 0.3
             }
@@ -78,7 +60,7 @@ Popup {
                 Layout.minimumHeight: 128
                 focus: true
                 selectByMouse: true
-                placeholderText: popup.messageid > 0 ? qsTr("Post your reply") : qsTr("What's happening?")
+                placeholderText: message.messageid > 0 ? qsTr("Post your reply") : qsTr("What's happening?")
                 wrapMode: TextArea.Wrap
             }
 
@@ -99,16 +81,15 @@ Popup {
                     enabled: remCharsLabel.text >= 0 && messageArea.text.length > 0
                     Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                     highlighted: true
-                    // Material.accent: Material.Blue
-                    text: popup.messageid > 0 ? qsTr("Reply") : qsTr("Post")
+                    text: message.messageid > 0 ? qsTr("Reply") : qsTr("Post")
 
                     onClicked: {
                         popup.close()
                         var msg = messageArea.text
-                        if (popup.messageid > 0) {
+                        if (message.messageid > 0) {
                             msg = "@" + author + " " + msg
                         }
-                        uiBridge.postButton(popup.messageid, msg)
+                        uiBridge.postButton(message.messageid, msg)
                         messageArea.clear()
                     }
                 }

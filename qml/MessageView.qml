@@ -249,27 +249,7 @@ ColumnLayout {
                             animationDuration: 200
                             sourceSize.height: 20
                             onClicked: function () {
-                                messagePopup.messageid = messageid
-                                messagePopup.posturl = posturl
-                                messagePopup.name = name
-                                messagePopup.author = author
-                                messagePopup.authorurl = authorurl
-                                messagePopup.authorid = authorid
-                                messagePopup.avatar = avatar
-                                messagePopup.body = body
-                                messagePopup.createdat = createdat
-                                messagePopup.actor = actor
-                                messagePopup.actorname = actorname
-                                messagePopup.reply = reply
-                                messagePopup.replytoid = replytoid
-                                messagePopup.replytoauthor = replytoauthor
-                                messagePopup.forward = forward
-                                messagePopup.mention = mention
-                                messagePopup.mediapreview = mediapreview
-                                messagePopup.mediaurl = mediaurl
-                                messagePopup.like = like
-                                messagePopup.liked = liked
-                                messagePopup.shared = shared
+                                messagePopup.message = model
                                 messagePopup.open()
                             }
                         }
