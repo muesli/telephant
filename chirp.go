@@ -186,9 +186,12 @@ func setupMastodon(config Account) {
 
 	evchan := make(chan interface{})
 	go handleEvents(evchan, postModel, notificationModel)
-	go func() {
-		tc.Run(evchan)
-	}()
+	err := tc.Run(evchan)
+	if err != nil {
+		// panic(err)
+		fmt.Println("Error connecting:", err)
+	}
+	configBridge.SetFirstRun(err != nil)
 }
 
 func main() {

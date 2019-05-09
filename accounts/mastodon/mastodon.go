@@ -3,6 +3,7 @@ package mastodon
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"regexp"
@@ -70,17 +71,17 @@ func (mod *Account) Authenticate(code string) (string, string, string, string, e
 }
 
 // Run executes the account's event loop.
-func (mod *Account) Run(eventChan chan interface{}) {
+func (mod *Account) Run(eventChan chan interface{}) error {
 	mod.evchan = eventChan
 
 	if mod.config.AccessToken == "" {
-		return
+		return errors.New("no accesstoken found")
 	}
 
 	var err error
 	mod.self, err = mod.client.GetAccountCurrentUser(context.Background())
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	ev := accounts.LoginEvent{
@@ -104,7 +105,7 @@ func (mod *Account) Run(eventChan chan interface{}) {
 		Limit: initialNotificationsCount,
 	})
 	if err != nil {
-		panic(err)
+		return err
 	}
 	for i := len(nn) - 1; i >= 0; i-- {
 		mod.handleNotification(nn[i])
@@ -114,13 +115,14 @@ func (mod *Account) Run(eventChan chan interface{}) {
 		Limit: initialFeedCount,
 	})
 	if err != nil {
-		panic(err)
+		return err
 	}
 	for i := len(tt) - 1; i >= 0; i-- {
 		mod.evchan <- mod.handleStatus(tt[i])
 	}
 
-	mod.handleStream()
+	go mod.handleStream()
+	return nil
 }
 
 func (mod *Account) Logo() string {
