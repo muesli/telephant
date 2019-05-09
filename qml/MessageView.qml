@@ -6,6 +6,7 @@ import QtGraphicalEffects 1.0
 
 ColumnLayout {
     property bool fadeMedia
+    property bool showActionButtons: true
 
     property string name: model.name
     property string messageid: model.messageid
@@ -239,6 +240,7 @@ ColumnLayout {
                     }
 
                     RowLayout {
+                        visible: showActionButtons
                         anchors.right: parent.right
                         Layout.topMargin: 4
 
