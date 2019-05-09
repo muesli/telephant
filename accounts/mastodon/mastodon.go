@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"regexp"
+	"strings"
 
 	"github.com/davecgh/go-spew/spew"
 	"github.com/mattn/go-mastodon"
@@ -92,6 +93,9 @@ func (mod *Account) Run(eventChan chan interface{}) {
 		FollowCount:   mod.self.FollowingCount,
 		FollowerCount: mod.self.FollowersCount,
 		PostSizeLimit: 500, // FIXME: retrieve from API, once possible
+	}
+	if strings.TrimSpace(ev.Name) == "" {
+		ev.Name = mod.self.Username
 	}
 	mod.evchan <- ev
 
@@ -223,6 +227,9 @@ func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.Me
 		FollowCount:   a.FollowingCount,
 		FollowerCount: a.FollowersCount,
 	}
+	if strings.TrimSpace(p.Name) == "" {
+		p.Name = a.Username
+	}
 
 	f, err := mod.client.GetAccountRelationships(context.Background(), []string{id})
 	if err != nil {
@@ -310,6 +317,9 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		}
 		ev.Post.Liked, _ = n.Status.Favourited.(bool)
 		ev.Post.Shared, _ = n.Status.Reblogged.(bool)
+		if strings.TrimSpace(ev.Post.AuthorName) == "" {
+			ev.Post.AuthorName = n.Account.Username
+		}
 
 		for _, v := range n.Status.MediaAttachments {
 			ev.Media = append(ev.Media, v.PreviewURL)
@@ -333,6 +343,13 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		ev.Post.Actor = n.Account.Acct
 		ev.Post.ActorName = n.Account.DisplayName
 
+		if strings.TrimSpace(ev.Post.AuthorName) == "" {
+			ev.Post.AuthorName = n.Status.Account.Username
+		}
+		if strings.TrimSpace(ev.Post.ActorName) == "" {
+			ev.Post.ActorName = n.Account.Username
+		}
+
 	case "favourite":
 		ev.Like = true
 
@@ -342,6 +359,13 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		// ev.Post.Avatar = n.Status.Account.Avatar
 		ev.Post.Actor = n.Account.Acct
 		ev.Post.ActorName = n.Account.DisplayName
+
+		if strings.TrimSpace(ev.Post.AuthorName) == "" {
+			ev.Post.AuthorName = n.Status.Account.Username
+		}
+		if strings.TrimSpace(ev.Post.ActorName) == "" {
+			ev.Post.ActorName = n.Account.Username
+		}
 
 	default:
 		fmt.Println("Unknown type:", n.Type)
@@ -369,6 +393,9 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 	}
 	ev.Post.Liked, _ = s.Favourited.(bool)
 	ev.Post.Shared, _ = s.Reblogged.(bool)
+	if strings.TrimSpace(ev.Post.AuthorName) == "" {
+		ev.Post.AuthorName = s.Account.Username
+	}
 
 	for _, v := range s.MediaAttachments {
 		ev.Media = append(ev.Media, v.PreviewURL)
@@ -390,6 +417,13 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 
 		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
 		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)
+
+		if strings.TrimSpace(ev.Post.AuthorName) == "" {
+			ev.Post.AuthorName = s.Reblog.Account.Username
+		}
+		if strings.TrimSpace(ev.Post.ActorName) == "" {
+			ev.Post.ActorName = s.Account.Username
+		}
 	}
 
 	return ev
