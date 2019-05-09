@@ -17,6 +17,7 @@ ColumnLayout {
             height: 64
             width: 64
             opacity: 1.0
+            roundness: 4
             rounded: true
             horizontalAlignment: Image.AlignHCenter
             verticalAlignment: Image.AlignVCenter
