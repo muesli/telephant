@@ -27,7 +27,8 @@ ColumnLayout {
     property bool followed: model.followed
     property bool following: model.following
     property bool followedby: model.followedby
-    property string media: model.media
+    property string mediapreview: model.mediapreview
+    property string mediaurl: model.mediaurl
     property bool liked: model.liked
     property bool shared: model.shared
 
@@ -198,21 +199,21 @@ ColumnLayout {
                 }
 
                 ImageButton {
-                    visible: media != ""
+                    visible: mediapreview != ""
                     Layout.topMargin: 4
                     Layout.fillWidth: true
                     // Layout.maximumWidth: sourceSize.width
                     Layout.maximumHeight: (accountBridge.username == author && (like || forward)) ?
                         Math.min(384 / 3, paintedHeight + 8) :
                         Math.min(384, paintedHeight + 8)
-                    source: media
+                    source: mediapreview
                     fillMode: Image.PreserveAspectFit
                     verticalAlignment: Image.AlignBottom
                     autoTransform: true
                     opacity: fadeMedia ? 0.2 : 1.0
 
                     onClicked: function() {
-                        Qt.openUrlExternally(media)
+                        Qt.openUrlExternally(mediaurl)
                     }
                 }
 
@@ -262,6 +263,8 @@ ColumnLayout {
                                 messagePopup.replytoauthor = replytoauthor
                                 messagePopup.forward = forward
                                 messagePopup.mention = mention
+                                messagePopup.mediapreview = mediapreview
+                                messagePopup.mediaurl = mediaurl
                                 messagePopup.like = like
                                 messagePopup.liked = liked
                                 messagePopup.shared = shared

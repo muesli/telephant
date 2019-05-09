@@ -8,33 +8,21 @@ ListModel {
          avatar: "https://pbs.twimg.com/profile_images/779041781413507072/TaqJsdzS_normal.jpg"
          body: "This is a very, very long test post, that should probably get word-wrapped. But does it work?"
          createdat: "now"
-         actor: ""
-         actorname: ""
          reply: false
-         replytoid: ""
-         replytoauthor: ""
          forward: false
          mention: false
          like: false
-         media: ""
     }
     ListElement {
-         name: ""
-         messageid: ""
-         author: ""
          avatar: "https://pbs.twimg.com/profile_images/779041781413507072/TaqJsdzS_normal.jpg"
-         body: ""
          createdat: "now"
          actor: "afriend"
          actorname: "Alex Friend"
          reply: false
-         replytoid: ""
-         replytoauthor: ""
          forward: false
          mention: false
          like: false
          followed: true
-         media: ""
     }
     ListElement {
          name: "Some Guy With A Really Really Long Name"
@@ -43,8 +31,6 @@ ListModel {
          avatar: "https://pbs.twimg.com/profile_images/707382834827120640/R-Eb9YZB_normal.jpg"
          body: "This is a response"
          createdat: "now"
-         actor: ""
-         actorname: ""
          reply: true
          replytoid: "901223685058703361"
          replytoauthor: "mueslix"
@@ -52,7 +38,6 @@ ListModel {
          mention: false
          like: false
          liked: true
-         media: ""
     }
     ListElement {
          name: "Dummy User"
@@ -64,13 +49,11 @@ ListModel {
          actor: "mueslix"
          actorname: "Christian Muehlhaeuser"
          reply: false
-         replytoid: ""
-         replytoauthor: ""
          forward: true
          mention: false
          like: false
          shared: true
-         media: "https://pbs.twimg.com/media/DIfdvcxXkAUXAvs.jpg"
+         mediapreview: "https://pbs.twimg.com/media/DIfdvcxXkAUXAvs.jpg"
     }
     ListElement {
          name: "Another User"
@@ -82,12 +65,9 @@ ListModel {
          actor: "mueslix"
          actorname: "Christian Muehlhaeuser"
          reply: false
-         replytoid: ""
-         replytoauthor: ""
          forward: false
          mention: true
          like: false
-         media: ""
     }
     ListElement {
          name: "This Poster"
@@ -99,11 +79,8 @@ ListModel {
          actor: "mueslix"
          actorname: "Christian Muehlhaeuser"
          reply: false
-         replytoid: ""
-         replytoauthor: ""
          forward: false
          mention: false
          like: true
-         media: ""
     }
 }

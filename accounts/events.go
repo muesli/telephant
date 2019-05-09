@@ -32,6 +32,11 @@ type Follow struct {
 	FollowedBy bool
 }
 
+type Media struct {
+	Preview string
+	URL     string
+}
+
 // MessageEvent describes an incoming message event.
 type MessageEvent struct {
 	Account      string
@@ -44,7 +49,7 @@ type MessageEvent struct {
 	Notification bool
 	Post         Post
 	Follow       Follow
-	Media        []string
+	Media        []Media
 }
 
 // ProfileEvent describes a profile event.

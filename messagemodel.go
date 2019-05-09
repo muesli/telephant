@@ -34,7 +34,8 @@ const (
 	Followed
 	Following
 	FollowedBy
-	Media
+	MediaPreview
+	MediaURL
 	Editing
 	Liked
 	Shared
@@ -79,7 +80,8 @@ type Message struct {
 	Followed      bool
 	Following     bool
 	FollowedBy    bool
-	Media         string
+	MediaPreview  string
+	MediaURL      string
 	Editing       bool
 	Liked         bool
 	Shared        bool
@@ -107,7 +109,8 @@ func (m *MessageModel) init() {
 		Followed:      core.NewQByteArray2("followed", -1),
 		Following:     core.NewQByteArray2("following", -1),
 		FollowedBy:    core.NewQByteArray2("followedby", -1),
-		Media:         core.NewQByteArray2("media", -1),
+		MediaPreview:  core.NewQByteArray2("mediapreview", -1),
+		MediaURL:      core.NewQByteArray2("mediaurl", -1),
 		Editing:       core.NewQByteArray2("editing", -1),
 		Liked:         core.NewQByteArray2("liked", -1),
 		Shared:        core.NewQByteArray2("shared", -1),
@@ -236,9 +239,13 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		{
 			return core.NewQVariant11(p.FollowedBy)
 		}
-	case Media:
+	case MediaPreview:
 		{
-			return core.NewQVariant14(p.Media)
+			return core.NewQVariant14(p.MediaPreview)
+		}
+	case MediaURL:
+		{
+			return core.NewQVariant14(p.MediaURL)
 		}
 	case Editing:
 		{

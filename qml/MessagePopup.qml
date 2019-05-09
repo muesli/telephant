@@ -22,7 +22,8 @@ Popup {
     property bool forward
     property bool mention
     property bool like
-    property string media
+    property string mediapreview
+    property string mediaurl
     property bool liked
     property bool shared
 
@@ -59,7 +60,8 @@ Popup {
                 forward: popup.forward
                 mention: popup.mention
                 like: popup.like
-                media: popup.media
+                mediapreview: popup.mediapreview
+                mediaurl: popup.mediaurl
                 liked: popup.liked
                 shared: popup.shared
             }

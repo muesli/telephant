@@ -322,7 +322,10 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		}
 
 		for _, v := range n.Status.MediaAttachments {
-			ev.Media = append(ev.Media, v.PreviewURL)
+			ev.Media = append(ev.Media, accounts.Media{
+				Preview: v.PreviewURL,
+				URL:     v.URL,
+			})
 		}
 	}
 
@@ -419,14 +422,20 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 	}
 
 	for _, v := range s.MediaAttachments {
-		ev.Media = append(ev.Media, v.PreviewURL)
+		ev.Media = append(ev.Media, accounts.Media{
+			Preview: v.PreviewURL,
+			URL:     v.URL,
+		})
 	}
 
 	if s.Reblog != nil {
 		ev.Forward = true
 
 		for _, v := range s.Reblog.MediaAttachments {
-			ev.Media = append(ev.Media, v.PreviewURL)
+			ev.Media = append(ev.Media, accounts.Media{
+				Preview: v.PreviewURL,
+				URL:     v.URL,
+			})
 		}
 
 		ev.Post.URL = s.Reblog.URL

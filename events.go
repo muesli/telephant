@@ -35,7 +35,8 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 	p.Liked = event.Post.Liked
 	p.Shared = event.Post.Shared
 	if len(event.Media) > 0 {
-		p.Media = event.Media[0]
+		p.MediaPreview = event.Media[0].Preview
+		p.MediaURL = event.Media[0].URL
 	}
 
 	if p.Followed {
