@@ -180,11 +180,18 @@ ColumnLayout {
                     visible: body.length > 0
                     text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + body
                     textFormat: Text.RichText
-                    onLinkActivated: Qt.openUrlExternally(link)
                     font.pointSize: 11
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
+                    onLinkActivated: function(link) {
+                        if (link.startsWith("telephant://")) {
+                            var us = link.split("/")
+                            uiBridge.loadAccount(us[us.length-1])
+                            accountPopup.open()
+                        } else
+                            Qt.openUrlExternally(link)
+                    }
 
                     MouseArea {
                         anchors.fill: parent
