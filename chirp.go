@@ -178,7 +178,7 @@ func setupMastodon(config Account) {
 	postModel := NewMessageModel(nil)
 	notificationModel := NewMessageModel(nil)
 
-	accountBridge.SetUsername("Logging in...")
+	accountBridge.SetUsername("Not connected")
 	accountBridge.SetMessages(postModel)
 	accountBridge.SetNotifications(notificationModel)
 	accountBridge.SetConversation(conversationModel)
