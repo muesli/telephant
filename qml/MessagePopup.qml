@@ -24,7 +24,7 @@ Popup {
             width: parent.width
             MessageView {
                 showActionButtons: false
-                visible: message.messageid > 0
+                visible: message != null
                 name: message.name
                 messageid: message.messageid
                 posturl: message.posturl
@@ -49,7 +49,7 @@ Popup {
             }
 
             Label {
-                visible: message.messageid > 0
+                visible: message != null
                 text: qsTr("Replying to %1").arg(name)
                 opacity: 0.3
             }
@@ -60,7 +60,7 @@ Popup {
                 Layout.minimumHeight: 128
                 focus: true
                 selectByMouse: true
-                placeholderText: message.messageid > 0 ? qsTr("Post your reply") : qsTr("What's happening?")
+                placeholderText: message != null ? qsTr("Post your reply") : qsTr("What's happening?")
                 wrapMode: TextArea.Wrap
             }
 
@@ -81,12 +81,12 @@ Popup {
                     enabled: remCharsLabel.text >= 0 && messageArea.text.length > 0
                     Layout.alignment: Qt.AlignBottom | Qt.AlignRight
                     highlighted: true
-                    text: message.messageid > 0 ? qsTr("Reply") : qsTr("Post")
+                    text: message != null ? qsTr("Reply") : qsTr("Post")
 
                     onClicked: {
                         popup.close()
                         var msg = messageArea.text
-                        if (message.messageid > 0) {
+                        if (message != null) {
                             msg = "@" + author + " " + msg
                         }
                         uiBridge.postButton(message.messageid, msg)

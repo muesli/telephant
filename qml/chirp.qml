@@ -141,7 +141,7 @@ ApplicationWindow {
                     source: "images/post.png"
                 }
                 onClicked: {
-                    messagePopup.messageid = 0
+                    messagePopup.message = null
                     messagePopup.open()
                 }
             }
@@ -208,7 +208,7 @@ ApplicationWindow {
                             connectDialog.open()
                             break
                         case 1:
-                            messagePopup.messageid = 0
+                            messagePopup.message = null
                             messagePopup.open()
                             break
                         case 2:
