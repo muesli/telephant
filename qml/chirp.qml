@@ -11,7 +11,13 @@ ApplicationWindow {
 
     // flags: Qt.FramelessWindowHint
     minimumWidth: 800
-    minimumHeight: 450
+    minimumHeight: 500
+
+    Component.onCompleted: {
+        if (settings.firstRun) {
+            connectDialog.open()
+        }
+    }
 
     Item {
         MessagePopup {
@@ -58,7 +64,7 @@ ApplicationWindow {
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
             width: 340
-            height: 340
+            height: 420
         }
 
         SettingsDialog {
@@ -162,6 +168,10 @@ ApplicationWindow {
                     transformOrigin: Menu.TopRight
 
                     MenuItem {
+                        text: qsTr("Connect")
+                        onTriggered: connectDialog.open()
+                    }
+                    MenuItem {
                         text: qsTr("Settings")
                         onTriggered: settingsDialog.open()
                     }
@@ -205,13 +215,10 @@ ApplicationWindow {
                         drawer.close()
                         switch (model.sid) {
                         case 0:
-                            connectDialog.open()
-                            break
-                        case 1:
                             messagePopup.message = null
                             messagePopup.open()
                             break
-                        case 2:
+                        case 1:
                             Qt.quit()
                             break
                         }
@@ -219,16 +226,12 @@ ApplicationWindow {
                 }
                 model: ListModel {
                     ListElement {
-                        title: qsTr("Connect")
+                        title: qsTr("New Post")
                         property int sid: 0
                     }
                     ListElement {
-                        title: qsTr("New Post")
-                        property int sid: 1
-                    }
-                    ListElement {
                         title: qsTr("Exit")
-                        property int sid: 2
+                        property int sid: 1
                     }
                 }
                 ScrollIndicator.vertical: ScrollIndicator {

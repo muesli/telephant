@@ -65,6 +65,8 @@ type ProfileBridge struct {
 type ConfigBridge struct {
 	core.QObject
 
+	_ bool   `property:"firstRun"`
+	_ string `property:"authURL"`
 	_ string `property:"style"`
 }
 

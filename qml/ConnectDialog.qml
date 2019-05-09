@@ -43,8 +43,9 @@ Popup {
 
                 ColumnLayout {
                         anchors.fill: parent
+                        anchors.margins: 16
 
-                        TextArea {
+                        TextField {
                             id: instanceArea
                             focus: true
                             selectByMouse: true
@@ -57,7 +58,6 @@ Popup {
                             enabled: instanceArea.text.length > 0
                             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
                             highlighted: true
-                            Material.accent: Material.Blue
                             text: qsTr("Authorize Telephant")
 
                             onClicked: {
@@ -74,8 +74,25 @@ Popup {
 
                 ColumnLayout {
                         anchors.fill: parent
+                        anchors.margins: 16
 
-                        TextArea {
+                        Label {
+                            text: "<a href=\"" + settings.authURL + "\">Click here to request a new authorization code from your instance</a>"
+                            Layout.alignment: Qt.AlignCenter
+                            Layout.fillWidth: true
+                            textFormat: Text.RichText
+                            onLinkActivated: Qt.openUrlExternally(link)
+                            font.pointSize: 12
+                            wrapMode: Text.WordWrap
+
+                            MouseArea {
+                                anchors.fill: parent
+                                acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
+                                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                            }
+                        }
+
+                        TextField {
                             id: codeArea
                             focus: true
                             selectByMouse: true
@@ -88,7 +105,6 @@ Popup {
                             enabled: codeArea.text.length > 0
                             Layout.alignment: Qt.AlignBottom | Qt.AlignCenter
                             highlighted: true
-                            Material.accent: Material.Blue
                             text: qsTr("Login")
 
                             onClicked: {

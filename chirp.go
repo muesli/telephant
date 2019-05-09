@@ -25,6 +25,8 @@ func connectToInstance(instance string) {
 	var err error
 	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
 
+	configBridge.SetAuthURL(authURI)
+
 	fmt.Println("auth uri:", authURI)
 	fmt.Println("redirect uri:", redirectURI)
 	fmt.Println(err)
