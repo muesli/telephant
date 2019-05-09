@@ -10,8 +10,8 @@ ApplicationWindow {
     Material.accent: Material.Purple
 
     // flags: Qt.FramelessWindowHint
-    minimumWidth: 800
-    minimumHeight: 500
+    minimumWidth: 790
+    minimumHeight: 590
 
     Component.onCompleted: {
         if (settings.firstRun) {
