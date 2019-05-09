@@ -162,7 +162,9 @@ ColumnLayout {
                     Layout.topMargin: 4
                     Layout.fillWidth: true
                     // Layout.maximumWidth: sourceSize.width
-                    Layout.maximumHeight: Math.min(384, paintedHeight + 8)
+                    Layout.maximumHeight: (accountBridge.username == author && (like || forward)) ?
+                        Math.min(384 / 3, paintedHeight + 8) :
+                        Math.min(384, paintedHeight + 8)
                     source: media
                     fillMode: Image.PreserveAspectFit
                     verticalAlignment: Image.AlignBottom
