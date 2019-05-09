@@ -276,12 +276,21 @@ func handleReplyStatus(status string) string {
 	return status
 }
 
-func parseBody(body string) string {
+func parseBody(s *mastodon.Status) string {
+	body := s.Content
+
+	// hide invisible message parts
 	r := regexp.MustCompile("<span class=\"invisible\">(.[^<]*)</span>")
 	body = r.ReplaceAllString(body, "")
 
+	// expand ellipsis
 	r = regexp.MustCompile("<span class=\"ellipsis\">(.[^<]*)</span>")
-	return r.ReplaceAllString(body, "$1...")
+	body = r.ReplaceAllString(body, "$1...")
+
+	for _, u := range s.Mentions {
+		body = strings.Replace(body, u.URL, fmt.Sprintf("telephant://user/%s", u.ID), -1)
+	}
+	return body
 
 	/*
 		for _, u := range ents.Urls {
@@ -307,7 +316,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 
 			Post: accounts.Post{
 				MessageID:  string(n.Status.ID),
-				Body:       parseBody(n.Status.Content),
+				Body:       parseBody(n.Status),
 				Author:     n.Account.Acct,
 				AuthorName: n.Account.DisplayName,
 				AuthorURL:  n.Account.URL,
@@ -355,6 +364,8 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 			ev.Post.ActorName = n.Account.Username
 		}
 
+		ev.Post.Body = parseBody(n.Status)
+
 	case "favourite":
 		ev.Like = true
 
@@ -371,6 +382,8 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		if strings.TrimSpace(ev.Post.ActorName) == "" {
 			ev.Post.ActorName = n.Account.Username
 		}
+
+		ev.Post.Body = parseBody(n.Status)
 
 	case "follow":
 		ev = accounts.MessageEvent{
@@ -411,7 +424,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		Name:    "post",
 		Post: accounts.Post{
 			MessageID:  string(s.ID),
-			Body:       parseBody(s.Content),
+			Body:       parseBody(s),
 			Author:     s.Account.Acct,
 			AuthorName: s.Account.DisplayName,
 			AuthorURL:  s.Account.URL,
@@ -460,6 +473,8 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		if strings.TrimSpace(ev.Post.ActorName) == "" {
 			ev.Post.ActorName = s.Account.Username
 		}
+
+		ev.Post.Body = parseBody(s.Reblog)
 	}
 
 	return ev
