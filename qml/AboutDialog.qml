@@ -20,7 +20,7 @@ import QtQuick.Layouts 1.3
 
             Label {
                 width: aboutDialog.availableWidth
-                text: "Telephant! by <a style=\"text-decoration: none;\" href=\"https://twitter.com/mueslix\">@mueslix</a>"
+                text: "<a style=\"text-decoration: none; color: white;\" href=\"https://mastodon.social/@telephant\">Telephant!</a>"
                 textFormat: Text.RichText
                 wrapMode: Label.Wrap
                 font.pointSize: 14
