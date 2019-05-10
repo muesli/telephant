@@ -20,10 +20,25 @@ import QtQuick.Layouts 1.3
 
             Label {
                 width: aboutDialog.availableWidth
-                text: "Telephant! by <a style=\"text-decoration: none; color: orange;\" href=\"https://twitter.com/mueslix\">@mueslix</a>"
+                text: "Telephant! by <a style=\"text-decoration: none;\" href=\"https://twitter.com/mueslix\">@mueslix</a>"
                 textFormat: Text.RichText
                 wrapMode: Label.Wrap
-                font.pixelSize: 12
+                font.pointSize: 14
+                onLinkActivated: Qt.openUrlExternally(link)
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
+                    cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                }
+            }
+
+            Label {
+                width: aboutDialog.availableWidth
+                text: "Version 0.1"
+                textFormat: Text.RichText
+                wrapMode: Label.Wrap
+                font.pointSize: 14
                 onLinkActivated: Qt.openUrlExternally(link)
 
                 MouseArea {
@@ -38,7 +53,7 @@ import QtQuick.Layouts 1.3
                 text: qsTr("Telephant! is a light-weight but modern social media client")
                 textFormat: Text.RichText
                 wrapMode: Label.Wrap
-                font.pixelSize: 12
+                font.pointSize: 13
                 onLinkActivated: Qt.openUrlExternally(link)
 
                 MouseArea {
