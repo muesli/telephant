@@ -6,10 +6,11 @@ import QtQuick.Layouts 1.3
 ApplicationWindow {
     id: mainWindow
     visible: true
-    Material.theme: Material.Dark
-    Material.accent: Material.Purple
 
+    Material.theme: settings.style == "Dark" ? Material.Dark : Material.Light
+    Material.accent: Material.Purple
     // flags: Qt.FramelessWindowHint
+
     minimumWidth: 790
     minimumHeight: 590
 

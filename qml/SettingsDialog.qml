@@ -20,6 +20,27 @@ Popup {
 
         RowLayout {
             spacing: 10
+            visible: false
+
+            Label {
+                text: qsTr("Theme:")
+            }
+
+            ComboBox {
+                id: themeBox
+                property int themeIndex: -1
+                Layout.fillWidth: true
+                model: ["System", "Material", "Imagine", "Universal", "Light"]
+                Component.onCompleted: {
+                    themeIndex = find(settings.theme, Qt.MatchFixedString)
+                    if (themeIndex !== -1)
+                        currentIndex = themeIndex
+                }
+            }
+        }
+        RowLayout {
+            spacing: 10
+            visible: themeBox.currentIndex == 1
 
             Label {
                 text: qsTr("Style:")
@@ -29,7 +50,7 @@ Popup {
                 id: styleBox
                 property int styleIndex: -1
                 Layout.fillWidth: true
-                model: ["Default", "Material", "Universal"]
+                model: ["Light", "Dark"]
                 Component.onCompleted: {
                     styleIndex = find(settings.style, Qt.MatchFixedString)
                     if (styleIndex !== -1)
@@ -45,7 +66,7 @@ Popup {
             Layout.fillHeight: true
 
             text: qsTr("Restart required")
-            opacity: styleBox.currentIndex !== styleBox.styleIndex ? 1.0 : 0.0
+            visible: themeBox.currentIndex !== themeBox.themeIndex ? 1.0 : 0.0
         }
 
         RowLayout {
@@ -55,9 +76,11 @@ Popup {
                 id: okButton
                 Layout.preferredWidth: 0
                 Layout.fillWidth: true
+                highlighted: true
 
                 text: qsTr("Ok")
                 onClicked: {
+                    settings.theme = themeBox.displayText
                     settings.style = styleBox.displayText
                     settingsDialog.close()
                 }
@@ -70,6 +93,7 @@ Popup {
 
                 text: qsTr("Cancel")
                 onClicked: {
+                    themeBox.currentIndex = themeBox.themeIndex
                     styleBox.currentIndex = styleBox.styleIndex
                     settingsDialog.close()
                 }

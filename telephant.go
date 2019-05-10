@@ -161,7 +161,19 @@ func loadAccount(id string) {
 
 // runApp loads and executes the QML UI
 func runApp(config Config) {
-	quickcontrols2.QQuickStyle_SetStyle(config.Style)
+	var theme string
+	switch config.Theme {
+	case "System":
+		theme = ""
+	case "Light":
+		theme = "Default"
+	default:
+		theme = config.Theme
+	}
+
+	if theme != "" {
+		quickcontrols2.QQuickStyle_SetStyle(theme)
+	}
 
 	app := qml.NewQQmlApplicationEngine(nil)
 	app.RootContext().SetContextProperty("uiBridge", uiBridge)
@@ -213,15 +225,20 @@ func main() {
 
 	configFile, err := scope.ConfigPath("telephant.conf")
 	config = LoadConfig(configFile)
-	if config.Style == "" {
-		config.Style = "Material"
+	if config.Theme == "" {
+		config.Theme = "Material"
 	}
+	if config.Style == "" {
+		config.Style = "Dark"
+	}
+	configBridge.SetTheme(config.Theme)
 	configBridge.SetStyle(config.Style)
 
 	setupMastodon(config.Account[0])
 	runApp(config)
 
 	// save config
+	config.Theme = configBridge.Theme()
 	config.Style = configBridge.Style()
 	SaveConfig(configFile, config)
 }

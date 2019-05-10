@@ -67,6 +67,7 @@ type ConfigBridge struct {
 
 	_ bool   `property:"firstRun"`
 	_ string `property:"authURL"`
+	_ string `property:"theme"`
 	_ string `property:"style"`
 }
 
