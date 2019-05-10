@@ -61,8 +61,11 @@ func RegisterAccount(instance string) (*Account, string, string, error) {
 	return a, app.AuthURI, app.RedirectURI, nil
 }
 
-func (mod *Account) Authenticate(code string) (string, string, string, string, error) {
-	err := mod.client.AuthenticateToken(context.Background(), code, "urn:ietf:wg:oauth:2.0:oob")
+func (mod *Account) Authenticate(code, redirectURI string) (string, string, string, string, error) {
+	if redirectURI == "" {
+		redirectURI = "urn:ietf:wg:oauth:2.0:oob"
+	}
+	err := mod.client.AuthenticateToken(context.Background(), code, redirectURI)
 	if err != nil {
 		return "", "", "", "", err
 	}

@@ -9,8 +9,8 @@ import (
 type UIBridge struct {
 	core.QObject
 
-	_ func(instance string) `slot:"connectButton"`
-	_ func(instance string) `slot:"authButton"`
+	_ func(instance string)                 `slot:"connectButton"`
+	_ func(code string, redirectURI string) `slot:"authButton"`
 
 	_ func(replyid string, message string) `slot:"postButton"`
 	_ func(id string)                      `slot:"shareButton"`
@@ -69,6 +69,7 @@ type ConfigBridge struct {
 
 	_ bool   `property:"firstRun"`
 	_ string `property:"authURL"`
+	_ string `property:"redirectURL"`
 	_ string `property:"theme"`
 	_ string `property:"style"`
 }

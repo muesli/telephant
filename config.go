@@ -19,7 +19,6 @@ type Account struct {
 	ClientID     string
 	ClientSecret string
 	Token        string
-	RedirectURI  string
 }
 
 // Config holds telephant's config settings

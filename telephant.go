@@ -25,16 +25,20 @@ func connectToInstance(instance string) {
 	var redirectURI string
 	var err error
 	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
+	if err != nil {
+		fmt.Println("Error registering app:", err)
+		return
+	}
 
 	configBridge.SetAuthURL(authURI)
+	configBridge.SetRedirectURL(redirectURI)
 
 	fmt.Println("auth uri:", authURI)
 	fmt.Println("redirect uri:", redirectURI)
-	fmt.Println(err)
 }
 
-func authInstance(code string) {
-	instance, token, clientID, clientSecret, err := tc.Authenticate(code)
+func authInstance(code, redirectURI string) {
+	instance, token, clientID, clientSecret, err := tc.Authenticate(code, redirectURI)
 	fmt.Println("authenticate:", err)
 	if err != nil {
 		return
@@ -170,7 +174,6 @@ func runApp(config Config) {
 	default:
 		theme = config.Theme
 	}
-
 	if theme != "" {
 		quickcontrols2.QQuickStyle_SetStyle(theme)
 	}

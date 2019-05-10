@@ -110,7 +110,7 @@ Popup {
                             onClicked: {
                                 var code = codeArea.text
                                 connectDialog.close()
-                                uiBridge.authButton(code)
+                                uiBridge.authButton(code, settings.redirectURL)
                             }
                         }
                 }
