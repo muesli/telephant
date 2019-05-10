@@ -51,7 +51,7 @@ Popup {
 
             Label {
                 visible: message != null
-                text: qsTr("Replying to %1").arg(name)
+                text: qsTr("Replying to %1").arg(message.name)
                 opacity: 0.3
             }
 
@@ -88,7 +88,7 @@ Popup {
                         popup.close()
                         var msg = messageArea.text
                         if (message != null) {
-                            msg = "@" + author + " " + msg
+                            msg = "@" + message.author + " " + msg
                         }
                         uiBridge.postButton(message.messageid, msg)
                         messageArea.clear()
