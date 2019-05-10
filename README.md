@@ -29,11 +29,17 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
 
 ### Building Telephant
 
-    $(go env GOPATH)/bin/qtdeploy build desktop github.com/muesli/telephant
+    mkdir -p $(go env GOPATH)/src/github.com/muesli
+    cd $(go env GOPATH)/src/github.com/muesli
+    git clone https://github.com/muesli/telephant.git
+
+    cd telephant
+    go get -u -v
+    $(go env GOPATH)/bin/qtdeploy build desktop .
 
 ### Run it
 
-    $(go env GOPATH)/src/github.com/muesli/telephant/deploy/linux/telephant
+    ./deploy/linux/telephant
 
 ## Development
 
