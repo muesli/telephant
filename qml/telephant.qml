@@ -172,10 +172,12 @@ ApplicationWindow {
                         text: qsTr("Connect")
                         onTriggered: connectDialog.open()
                     }
+                    /*
                     MenuItem {
                         text: qsTr("Settings")
                         onTriggered: settingsDialog.open()
                     }
+                    */
                     MenuItem {
                         text: qsTr("About")
                         onTriggered: aboutDialog.open()
