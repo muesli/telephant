@@ -11,7 +11,6 @@ ColumnLayout {
     x: messagePane.Material.elevation
     width: parent.width - messagePane.Material.elevation * 2 - 12
     Pane {
-        anchors.horizontalCenter: parent.horizontalCenter
         id: messagePane
         Material.elevation: 6
         Layout.fillWidth: true
