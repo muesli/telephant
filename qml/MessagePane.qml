@@ -35,6 +35,10 @@ ColumnLayout {
             Pane {
                 anchors.fill: parent
                 opacity: 0.8
+
+                background: Rectangle {
+                    color: Material.color(Material.Grey, Material.Shade900)
+                }
             }
         }
     }

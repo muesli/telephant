@@ -10,6 +10,9 @@ ApplicationWindow {
     Material.theme: settings.style == "Dark" ? Material.Dark : Material.Light
     Material.accent: Material.Purple
     // flags: Qt.FramelessWindowHint
+    background: Rectangle {
+        color: Material.color(Material.Grey, Material.Shade900)
+    }
 
     minimumWidth: 790
     minimumHeight: 590
