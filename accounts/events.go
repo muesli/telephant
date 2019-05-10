@@ -13,6 +13,7 @@ type Post struct {
 	AuthorID      string
 	Actor         string
 	ActorName     string
+	ActorID       string
 	ReplyToID     string
 	ReplyToAuthor string
 	Avatar        string

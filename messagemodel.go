@@ -25,6 +25,7 @@ const (
 	CreatedAt
 	Actor
 	ActorName
+	ActorID
 	Reply
 	ReplyToID
 	ReplyToAuthor
@@ -71,6 +72,7 @@ type Message struct {
 	CreatedAt     time.Time
 	Actor         string
 	ActorName     string
+	ActorID       string
 	Reply         bool
 	ReplyToID     string
 	ReplyToAuthor string
@@ -100,6 +102,7 @@ func (m *MessageModel) init() {
 		CreatedAt:     core.NewQByteArray2("createdat", -1),
 		Actor:         core.NewQByteArray2("actor", -1),
 		ActorName:     core.NewQByteArray2("actorname", -1),
+		ActorID:       core.NewQByteArray2("actorid", -1),
 		Reply:         core.NewQByteArray2("reply", -1),
 		ReplyToID:     core.NewQByteArray2("replytoid", -1),
 		ReplyToAuthor: core.NewQByteArray2("replytoauthor", -1),
@@ -202,6 +205,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case ActorName:
 		{
 			return core.NewQVariant14(p.ActorName)
+		}
+	case ActorID:
+		{
+			return core.NewQVariant14(p.ActorID)
 		}
 	case Reply:
 		{

@@ -36,6 +36,7 @@ Popup {
                 createdat: message.createdat
                 actor: message.actor
                 actorname: message.actorname
+                actorid: message.actorid
                 reply: message.reply
                 replytoid: message.replytoid
                 replytoauthor: message.replytoauthor

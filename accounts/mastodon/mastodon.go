@@ -371,9 +371,11 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		ev.Post.Author = n.Status.Account.Acct
 		ev.Post.AuthorName = n.Status.Account.DisplayName
 		ev.Post.AuthorURL = n.Status.Account.URL
-		// ev.Post.Avatar = n.Status.Account.Avatar
+		ev.Post.AuthorID = string(n.Status.Account.ID)
+		ev.Post.Avatar = n.Status.Account.Avatar
 		ev.Post.Actor = n.Account.Acct
 		ev.Post.ActorName = n.Account.DisplayName
+		ev.Post.ActorID = string(n.Account.ID)
 
 		if strings.TrimSpace(ev.Post.AuthorName) == "" {
 			ev.Post.AuthorName = n.Status.Account.Username
@@ -390,9 +392,11 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 		ev.Post.Author = n.Status.Account.Acct
 		ev.Post.AuthorName = n.Status.Account.DisplayName
 		ev.Post.AuthorURL = n.Status.Account.URL
-		// ev.Post.Avatar = n.Status.Account.Avatar
+		ev.Post.AuthorID = string(n.Status.Account.ID)
+		ev.Post.Avatar = n.Status.Account.Avatar
 		ev.Post.Actor = n.Account.Acct
 		ev.Post.ActorName = n.Account.DisplayName
+		ev.Post.ActorID = string(n.Account.ID)
 
 		if strings.TrimSpace(ev.Post.AuthorName) == "" {
 			ev.Post.AuthorName = n.Status.Account.Username
@@ -479,8 +483,11 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		ev.Post.Author = s.Reblog.Account.Acct
 		ev.Post.AuthorName = s.Reblog.Account.DisplayName
 		ev.Post.AuthorURL = s.Reblog.Account.URL
+		ev.Post.AuthorID = string(s.Reblog.Account.ID)
+		ev.Post.Avatar = s.Reblog.Account.Avatar
 		ev.Post.Actor = s.Account.Acct
 		ev.Post.ActorName = s.Account.DisplayName
+		ev.Post.ActorID = string(s.Account.ID)
 
 		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
 		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)

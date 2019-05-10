@@ -19,6 +19,7 @@ ColumnLayout {
     property string createdat: model.createdat
     property string actor: model.actor
     property string actorname: model.actorname
+    property string actorid: model.actorid
     property bool reply: model.reply
     property string replytoid: model.replytoid
     property string replytoauthor: model.replytoauthor
@@ -48,6 +49,15 @@ ColumnLayout {
             font.pointSize: 10
             text: qsTr("%1 shared").arg(actorname)
             opacity: (accountBridge.username == author && (like || forward)) ? 0.8 : 0.3
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    uiBridge.loadAccount(actorid)
+                    accountPopup.open()
+                }
+            }
         }
     }
     RowLayout {
@@ -65,6 +75,15 @@ ColumnLayout {
             font.pointSize: 10
             text: qsTr("%1 liked").arg(actorname)
             opacity: (accountBridge.username == author && (like || forward)) ? 0.8 : 0.3
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    uiBridge.loadAccount(actorid)
+                    accountPopup.open()
+                }
+            }
         }
     }
 
@@ -101,7 +120,15 @@ ColumnLayout {
                     textFormat: Text.PlainText
                     Layout.fillWidth: true
                     elide: Text.ElideRight
-                    opacity: 1.0
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            uiBridge.loadAccount(authorid)
+                            accountPopup.open()
+                        }
+                    }
                 }
                 Label {
                     font.pointSize: 11
@@ -109,7 +136,15 @@ ColumnLayout {
                     textFormat: Text.PlainText
                     Layout.fillWidth: true
                     elide: Text.ElideRight
-                    opacity: 1.0
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            uiBridge.loadAccount(authorid)
+                            accountPopup.open()
+                        }
+                    }
                 }
             }
             Button {
@@ -141,6 +176,15 @@ ColumnLayout {
                     Layout.maximumWidth: implicitWidth + 1
                     elide: Text.ElideRight
                     opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            uiBridge.loadAccount(authorid)
+                            accountPopup.open()
+                        }
+                    }
                 }
                 Label {
                     // anchors.bottom: parent.bottom
@@ -153,6 +197,15 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             Qt.openUrlExternally(authorurl)
+                        }
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: {
+                            uiBridge.loadAccount(authorid)
+                            accountPopup.open()
                         }
                     }
                 }
