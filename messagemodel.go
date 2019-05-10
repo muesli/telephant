@@ -9,7 +9,7 @@ import (
 
 // maxMessageCount defines the max amount of messages stored in a model
 const (
-	maxMessageCount = 500
+	maxMessageCount = 250
 )
 
 // Model Roles
