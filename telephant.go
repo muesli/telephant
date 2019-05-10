@@ -194,7 +194,7 @@ func setupMastodon(config Account) {
 	postModel := NewMessageModel(nil)
 	notificationModel := NewMessageModel(nil)
 
-	accountBridge.SetUsername("Not connected")
+	accountBridge.SetUsername("Connecting...")
 	accountBridge.SetMessages(postModel)
 	accountBridge.SetNotifications(notificationModel)
 	accountBridge.SetConversation(conversationModel)
@@ -202,12 +202,7 @@ func setupMastodon(config Account) {
 
 	evchan := make(chan interface{})
 	go handleEvents(evchan, postModel, notificationModel)
-	err := tc.Run(evchan)
-	if err != nil {
-		// panic(err)
-		fmt.Println("Error connecting:", err)
-	}
-	configBridge.SetFirstRun(err != nil)
+	go tc.Run(evchan)
 }
 
 func main() {
@@ -236,6 +231,7 @@ func main() {
 	}
 	configBridge.SetTheme(config.Theme)
 	configBridge.SetStyle(config.Style)
+	configBridge.SetFirstRun(config.FirstRun)
 
 	setupMastodon(config.Account[0])
 	runApp(config)
@@ -243,5 +239,6 @@ func main() {
 	// save config
 	config.Theme = configBridge.Theme()
 	config.Style = configBridge.Style()
+	config.FirstRun = false
 	SaveConfig(configFile, config)
 }

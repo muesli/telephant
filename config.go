@@ -23,9 +23,10 @@ type Account struct {
 
 // Config holds telephant's config settings
 type Config struct {
-	Account []Account
-	Theme   string
-	Style   string
+	Account  []Account
+	Theme    string
+	Style    string
+	FirstRun bool
 }
 
 // LoadConfig returns the current config as a Config struct
@@ -33,9 +34,10 @@ func LoadConfig(configFile string) Config {
 	_, err := os.Stat(configFile)
 	if err != nil {
 		SaveConfig(configFile, Config{
-			Theme:   "Material",
-			Style:   "Dark",
-			Account: []Account{Account{}},
+			Theme:    "Material",
+			Style:    "Dark",
+			FirstRun: true,
+			Account:  []Account{Account{}},
 		})
 		//log.Fatal("Config file is missing, but a template was created for you! Please edit ", configFile)
 	}
