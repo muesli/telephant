@@ -25,6 +25,7 @@ See the [install instructions](http://golang.org/doc/install.html).
 
 Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
 
+    export QT_PKG_CONFIG=true
     go get -u -v github.com/therecipe/qt/cmd/...
 
 ### Building Telephant
