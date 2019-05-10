@@ -1,5 +1,5 @@
 Telephant!
-======
+==========
 
 A lightweight but modern Social Media client, written in Go & QML.
 
@@ -8,7 +8,6 @@ A lightweight but modern Social Media client, written in Go & QML.
 ## Features
 
 - [x] Live feed via Mastodon's Streaming API
-- [x] Live feed via Twitter's Streaming API
 - [x] Multi pane support
 - [x] Linux/macOS/Windows (Android & iOS should be working, but aren't tested yet)
 - [x] Media previews
@@ -26,16 +25,15 @@ See the [install instructions](http://golang.org/doc/install.html).
 
 Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
 
-### Building Telephant!
+    go get -u -v github.com/therecipe/qt/cmd/...
 
-    git clone https://github.com/muesli/telephant.git
-    qtdeploy build desktop telephant/
+### Building Telephant
+
+    $(go env GOPATH)/bin/qtdeploy build desktop github.com/muesli/telephant
 
 ### Run it
 
-    ./telephant/deploy/linux/telephant
-
-![telephant logo](/assets/telephant.png)
+    $(go env GOPATH)/src/github.com/muesli/telephant/deploy/linux/telephant
 
 ## Development
 
