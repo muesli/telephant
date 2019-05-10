@@ -18,17 +18,23 @@ A lightweight but modern Social Media client, written in Go & QML.
 
 ## Installation
 
+### Packages & Installers
+
+- [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant.exe)
+
+### From Source
+
 Make sure you have a working Go environment (Go 1.8 or higher is required).
 See the [install instructions](http://golang.org/doc/install.html).
 
-### Dependencies
+#### Dependencies
 
 Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
 
     export QT_PKG_CONFIG=true
     go get -u -v github.com/therecipe/qt/cmd/...
 
-### Building Telephant
+#### Building Telephant
 
     mkdir -p $(go env GOPATH)/src/github.com/muesli
     cd $(go env GOPATH)/src/github.com/muesli
@@ -38,7 +44,7 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
     go get -u -v
     $(go env GOPATH)/bin/qtdeploy build desktop .
 
-### Run it
+#### Run it
 
     ./deploy/linux/telephant
 
