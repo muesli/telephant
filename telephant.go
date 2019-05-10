@@ -20,14 +20,15 @@ var (
 	accountMessagesModel = NewMessageModel(nil)
 )
 
-func connectToInstance(instance string) {
+func connectToInstance(instance string) bool {
 	var authURI string
 	var redirectURI string
 	var err error
 	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
 	if err != nil {
 		fmt.Println("Error registering app:", err)
-		return
+		accountBridge.SetError(err.Error())
+		return false
 	}
 
 	configBridge.SetAuthURL(authURI)
@@ -35,13 +36,15 @@ func connectToInstance(instance string) {
 
 	fmt.Println("auth uri:", authURI)
 	fmt.Println("redirect uri:", redirectURI)
+	return true
 }
 
-func authInstance(code, redirectURI string) {
+func authInstance(code, redirectURI string) bool {
 	instance, token, clientID, clientSecret, err := tc.Authenticate(code, redirectURI)
 	fmt.Println("authenticate:", err)
 	if err != nil {
-		return
+		accountBridge.SetError(err.Error())
+		return false
 	}
 
 	config.Account[0].Instance = instance
@@ -49,6 +52,7 @@ func authInstance(code, redirectURI string) {
 	config.Account[0].ClientSecret = clientSecret
 	config.Account[0].Token = token
 	setupMastodon(config.Account[0])
+	return true
 }
 
 // reply is used to post a new message

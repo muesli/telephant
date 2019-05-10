@@ -68,8 +68,10 @@ Popup {
 
                             onClicked: {
                                 var instance = instanceArea.text
-                                connectSwipeView.currentIndex = 1
-                                uiBridge.connectButton(instance)
+                                var result = uiBridge.connectButton(instance)
+                                if (result) {
+                                    connectSwipeView.currentIndex = 1
+                                }
                             }
                         }
                 }
@@ -115,8 +117,10 @@ Popup {
 
                             onClicked: {
                                 var code = codeArea.text
-                                connectDialog.close()
-                                uiBridge.authButton(code, settings.redirectURL)
+                                var result = uiBridge.authButton(code, settings.redirectURL)
+                                if (result) {
+                                    connectDialog.close()
+                                }
                             }
                         }
                 }

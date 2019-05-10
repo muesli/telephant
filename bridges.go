@@ -9,8 +9,8 @@ import (
 type UIBridge struct {
 	core.QObject
 
-	_ func(instance string)                 `slot:"connectButton"`
-	_ func(code string, redirectURI string) `slot:"authButton"`
+	_ func(instance string) bool                 `slot:"connectButton"`
+	_ func(code string, redirectURI string) bool `slot:"authButton"`
 
 	_ func(replyid string, message string) `slot:"postButton"`
 	_ func(id string)                      `slot:"shareButton"`
