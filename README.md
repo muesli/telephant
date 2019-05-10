@@ -3,7 +3,7 @@ Telephant!
 
 A lightweight but modern Social Media client, written in Go & QML.
 
-![telephant Screenshot](/assets/screenshot.png)
+![telephant logo](/assets/telephant.png)
 
 ## Features
 
@@ -40,6 +40,8 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
 ### Run it
 
     ./deploy/linux/telephant
+
+![telephant Screenshot](/assets/screenshot.png)
 
 ## Development
 
