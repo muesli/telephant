@@ -50,7 +50,7 @@ func RegisterAccount(instance string) (*Account, string, string, error) {
 		Server:     instance,
 		ClientName: "Telephant",
 		Scopes:     "read write follow post",
-		Website:    "",
+		Website:    "https://github.com/muesli/telephant",
 	})
 	if err != nil {
 		return nil, "", "", err
