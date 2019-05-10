@@ -191,6 +191,10 @@ ColumnLayout {
                     font.pointSize: 9
                     opacity: 0.4
                     text: "@" + author
+                    textFormat: Text.PlainText
+                    Layout.fillWidth: true
+                    Layout.maximumWidth: implicitWidth + 1
+                    elide: Text.ElideRight
 
                     MouseArea {
                         anchors.fill: parent
