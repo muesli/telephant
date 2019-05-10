@@ -72,15 +72,20 @@ func (mod *Account) Authenticate(code string) (string, string, string, string, e
 
 // Run executes the account's event loop.
 func (mod *Account) Run(eventChan chan interface{}) error {
-	mod.evchan = eventChan
-
 	if mod.config.AccessToken == "" {
-		return errors.New("no accesstoken found")
+		return errors.New("no accesstoken provided")
 	}
+
+	mod.evchan = eventChan
 
 	var err error
 	mod.self, err = mod.client.GetAccountCurrentUser(context.Background())
 	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
 		return err
 	}
 
@@ -105,6 +110,11 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 		Limit: initialNotificationsCount,
 	})
 	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
 		return err
 	}
 	for i := len(nn) - 1; i >= 0; i-- {
@@ -115,6 +125,11 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 		Limit: initialFeedCount,
 	})
 	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
 		return err
 	}
 	for i := len(tt) - 1; i >= 0; i-- {

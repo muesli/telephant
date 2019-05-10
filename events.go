@@ -76,6 +76,11 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				accountBridge.SetFollowerCount(event.FollowerCount)
 				accountBridge.SetPostSizeLimit(event.PostSizeLimit)
 			}
+		case accounts.ErrorEvent:
+			{
+				log.Println("Error:", event.Message)
+				accountBridge.SetError(event.Message)
+			}
 		case accounts.MessageEvent:
 			{
 				// spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}

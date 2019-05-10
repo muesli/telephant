@@ -78,3 +78,9 @@ type LoginEvent struct {
 	FollowerCount int64
 	PostSizeLimit int64
 }
+
+// ErrorEvent describes an error that occurred.
+type ErrorEvent struct {
+	Message  string
+	Internal bool
+}
