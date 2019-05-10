@@ -209,7 +209,10 @@ ApplicationWindow {
 
                     MenuItem {
                         text: qsTr("Connect")
-                        onTriggered: connectDialog.open()
+                        onTriggered: function() {
+                            connectDialog.reset()
+                            connectDialog.open()
+                        }
                     }
                     /*
                     MenuItem {

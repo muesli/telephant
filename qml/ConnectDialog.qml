@@ -11,6 +11,12 @@ Popup {
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
+    property var reset: function() {
+        connectSwipeView.currentIndex = 0
+        instanceArea.text = ""
+        codeArea.text = ""
+    }
+
     ColumnLayout {
         spacing: 16
         anchors.fill: parent
