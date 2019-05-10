@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/therecipe/qt/core"
 	"github.com/therecipe/qt/gui"
@@ -24,6 +25,7 @@ func connectToInstance(instance string) bool {
 	var authURI string
 	var redirectURI string
 	var err error
+	instance = addHTTPPrefixIfNeeded(instance)
 	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
 	if err != nil {
 		fmt.Println("Error registering app:", err)
@@ -37,6 +39,15 @@ func connectToInstance(instance string) bool {
 	fmt.Println("auth uri:", authURI)
 	fmt.Println("redirect uri:", redirectURI)
 	return true
+}
+
+// addHTTPPrefixIfNeeded adds "https://" to an instance URL where it's missing.
+func addHTTPPrefixIfNeeded(instance string) string {
+	if !strings.HasPrefix(instance, "http://") && !strings.HasPrefix(instance, "https://") {
+		return "https://" + instance
+	}
+
+	return instance
 }
 
 func authInstance(code, redirectURI string) bool {
