@@ -279,6 +279,7 @@ ColumnLayout {
                             source: liked ? "images/liked.png" : "images/like.png"
                             animationDuration: 200
                             sourceSize.height: 20
+                            opacity: liked ? 1.0 : 0.3
                             onClicked: function () {
                                 if (liked) {
                                     uiBridge.unlikeButton(messageid)
