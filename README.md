@@ -1,7 +1,7 @@
 Telephant!
 ==========
 
-A lightweight but modern Social Media client, written in Go & QML.
+A lightweight but modern Mastodon client, written in Go & QML.
 
 ![telephant logo](/assets/telephant.png)
 
@@ -43,6 +43,12 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
     cd telephant
     go get -u -v
     $(go env GOPATH)/bin/qtdeploy build desktop .
+
+### Within a Docker container
+
+Follow the build instructions above, but instead of the last command, run:
+
+    $(go env GOPATH)/bin/qtdeploy -docker build linux
 
 #### Run it
 
