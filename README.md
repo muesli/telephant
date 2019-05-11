@@ -35,6 +35,7 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
 
     export QT_PKG_CONFIG=true
     go get -u -v github.com/therecipe/qt/cmd/...
+    $(go env GOPATH)/bin/qtsetup -test=false
 
 #### Building Telephant
 
