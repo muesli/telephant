@@ -165,7 +165,10 @@ func parseTweet(ents anaconda.Entities, ev *accounts.MessageEvent) {
 		ev.Post.Body = strings.Replace(ev.Post.Body, u.Url, r, -1)
 	}
 	for _, media := range ents.Media {
-		ev.Media = append(ev.Media, media.Media_url_https)
+		ev.Media = append(ev.Media, accounts.Media{
+			Preview: media.Media_url_https,
+			URL:     media.Media_url_https,
+		})
 		ev.Post.Body = strings.Replace(ev.Post.Body, media.Url, "", -1)
 		// FIXME:
 		break
@@ -182,7 +185,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			Account: "twitter",
 			Name:    "tweet",
 			Post: accounts.Post{
-				MessageID:  status.Id,
+				MessageID:  status.IdStr,
 				Body:       status.FullText,
 				Author:     status.User.ScreenName,
 				AuthorName: status.User.Name,
@@ -199,7 +202,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		if status.InReplyToStatusID > 0 {
 			ev.Reply = true
 			ev.Post.Body = handleReplyStatus(ev.Post.Body)
-			ev.Post.ReplyToID = status.InReplyToStatusID
+			ev.Post.ReplyToID = status.InReplyToStatusIdStr
 			ev.Post.ReplyToAuthor = status.InReplyToScreenName
 		}
 
@@ -238,7 +241,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 			Account: "twitter",
 			Name:    "tweet",
 			Post: accounts.Post{
-				MessageID:  status.TargetObject.Id,
+				MessageID:  status.TargetObject.IdStr,
 				Body:       status.TargetObject.FullText,
 				Author:     status.Source.ScreenName,
 				AuthorName: status.Source.Name,
