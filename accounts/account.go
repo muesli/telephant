@@ -1,6 +1,8 @@
 // Package accounts is telephant's account "plugin" system.
 package accounts
 
+// Account describes the interface every implementation of a Telephant
+// social media account must fulfill.
 type Account interface {
 	Logo() string
 	Authenticate(code, redirectURI string) (string, string, string, string, error)
