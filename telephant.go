@@ -224,8 +224,9 @@ func main() {
 	core.QCoreApplication_SetApplicationName("Telephant")
 	core.QCoreApplication_SetOrganizationName("fribbledom.com")
 	core.QCoreApplication_SetAttribute(core.Qt__AA_EnableHighDpiScaling, true)
-	gui.NewQGuiApplication(len(os.Args), os.Args)
 
+	ga := gui.NewQGuiApplication(len(os.Args), os.Args)
+	ga.SetWindowIcon(gui.NewQIcon5(":/qml/images/telephant_logo.png"))
 	setupQmlBridges()
 
 	// load config
