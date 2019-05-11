@@ -27,6 +27,8 @@ A lightweight but modern Mastodon client, written in Go & QML.
 Make sure you have a working Go environment (Go 1.8 or higher is required).
 See the [install instructions](http://golang.org/doc/install.html).
 
+You will also need Qt5 and its development headers installed.
+
 #### Dependencies
 
 Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
