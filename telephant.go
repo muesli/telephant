@@ -242,6 +242,9 @@ func main() {
 	os.MkdirAll(configDir, 0700)
 
 	configFile, err := scope.ConfigPath("telephant.conf")
+	if err != nil {
+		panic(err)
+	}
 	config = LoadConfig(configFile)
 	if config.Theme == "" {
 		config.Theme = "Material"
