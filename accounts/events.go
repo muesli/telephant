@@ -23,6 +23,7 @@ type Post struct {
 	Shared        bool
 }
 
+// Follow describes an incoming follow event.
 type Follow struct {
 	Account    string
 	Name       string
@@ -33,6 +34,7 @@ type Follow struct {
 	FollowedBy bool
 }
 
+// Media describes a media item.
 type Media struct {
 	Preview string
 	URL     string

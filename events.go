@@ -8,10 +8,7 @@ import (
 	"github.com/muesli/telephant/accounts"
 )
 
-func linkify(in []byte) []byte {
-	return []byte(fmt.Sprintf("<a style=\"text-decoration: none; color: orange;\" href=\"%s\">%s</a>", in, in))
-}
-
+// messageFromEvent creates a new Message object from an incoming MessageEvent.
 func messageFromEvent(event accounts.MessageEvent) *Message {
 	var p = NewMessage(nil)
 	p.MessageID = event.Post.MessageID
@@ -90,11 +87,13 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				p := messageFromEvent(event)
 
 				// markup links
-				/* re, err := regexp.Compile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,16}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)
-				if err != nil {
-					log.Fatal("URL detection regexp does not compile: ", err)
-				}
-				p.Body = string(re.ReplaceAllFunc([]byte(p.Body), linkify)) */
+				/*
+					re, err := regexp.Compile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,16}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)
+					if err != nil {
+						log.Fatal("URL detection regexp does not compile: ", err)
+					}
+					p.Body = string(re.ReplaceAllFunc([]byte(p.Body), linkify))
+				*/
 
 				if event.Notification {
 					notifications.AddMessage(p)
@@ -104,4 +103,9 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 			}
 		}
 	}
+}
+
+// linkify is a helper function to wrap an HTML anchor around detected links.
+func linkify(in []byte) []byte {
+	return []byte(fmt.Sprintf("<a style=\"text-decoration: none;\" href=\"%s\">%s</a>", in, in))
 }

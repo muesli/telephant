@@ -43,6 +43,7 @@ func NewAccount(consumerKey, consumerSecret, accessToken, accessTokenSecret stri
 	}
 }
 
+// handleAnacondaError is a helper function to rate-limit twitter requests.
 func (mod *Account) handleAnacondaError(err error, msg string) {
 	if err != nil {
 		switch e := err.(type) {
@@ -139,6 +140,7 @@ func (mod *Account) Like(id int64) error {
 	return err
 }
 
+// handleRetweetStatus strips the RT prefix from the post.
 func handleRetweetStatus(status string) string {
 	if strings.HasPrefix(status, "RT ") && strings.Count(status, " ") >= 2 {
 		return strings.Join(strings.Split(status, " ")[2:], " ")
@@ -147,6 +149,7 @@ func handleRetweetStatus(status string) string {
 	return status
 }
 
+// handleReplyStatus strips the reply prefix from the post.
 func handleReplyStatus(status string) string {
 	if strings.HasPrefix(status, "@") && strings.Index(status, " ") > 0 {
 		return status[strings.Index(status, " "):]
@@ -155,6 +158,7 @@ func handleReplyStatus(status string) string {
 	return status
 }
 
+// parseTweet prepares the body of a post before it can be displayed.
 func parseTweet(ents anaconda.Entities, ev *accounts.MessageEvent) {
 	for _, u := range ents.Urls {
 		r := fmt.Sprintf("<a style=\"text-decoration: none; color: orange;\" href=\"%s\">%s</a>", u.Expanded_url, u.Display_url)
@@ -168,6 +172,7 @@ func parseTweet(ents anaconda.Entities, ev *accounts.MessageEvent) {
 	}
 }
 
+// handleStreamEvent handles incoming API events.
 func (mod *Account) handleStreamEvent(item interface{}) {
 	switch status := item.(type) {
 	case anaconda.Tweet:
@@ -327,6 +332,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 	}
 }
 
+// handleStream handles all connected Twitter API streams.
 func (mod *Account) handleStream() {
 	s := mod.twitterAPI.UserStream(url.Values{})
 

@@ -9,12 +9,6 @@ import (
 
 // Account holds the settings for one account
 type Account struct {
-	/*
-		ConsumerKey       string
-		ConsumerSecret    string
-		AccessToken       string
-		AccessTokenSecret string
-	*/
 	Instance     string
 	ClientID     string
 	ClientSecret string

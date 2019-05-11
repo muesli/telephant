@@ -5,11 +5,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"regexp"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/mattn/go-mastodon"
 
 	"github.com/muesli/telephant/accounts"
@@ -45,6 +43,8 @@ func NewAccount(instance, token, clientID, clientSecret string) *Account {
 	}
 }
 
+// RegisterAccount registers the app with an instance and retrieves an
+// authentication URI.
 func RegisterAccount(instance string) (*Account, string, string, error) {
 	app, err := mastodon.RegisterApp(context.Background(), &mastodon.AppConfig{
 		Server:     instance,
@@ -61,6 +61,8 @@ func RegisterAccount(instance string) (*Account, string, string, error) {
 	return a, app.AuthURI, app.RedirectURI, nil
 }
 
+// Authenticate finishes the authentication and retrieves an accesstoken from
+// the instance, which we'll use for future logins.
 func (mod *Account) Authenticate(code, redirectURI string) (string, string, string, string, error) {
 	if redirectURI == "" {
 		redirectURI = "urn:ietf:wg:oauth:2.0:oob"
@@ -143,6 +145,7 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 	return nil
 }
 
+// Logo returns the Mastodon logo.
 func (mod *Account) Logo() string {
 	return "mastodon.svg"
 }
@@ -227,7 +230,7 @@ func (mod *Account) LoadConversation(id string) ([]accounts.MessageEvent, error)
 	return r, nil
 }
 
-// LoadAccount loads a profile's information
+// LoadAccount loads a profile's information.
 func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.MessageEvent, error) {
 	var p accounts.ProfileEvent
 	var r []accounts.MessageEvent
@@ -274,26 +277,7 @@ func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.Me
 	return p, r, nil
 }
 
-func handleRetweetStatus(status string) string {
-	/*
-		if strings.HasPrefix(status, "RT ") && strings.Count(status, " ") >= 2 {
-			return strings.Join(strings.Split(status, " ")[2:], " ")
-		}
-	*/
-
-	return status
-}
-
-func handleReplyStatus(status string) string {
-	/*
-		if strings.HasPrefix(status, "@") && strings.Index(status, " ") > 0 {
-			return status[strings.Index(status, " "):]
-		}
-	*/
-
-	return status
-}
-
+// parseBody cleans up a post's content.
 func parseBody(s *mastodon.Status) string {
 	body := s.Content
 
@@ -324,6 +308,7 @@ func parseBody(s *mastodon.Status) string {
 	*/
 }
 
+// handleNotification handles incoming notification events.
 func (mod *Account) handleNotification(n *mastodon.Notification) {
 	var ev accounts.MessageEvent
 	if n.Status != nil {
@@ -440,6 +425,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 	mod.evchan <- ev
 }
 
+// handleStatus handles incoming status updates.
 func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 	ev := accounts.MessageEvent{
 		Account: "mastodon",
@@ -505,9 +491,11 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 	return ev
 }
 
+// handleStreamEvent handles incoming events and dispatches them to the correct
+// handler.
 func (mod *Account) handleStreamEvent(item interface{}) {
-	spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
-	log.Println("Message received:", spw.Sdump(item))
+	// spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
+	// log.Println("Message received:", spw.Sdump(item))
 
 	switch e := item.(type) {
 	case *mastodon.NotificationEvent:
@@ -518,6 +506,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 	}
 }
 
+// handleStream handles all connected Mastodon API streams.
 func (mod *Account) handleStream() {
 	timeline, err := mod.client.StreamingUser(context.Background())
 	if err != nil {

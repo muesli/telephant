@@ -21,6 +21,8 @@ var (
 	accountMessagesModel = NewMessageModel(nil)
 )
 
+// connectToInstance registers an app with the instance and retrieves an
+// authentication URI.
 func connectToInstance(instance string) bool {
 	var authURI string
 	var redirectURI string
@@ -50,6 +52,8 @@ func addHTTPPrefixIfNeeded(instance string) string {
 	return instance
 }
 
+// authInstance authenticates a user via OAuth and retrieves an accesstoken
+// we'll use for future logins.
 func authInstance(code, redirectURI string) bool {
 	instance, token, clientID, clientSecret, err := tc.Authenticate(code, redirectURI)
 	fmt.Println("authenticate:", err)
