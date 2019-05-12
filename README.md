@@ -34,6 +34,13 @@ You will also need Qt5 and its development headers installed.
 
 Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
 
+#### Qt5 dependencies (Ubuntu example)
+
+    apt-get --no-install-recommends install build-essential libglib2.0-dev libglu1-mesa-dev libpulse-dev
+    apt-get --no-install-recommends install libqt*5-dev qt*5-dev qt*5-doc-html qml-module-qtquick*
+
+#### Qt Bindings
+
     export QT_PKG_CONFIG=true
     go get -u -v github.com/therecipe/qt/cmd/...
     $(go env GOPATH)/bin/qtsetup -test=false
