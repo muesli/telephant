@@ -20,7 +20,7 @@ A lightweight but modern Mastodon client, written in Go & QML.
 
 ### Packages & Installers
 
-- [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant.exe)
+- [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Windows_64bit.exe)
 - [Linux Static 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Linux_64bit)
 
 ### From Source
