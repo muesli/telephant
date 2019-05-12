@@ -9,7 +9,7 @@ Popup {
     id: popup
 
     modal: true
-    // focus: true
+    focus: true
     height: Math.min(mainWindow.height * 0.8, layout.implicitHeight + 32)
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
