@@ -55,7 +55,7 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
     go get -u -v
     $(go env GOPATH)/bin/qtdeploy build desktop .
 
-### Within a Docker container
+#### Within a Docker container
 
 Follow the build instructions above, but instead of the last command, run:
 
