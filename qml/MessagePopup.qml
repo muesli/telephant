@@ -87,10 +87,12 @@ Popup {
                     onClicked: {
                         popup.close()
                         var msg = messageArea.text
+                        var msgid = "";
                         if (message != null) {
+                            msgid = message.messageid
                             msg = "@" + message.author + " " + msg
                         }
-                        uiBridge.postButton(message.messageid, msg)
+                        uiBridge.postButton(msgid, msg)
                         messageArea.clear()
                     }
                 }
