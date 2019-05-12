@@ -239,7 +239,7 @@ ColumnLayout {
                     textFormat: Text.RichText
                     font.pointSize: 11
                     Layout.fillWidth: true
-                    wrapMode: Text.WrapAnywhere
+                    wrapMode: Text.WordWrap
                     opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
                     onLinkActivated: function(link) {
                         if (link.startsWith("telephant://")) {
