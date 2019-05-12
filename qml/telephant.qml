@@ -111,6 +111,7 @@ ApplicationWindow {
 
                     text: qsTr("Close")
                     onClicked: {
+                        accountBridge.error = ""
                         errorDialog.close()
                     }
                 }
