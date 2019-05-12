@@ -56,8 +56,8 @@ func addHTTPPrefixIfNeeded(instance string) string {
 // we'll use for future logins.
 func authInstance(code, redirectURI string) bool {
 	instance, token, clientID, clientSecret, err := tc.Authenticate(code, redirectURI)
-	fmt.Println("authenticate:", err)
 	if err != nil {
+		fmt.Println("Error authenticating with instance:", err)
 		accountBridge.SetError(err.Error())
 		return false
 	}
@@ -82,7 +82,8 @@ func reply(replyid string, message string) {
 		err = tc.Post(message)
 	}
 	if err != nil {
-		log.Println("Error posting to Account:", err)
+		accountBridge.SetError(err.Error())
+		log.Println("Error posting:", err)
 	}
 }
 
@@ -90,7 +91,8 @@ func reply(replyid string, message string) {
 func share(id string) {
 	log.Println("Sharing:", id)
 	if err := tc.Share(id); err != nil {
-		log.Println("Error posting to Account:", err)
+		accountBridge.SetError(err.Error())
+		log.Println("Error sharing:", err)
 	}
 }
 
@@ -98,7 +100,8 @@ func share(id string) {
 func unshare(id string) {
 	log.Println("Unsharing:", id)
 	if err := tc.Unshare(id); err != nil {
-		log.Println("Error posting to Account:", err)
+		accountBridge.SetError(err.Error())
+		log.Println("Error unsharing:", err)
 	}
 }
 
@@ -106,7 +109,8 @@ func unshare(id string) {
 func like(id string) {
 	log.Println("Liking:", id)
 	if err := tc.Like(id); err != nil {
-		log.Println("Error posting to Account:", err)
+		accountBridge.SetError(err.Error())
+		log.Println("Error liking:", err)
 	}
 }
 
@@ -114,7 +118,8 @@ func like(id string) {
 func unlike(id string) {
 	log.Println("Unliking:", id)
 	if err := tc.Unlike(id); err != nil {
-		log.Println("Error posting to Account:", err)
+		accountBridge.SetError(err.Error())
+		log.Println("Error unliking:", err)
 	}
 }
 
@@ -123,12 +128,14 @@ func follow(id string, follow bool) {
 	if follow {
 		log.Println("Following:", id)
 		if err := tc.Follow(id); err != nil {
+			accountBridge.SetError(err.Error())
 			log.Println("Error following user:", err)
 			return
 		}
 	} else {
 		log.Println("Unfollowing:", id)
 		if err := tc.Unfollow(id); err != nil {
+			accountBridge.SetError(err.Error())
 			log.Println("Error unfollowing user:", err)
 			return
 		}
