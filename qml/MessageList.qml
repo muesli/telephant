@@ -8,8 +8,6 @@ ListView {
     spacing: 12
     clip: true
 
-    cacheBuffer: 16384
-
     ScrollBar.vertical: ScrollBar {
         width: 12
         background: Rectangle {
