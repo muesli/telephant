@@ -8,8 +8,10 @@ ListView {
     spacing: 12
     clip: true
 
+    cacheBuffer: 16384
+
     ScrollBar.vertical: ScrollBar {
-        width: 8
+        width: 12
         background: Rectangle {
             color: "transparent"
         }
@@ -26,5 +28,11 @@ ListView {
         visible: parent.count == 0
         text: qsTr("No messages to show yet!")
         font.bold: true
+    }
+
+    ScrollHelper {
+        id: scrollHelper
+        flickable: view
+        anchors.fill: view
     }
 }
