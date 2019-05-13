@@ -9,6 +9,10 @@ ColumnLayout {
     property bool showActionButtons: true
     property var message: model
 
+    property bool following: message.following
+    property bool liked: message.liked
+    property bool shared: message.shared
+
     clip: true
 
     RowLayout {
@@ -128,10 +132,11 @@ ColumnLayout {
             Button {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 highlighted: true
-                text: message.following ? qsTr("Unfollow") : qsTr("Follow")
+                text: following ? qsTr("Unfollow") : qsTr("Follow")
 
                 onClicked: {
-                    uiBridge.followButton(message.authorid, !message.following)
+                    uiBridge.followButton(message.authorid, !following)
+                    following = !following
                 }
             }
         }
@@ -294,29 +299,29 @@ ColumnLayout {
                             source: "images/share.png"
                             animationDuration: 200
                             sourceSize.height: 20
-                            opacity: message.shared ? 1.0 : 0.3
+                            opacity: shared ? 1.0 : 0.3
                             onClicked: function () {
-                                if (message.shared) {
+                                if (shared) {
                                     uiBridge.unshareButton(message.messageid)
-                                    message.shared = false
+                                    shared = false
                                 } else {
-                                    sharePopup.message = model
+                                    sharePopup.message = message
                                     sharePopup.open()
                                 }
                             }
                         }
                         ImageButton {
-                            source: message.liked ? "images/liked.png" : "images/like.png"
+                            source: liked ? "images/liked.png" : "images/like.png"
                             animationDuration: 200
                             sourceSize.height: 20
-                            opacity: message.liked ? 1.0 : 0.3
+                            opacity: liked ? 1.0 : 0.3
                             onClicked: function () {
-                                if (message.liked) {
+                                if (liked) {
                                     uiBridge.unlikeButton(message.messageid)
-                                    message.liked = false
+                                    liked = false
                                 } else {
                                     uiBridge.likeButton(message.messageid)
-                                    message.liked = true
+                                    liked = true
                                 }
                             }
                         }
