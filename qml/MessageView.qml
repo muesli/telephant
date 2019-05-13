@@ -7,37 +7,12 @@ import QtGraphicalEffects 1.0
 ColumnLayout {
     property bool fadeMedia
     property bool showActionButtons: true
-
-    property string name: model.name
-    property string messageid: model.messageid
-    property string posturl: model.posturl
-    property string author: model.author
-    property string authorurl: model.authorurl
-    property string authorid: model.authorid
-    property string avatar: model.avatar
-    property string body: model.body
-    property string createdat: model.createdat
-    property string actor: model.actor
-    property string actorname: model.actorname
-    property string actorid: model.actorid
-    property bool reply: model.reply
-    property string replytoid: model.replytoid
-    property string replytoauthor: model.replytoauthor
-    property bool forward: model.forward
-    property bool mention: model.mention
-    property bool like: model.like
-    property bool followed: model.followed
-    property bool following: model.following
-    property bool followedby: model.followedby
-    property string mediapreview: model.mediapreview
-    property string mediaurl: model.mediaurl
-    property bool liked: model.liked
-    property bool shared: model.shared
+    property var message: model
 
     clip: true
 
     RowLayout {
-        visible: forward && !like
+        visible: message.forward && !message.like
         Item {
             width: 32
         }
@@ -49,21 +24,21 @@ ColumnLayout {
         }
         Label {
             font.pointSize: 10
-            text: qsTr("%1 shared").arg(actorname)
-            opacity: (accountBridge.username == author && (like || forward)) ? 0.8 : 0.3
+            text: qsTr("%1 shared").arg(message.actorname)
+            opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.8 : 0.3
 
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    uiBridge.loadAccount(actorid)
+                    uiBridge.loadAccount(message.actorid)
                     accountPopup.open()
                 }
             }
         }
     }
     RowLayout {
-        visible: like
+        visible: message.like
         Item {
             width: 32
         }
@@ -75,14 +50,14 @@ ColumnLayout {
         }
         Label {
             font.pointSize: 10
-            text: qsTr("%1 liked").arg(actorname)
-            opacity: (accountBridge.username == author && (like || forward)) ? 0.8 : 0.3
+            text: qsTr("%1 liked").arg(message.actorname)
+            opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.8 : 0.3
 
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
-                    uiBridge.loadAccount(actorid)
+                    uiBridge.loadAccount(message.actorid)
                     accountPopup.open()
                 }
             }
@@ -96,7 +71,7 @@ ColumnLayout {
         ImageButton {
             id: image
             Layout.alignment: Qt.AlignTop
-            source: avatar
+            source: message.avatar
             sourceSize.width: 48
             width: 48
             fillMode: Image.PreserveAspectCrop
@@ -105,12 +80,12 @@ ColumnLayout {
             opacity: 1.0
 
             onClicked: function() {
-                uiBridge.loadAccount(authorid)
+                uiBridge.loadAccount(message.authorid)
                 accountPopup.open()
             }
         }
         RowLayout {
-            visible: followed
+            visible: message.followed
             Layout.fillWidth: true
             spacing: 4
 
@@ -119,7 +94,7 @@ ColumnLayout {
                 Label {
                     font.pointSize: 11
                     font.bold: true
-                    text: qsTr("%1 followed you").arg(actorname)
+                    text: qsTr("%1 followed you").arg(message.actorname)
                     textFormat: Text.PlainText
                     Layout.fillWidth: true
                     elide: Text.ElideRight
@@ -128,14 +103,14 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            uiBridge.loadAccount(authorid)
+                            uiBridge.loadAccount(message.authorid)
                             accountPopup.open()
                         }
                     }
                 }
                 Label {
                     font.pointSize: 11
-                    text: actor
+                    text: message.actor
                     textFormat: Text.PlainText
                     Layout.fillWidth: true
                     elide: Text.ElideRight
@@ -144,7 +119,7 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            uiBridge.loadAccount(authorid)
+                            uiBridge.loadAccount(message.authorid)
                             accountPopup.open()
                         }
                     }
@@ -153,15 +128,15 @@ ColumnLayout {
             Button {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 highlighted: true
-                text: following ? qsTr("Unfollow") : qsTr("Follow")
+                text: message.following ? qsTr("Unfollow") : qsTr("Follow")
 
                 onClicked: {
-                    uiBridge.followButton(authorid, !following)
+                    uiBridge.followButton(message.authorid, !message.following)
                 }
             }
         }
         ColumnLayout {
-            visible: !followed
+            visible: !message.followed
             Layout.fillWidth: true
             spacing: 4
 
@@ -171,10 +146,10 @@ ColumnLayout {
                     id: namelabel
                     font.pointSize: 11
                     font.bold: true
-                    text: name
+                    text: message.name
                     textFormat: Text.PlainText
                     elide: Text.ElideRight
-                    opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
+                    opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.4 : 1.0
                     Layout.fillWidth: true
                     Layout.maximumWidth: implicitWidth + 1
 
@@ -182,7 +157,7 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            uiBridge.loadAccount(authorid)
+                            uiBridge.loadAccount(message.authorid)
                             accountPopup.open()
                         }
                     }
@@ -191,7 +166,7 @@ ColumnLayout {
                     // anchors.bottom: parent.bottom
                     font.pointSize: 9
                     opacity: 0.4
-                    text: "@" + author
+                    text: "@" + message.author
                     textFormat: Text.PlainText
                     elide: Text.ElideRight
                     Layout.fillWidth: true
@@ -201,7 +176,7 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            uiBridge.loadAccount(authorid)
+                            uiBridge.loadAccount(message.authorid)
                             accountPopup.open()
                         }
                     }
@@ -209,7 +184,7 @@ ColumnLayout {
                 Label {
                     font.pointSize: 9
                     opacity: 0.4
-                    text: createdat
+                    text: message.createdat
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignRight
 
@@ -217,25 +192,25 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            Qt.openUrlExternally(posturl)
+                            Qt.openUrlExternally(message.posturl)
                         }
                     }
                 }
             }
             ColumnLayout {
                 Layout.fillWidth: true
-                visible: !followed
+                visible: !message.followed
                 // width: parent.width
                 // anchors.bottom: parent.bottom
                 spacing: 4
                 Label {
-                    visible: body.length > 0
-                    text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + body
+                    visible: message.body.length > 0
+                    text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + message.body
                     textFormat: Text.RichText
                     font.pointSize: 11
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
-                    opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
+                    opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.4 : 1.0
                     onLinkActivated: function(link) {
                         if (link.startsWith("telephant://")) {
                             var us = link.split("/")
@@ -252,46 +227,46 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
 
                         onClicked: function() {
-                            uiBridge.loadConversation(messageid)
+                            uiBridge.loadConversation(message.messageid)
                             conversationPopup.open()
                         }
                     }
                 }
 
                 ImageButton {
-                    visible: mediapreview != ""
+                    visible: message.mediapreview != ""
                     Layout.topMargin: 4
                     Layout.fillWidth: true
                     // Layout.maximumWidth: sourceSize.width
-                    Layout.maximumHeight: (accountBridge.username == author && (like || forward)) ?
+                    Layout.maximumHeight: (accountBridge.username == message.author && (message.like || message.forward)) ?
                         Math.min(384 / 3, paintedHeight + 8) :
                         Math.min(384, paintedHeight + 8)
-                    source: mediapreview
+                    source: message.mediapreview
                     fillMode: Image.PreserveAspectFit
                     verticalAlignment: Image.AlignBottom
                     autoTransform: true
                     opacity: fadeMedia ? 0.2 : 1.0
 
                     onClicked: function() {
-                        Qt.openUrlExternally(mediaurl)
+                        Qt.openUrlExternally(message.mediaurl)
                     }
                 }
 
                 RowLayout {
                     Layout.fillWidth: true
                     RowLayout {
-                        visible: reply
+                        visible: message.reply
                         Label {
                             font.pointSize: 10
                             text: qsTr("Replying to %1").arg(
-                                      "@" + replytoauthor)
+                                      "@" + message.replytoauthor)
                             opacity: 0.4
 
                             MouseArea {
                                 anchors.fill: parent
                                 cursorShape: Qt.PointingHandCursor
                                 onClicked: {
-                                    Qt.openUrlExternally(posturl)
+                                    Qt.openUrlExternally(message.posturl)
                                 }
                             }
                         }
@@ -299,7 +274,7 @@ ColumnLayout {
 
                     RowLayout {
                         width: parent.width
-                        visible: showActionButtons && !(accountBridge.username == author && (like || forward))
+                        visible: showActionButtons && !(accountBridge.username == message.author && (message.like || message.forward))
                         Layout.topMargin: 4
 
                         Item {
@@ -319,11 +294,11 @@ ColumnLayout {
                             source: "images/share.png"
                             animationDuration: 200
                             sourceSize.height: 20
-                            opacity: shared ? 1.0 : 0.3
+                            opacity: message.shared ? 1.0 : 0.3
                             onClicked: function () {
-                                if (shared) {
-                                    uiBridge.unshareButton(messageid)
-                                    shared = false
+                                if (message.shared) {
+                                    uiBridge.unshareButton(message.messageid)
+                                    message.shared = false
                                 } else {
                                     sharePopup.message = model
                                     sharePopup.open()
@@ -331,17 +306,17 @@ ColumnLayout {
                             }
                         }
                         ImageButton {
-                            source: liked ? "images/liked.png" : "images/like.png"
+                            source: message.liked ? "images/liked.png" : "images/like.png"
                             animationDuration: 200
                             sourceSize.height: 20
-                            opacity: liked ? 1.0 : 0.3
+                            opacity: message.liked ? 1.0 : 0.3
                             onClicked: function () {
-                                if (liked) {
-                                    uiBridge.unlikeButton(messageid)
-                                    liked = false
+                                if (message.liked) {
+                                    uiBridge.unlikeButton(message.messageid)
+                                    message.liked = false
                                 } else {
-                                    uiBridge.likeButton(messageid)
-                                    liked = true
+                                    uiBridge.likeButton(message.messageid)
+                                    message.liked = true
                                 }
                             }
                         }

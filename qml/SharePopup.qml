@@ -9,7 +9,7 @@ Popup {
     id: popup
 
     modal: true
-    // focus: true
+    focus: true
     height: Math.min(mainWindow.height * 0.8, layout.implicitHeight + 32)
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
@@ -25,27 +25,7 @@ Popup {
 
             MessageView {
                 showActionButtons: false
-                name: message.name
-                messageid: message.messageid
-                posturl: message.posturl
-                author: message.author
-                authorid: message.authorid
-                authorurl: message.authorurl
-                avatar: message.avatar
-                body: message.body
-                createdat: message.createdat
-                actor: message.actor
-                actorname: message.actorname
-                reply: message.reply
-                replytoid: message.replytoid
-                replytoauthor: message.replytoauthor
-                forward: message.forward
-                mention: message.mention
-                like: message.like
-                mediapreview: message.mediapreview
-                mediaurl: message.mediaurl
-                liked: message.liked
-                shared: message.shared
+                message: popup.message
             }
 
             RowLayout {

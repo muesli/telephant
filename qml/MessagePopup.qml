@@ -22,31 +22,11 @@ Popup {
         ColumnLayout {
             id: layout
             width: parent.width
+
             MessageView {
                 showActionButtons: false
                 visible: message != null
-                name: message.name
-                messageid: message.messageid
-                posturl: message.posturl
-                author: message.author
-                authorid: message.authorid
-                authorurl: message.authorurl
-                avatar: message.avatar
-                body: message.body
-                createdat: message.createdat
-                actor: message.actor
-                actorname: message.actorname
-                actorid: message.actorid
-                reply: message.reply
-                replytoid: message.replytoid
-                replytoauthor: message.replytoauthor
-                forward: message.forward
-                mention: message.mention
-                like: message.like
-                mediapreview: message.mediapreview
-                mediaurl: message.mediaurl
-                liked: message.liked
-                shared: message.shared
+                message: popup.message
             }
 
             Label {
