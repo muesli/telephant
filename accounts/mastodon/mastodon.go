@@ -203,6 +203,42 @@ func (mod *Account) Unfollow(id string) error {
 	return err
 }
 
+// Tag starts a hashtag stream
+func (mod *Account) Tag(token string, ch chan interface{}) error {
+	tt, err := mod.client.GetTimelineHashtag(context.Background(), token, false, &mastodon.Pagination{
+		Limit: initialFeedCount,
+	})
+	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
+		return err
+	}
+	for i := len(tt) - 1; i >= 0; i-- {
+		ch <- mod.handleStatus(tt[i])
+	}
+
+	s, err := mod.client.StreamingHashtag(context.Background(), token, false)
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		for {
+			select {
+			case <-mod.SigChan:
+				return
+			case item := <-s:
+				mod.handleStreamEvent(item, ch)
+			}
+		}
+	}()
+
+	return nil
+}
+
 // LoadConversation loads a message conversation
 func (mod *Account) LoadConversation(id string) ([]accounts.MessageEvent, error) {
 	var r []accounts.MessageEvent
@@ -290,7 +326,11 @@ func parseBody(s *mastodon.Status) string {
 	body = r.ReplaceAllString(body, "$1...")
 
 	for _, u := range s.Mentions {
-		body = strings.Replace(body, u.URL, fmt.Sprintf("telephant://user/%s", u.ID), -1)
+		body = strings.Replace(body, u.URL, fmt.Sprintf("telephant://mastodon/user/%s", u.ID), -1)
+	}
+	for _, t := range s.Tags {
+		r = regexp.MustCompile("<a href=\"(.[^\"]*)/tags/" + t.Name + "\"")
+		body = r.ReplaceAllString(body, "<a href=\"telephant://mastodon/tag/"+t.Name+"\"")
 	}
 	return body
 

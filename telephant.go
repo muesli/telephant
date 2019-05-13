@@ -191,6 +191,25 @@ func loadAccount(id string) {
 	}
 }
 
+// tag
+func tag(token string) {
+	model := NewMessageModel(nil)
+	evchan := make(chan interface{})
+	go handleEvents(evchan, model)
+
+	log.Println("Hashtag:", token)
+	if err := tc.Tag(token, evchan); err != nil {
+		accountBridge.SetError(err.Error())
+		log.Println("Error retrieving hashtag:", err)
+		return
+	}
+
+	var pane = NewPane(nil)
+	pane.Name = "Tag: #" + token
+	pane.Model = model
+	paneModel.AddPane(pane)
+}
+
 // closePane closes a pane
 func closePane(idx int64) {
 	fmt.Println("Closing pane", idx)

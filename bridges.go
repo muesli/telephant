@@ -20,6 +20,7 @@ type UIBridge struct {
 	_ func(id string, follow bool)         `slot:"followButton"`
 	_ func(id string)                      `slot:"loadConversation"`
 	_ func(id string)                      `slot:"loadAccount"`
+	_ func(token string)                   `slot:"tag"`
 
 	_ func(idx int64) `slot:"closePane"`
 
@@ -104,6 +105,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectFollowButton(follow)
 	uiBridge.ConnectLoadConversation(loadConversation)
 	uiBridge.ConnectLoadAccount(loadAccount)
+	uiBridge.ConnectTag(tag)
 	uiBridge.ConnectClosePane(closePane)
 
 	profileBridge = NewProfileBridge(nil)

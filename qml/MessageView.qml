@@ -218,9 +218,15 @@ ColumnLayout {
                     opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.4 : 1.0
                     onLinkActivated: function(link) {
                         if (link.startsWith("telephant://")) {
-                            var us = link.split("/")
-                            uiBridge.loadAccount(us[us.length-1])
-                            accountPopup.open()
+                            var us = link.substr(12, link.length).split("/")
+
+                            if (us[1] == "user") {
+                                uiBridge.loadAccount(us[us.length-1])
+                                accountPopup.open()
+                            }
+                            if (us[1] == "tag") {
+                                uiBridge.tag(us[us.length-1])
+                            }
                         } else
                             Qt.openUrlExternally(link)
                     }
