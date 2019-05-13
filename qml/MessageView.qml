@@ -34,6 +34,8 @@ ColumnLayout {
     property bool liked: model.liked
     property bool shared: model.shared
 
+    clip: true
+
     RowLayout {
         visible: forward && !like
         Item {
@@ -89,6 +91,7 @@ ColumnLayout {
 
     RowLayout {
         spacing: 8
+        Layout.fillWidth: true
 
         ImageButton {
             id: image
@@ -163,19 +166,17 @@ ColumnLayout {
             spacing: 4
 
             RowLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-
+                width: parent.width
                 Label {
                     id: namelabel
                     font.pointSize: 11
                     font.bold: true
                     text: name
                     textFormat: Text.PlainText
-                    Layout.fillWidth: true
-                    Layout.maximumWidth: implicitWidth + 1
                     elide: Text.ElideRight
                     opacity: (accountBridge.username == author && (like || forward)) ? 0.4 : 1.0
+                    Layout.fillWidth: true
+                    Layout.maximumWidth: implicitWidth + 1
 
                     MouseArea {
                         anchors.fill: parent
@@ -192,17 +193,9 @@ ColumnLayout {
                     opacity: 0.4
                     text: "@" + author
                     textFormat: Text.PlainText
+                    elide: Text.ElideRight
                     Layout.fillWidth: true
                     Layout.maximumWidth: implicitWidth + 1
-                    elide: Text.ElideRight
-
-                    MouseArea {
-                        anchors.fill: parent
-                        cursorShape: Qt.PointingHandCursor
-                        onClicked: {
-                            Qt.openUrlExternally(authorurl)
-                        }
-                    }
 
                     MouseArea {
                         anchors.fill: parent
@@ -214,10 +207,11 @@ ColumnLayout {
                     }
                 }
                 Label {
-                    anchors.right: parent.right
                     font.pointSize: 9
                     opacity: 0.4
                     text: createdat
+                    Layout.fillWidth: true
+                    horizontalAlignment: Text.AlignRight
 
                     MouseArea {
                         anchors.fill: parent
@@ -229,6 +223,7 @@ ColumnLayout {
                 }
             }
             ColumnLayout {
+                Layout.fillWidth: true
                 visible: !followed
                 // width: parent.width
                 // anchors.bottom: parent.bottom
@@ -283,8 +278,7 @@ ColumnLayout {
                 }
 
                 RowLayout {
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                    Layout.fillWidth: true
                     RowLayout {
                         visible: reply
                         Label {
@@ -304,10 +298,14 @@ ColumnLayout {
                     }
 
                     RowLayout {
+                        width: parent.width
                         visible: showActionButtons && !(accountBridge.username == author && (like || forward))
-                        anchors.right: parent.right
                         Layout.topMargin: 4
 
+                        Item {
+                            // spacer item
+                            Layout.fillWidth: true
+                        }
                         ImageButton {
                             source: "images/reply.png"
                             animationDuration: 200
