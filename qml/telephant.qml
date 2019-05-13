@@ -120,114 +120,93 @@ ApplicationWindow {
     }
 
     header: ToolBar {
-        /* MouseArea {
-            anchors.fill: parent;
-            property variant clickPos: "1,1"
-
-            onPressed: {
-                clickPos  = Qt.point(mouse.x,mouse.y)
+        ToolButton {
+            id: drawerButton
+            contentItem: Image {
+                fillMode: Image.Pad
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                source: "images/drawer.png"
             }
-
-            onPositionChanged: {
-                var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-                mainWindow.x += delta.x;
-                mainWindow.y += delta.y;
+            onClicked: {
+                drawer.open()
             }
-        } */
+        }
 
         RowLayout {
-            spacing: 20
-            anchors.fill: parent
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 8
 
-            ToolButton {
-                id: drawerButton
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "images/drawer.png"
-                }
-                onClicked: {
-                    drawer.open()
-                }
-            }
-
-            RowLayout {
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-                spacing: 8
-                Layout.topMargin: 4
-                Layout.bottomMargin: 4
-
-                ImageButton {
-                    opacity: 1.0
-                    rounded: true
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: accountBridge.avatar
-                    sourceSize.height: 32
-                    onClicked: function() {
-                        Qt.openUrlExternally(accountBridge.profileURL)
-                    }
-                }
-
-                Label {
-                    id: titleLabel
-                    text: accountBridge.username
-                    font.pointSize: 13
-                    elide: Label.ElideRight
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Qt.AlignVCenter
+            ImageButton {
+                opacity: 1.0
+                rounded: true
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                source: accountBridge.avatar
+                sourceSize.height: 32
+                onClicked: function() {
+                    Qt.openUrlExternally(accountBridge.profileURL)
                 }
             }
 
-            ToolButton {
-                id: postButton
-                anchors.right: menuButton.left
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "images/post.png"
-                }
-                onClicked: {
-                    messagePopup.message = null
-                    messagePopup.open()
-                }
+            Label {
+                id: titleLabel
+                text: accountBridge.username
+                font.pointSize: 13
+                elide: Label.ElideRight
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Qt.AlignVCenter
             }
-            ToolButton {
-                id: menuButton
-                Layout.alignment: Qt.AlignRight
-                contentItem: Image {
-                    fillMode: Image.Pad
-                    horizontalAlignment: Image.AlignHCenter
-                    verticalAlignment: Image.AlignVCenter
-                    source: "images/menu.png"
+        }
+
+        ToolButton {
+            id: postButton
+            anchors.right: menuButton.left
+            contentItem: Image {
+                fillMode: Image.Pad
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                source: "images/post.png"
+            }
+            onClicked: {
+                messagePopup.message = null
+                messagePopup.open()
+            }
+        }
+        ToolButton {
+            anchors.right: parent.right
+            id: menuButton
+            Layout.alignment: Qt.AlignRight
+            contentItem: Image {
+                fillMode: Image.Pad
+                horizontalAlignment: Image.AlignHCenter
+                verticalAlignment: Image.AlignVCenter
+                source: "images/menu.png"
+            }
+            onClicked: optionsMenu.open()
+
+            Menu {
+                id: optionsMenu
+                x: parent.width - width
+                transformOrigin: Menu.TopRight
+
+                MenuItem {
+                    text: qsTr("Connect")
+                    onTriggered: function() {
+                        connectDialog.reset()
+                        connectDialog.open()
+                    }
                 }
-                onClicked: optionsMenu.open()
-
-                Menu {
-                    id: optionsMenu
-                    x: parent.width - width
-                    transformOrigin: Menu.TopRight
-
-                    MenuItem {
-                        text: qsTr("Connect")
-                        onTriggered: function() {
-                            connectDialog.reset()
-                            connectDialog.open()
-                        }
-                    }
-                    /*
-                    MenuItem {
-                        text: qsTr("Settings")
-                        onTriggered: settingsDialog.open()
-                    }
-                    */
-                    MenuItem {
-                        text: qsTr("About")
-                        onTriggered: aboutDialog.open()
-                    }
+                /*
+                MenuItem {
+                    text: qsTr("Settings")
+                    onTriggered: settingsDialog.open()
+                }
+                */
+                MenuItem {
+                    text: qsTr("About")
+                    onTriggered: aboutDialog.open()
                 }
             }
         }
