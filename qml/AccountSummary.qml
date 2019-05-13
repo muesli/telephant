@@ -8,7 +8,6 @@ ColumnLayout {
 
     RowLayout {
         id: accountLayout
-        anchors.horizontalCenter: parent.horizontalCenter
         spacing: 16
         Layout.topMargin: 16
         Layout.leftMargin: 16
@@ -58,7 +57,9 @@ ColumnLayout {
         }
     }
     RowLayout {
-        anchors.horizontalCenter: parent.horizontalCenter
+        Item {
+            Layout.fillWidth: true
+        }
         Label {
             Layout.alignment: Qt.AlignLeft
             text: "<b>" + profile.posts + "</b> Posts"
@@ -76,6 +77,9 @@ ColumnLayout {
             text: "<b>" + profile.followerCount + "</b> Followers"
             font.pointSize: 10
             elide: Label.ElideRight
+        }
+        Item {
+            Layout.fillWidth: true
         }
     }
 }
