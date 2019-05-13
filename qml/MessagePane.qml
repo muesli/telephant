@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 ColumnLayout {
+    property int idx
     property string name
     property variant messageModel
 
@@ -30,6 +31,24 @@ ColumnLayout {
                 font.pointSize: 15
                 font.weight: Font.Light
                 verticalAlignment: Label.AlignVCenter
+            }
+            Label {
+                z: 3
+                anchors.fill: parent
+                anchors.rightMargin: 24
+                text: "Close"
+                font.pointSize: 10
+                font.weight: Font.Light
+                horizontalAlignment: Label.AlignRight
+                verticalAlignment: Label.AlignVCenter
+
+                MouseArea {
+                    anchors.fill: parent
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: {
+                        uiBridge.closePane(idx)
+                    }
+                }
             }
 
             Pane {

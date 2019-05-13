@@ -333,5 +333,6 @@ func (m *MessageModel) editMessage(row int, param string) {
 */
 
 func init() {
+	MessageModel_QRegisterMetaType()
 	Message_QRegisterMetaType()
 }

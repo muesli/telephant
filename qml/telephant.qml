@@ -270,27 +270,23 @@ ApplicationWindow {
 
     GridLayout {
         id: maingrid
-        columns: 2
+        // columns: accountBridge.panes.length
         rows: 1
         anchors.fill: parent
         anchors.margins: 0
         columnSpacing: 0
         rowSpacing: 0
 
-        MessagePane {
-            Layout.row: 0
-            Layout.column: 0
+        Repeater {
+            model: accountBridge.panes
+            MessagePane {
+                Layout.row: 0
+                Layout.column: index
 
-            name: qsTr("Messages")
-            messageModel: accountBridge.messages
-        }
-
-        MessagePane {
-            Layout.row: 0
-            Layout.column: 1
-
-            name: qsTr("Notifications")
-            messageModel: accountBridge.notifications
+                idx: index
+                name: model.panename
+                messageModel: model.msgmodel
+            }
         }
     }
 }

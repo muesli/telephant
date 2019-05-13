@@ -493,7 +493,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 
 // handleStreamEvent handles incoming events and dispatches them to the correct
 // handler.
-func (mod *Account) handleStreamEvent(item interface{}) {
+func (mod *Account) handleStreamEvent(item interface{}, ch chan interface{}) {
 	// spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
 	// log.Println("Message received:", spw.Sdump(item))
 
@@ -502,7 +502,7 @@ func (mod *Account) handleStreamEvent(item interface{}) {
 		mod.handleNotification(e.Notification)
 
 	case *mastodon.UpdateEvent:
-		mod.evchan <- mod.handleStatus(e.Status)
+		ch <- mod.handleStatus(e.Status)
 	}
 }
 
@@ -518,7 +518,7 @@ func (mod *Account) handleStream() {
 		case <-mod.SigChan:
 			return
 		case item := <-timeline:
-			mod.handleStreamEvent(item)
+			mod.handleStreamEvent(item, mod.evchan)
 		}
 	}
 }

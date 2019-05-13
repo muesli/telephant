@@ -17,8 +17,10 @@ import (
 
 var (
 	config               Config
+	notificationModel    = NewMessageModel(nil)
 	conversationModel    = NewMessageModel(nil)
 	accountMessagesModel = NewMessageModel(nil)
+	paneModel            = NewPaneModel(nil)
 )
 
 // connectToInstance registers an app with the instance and retrieves an
@@ -189,6 +191,12 @@ func loadAccount(id string) {
 	}
 }
 
+// closePane closes a pane
+func closePane(idx int64) {
+	fmt.Println("Closing pane", idx)
+	paneModel.RemovePane(int(idx))
+}
+
 // runApp loads and executes the QML UI
 func runApp(config Config) {
 	var theme string
@@ -217,8 +225,21 @@ func runApp(config Config) {
 // setupMastodon starts a new Mastodon client and sets up event handling & models for it
 func setupMastodon(config Account) {
 	tc = mastodon.NewAccount(config.Instance, config.Token, config.ClientID, config.ClientSecret)
+
 	postModel := NewMessageModel(nil)
-	notificationModel := NewMessageModel(nil)
+	{
+		var pane = NewPane(nil)
+		pane.Name = "Messages"
+		pane.Model = postModel
+		paneModel.AddPane(pane)
+	}
+	{
+		var pane = NewPane(nil)
+		pane.Name = "Notifications"
+		pane.Model = notificationModel
+		paneModel.AddPane(pane)
+	}
+	accountBridge.SetPanes(paneModel)
 
 	accountBridge.SetUsername("Connecting...")
 	accountBridge.SetMessages(postModel)
@@ -227,7 +248,7 @@ func setupMastodon(config Account) {
 	accountBridge.SetAccountMessages(accountMessagesModel)
 
 	evchan := make(chan interface{})
-	go handleEvents(evchan, postModel, notificationModel)
+	go handleEvents(evchan, postModel)
 	go tc.Run(evchan)
 }
 

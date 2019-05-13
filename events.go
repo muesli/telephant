@@ -51,7 +51,7 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 }
 
 // handleEvents handles incoming events and puts them into the right models
-func handleEvents(eventsIn chan interface{}, messages *MessageModel, notifications *MessageModel) {
+func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 	for {
 		ev, ok := <-eventsIn
 		if !ok {
@@ -96,7 +96,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel, notificatio
 				*/
 
 				if event.Notification {
-					notifications.AddMessage(p)
+					notificationModel.AddMessage(p)
 				} else {
 					messages.AddMessage(p)
 				}

@@ -21,6 +21,8 @@ type UIBridge struct {
 	_ func(id string)                      `slot:"loadConversation"`
 	_ func(id string)                      `slot:"loadAccount"`
 
+	_ func(idx int64) `slot:"closePane"`
+
 	_ func(object *core.QObject) `slot:"registerToGo"`
 	_ func(objectName string)    `slot:"deregisterToGo"`
 }
@@ -41,6 +43,7 @@ type AccountBridge struct {
 
 	_ string `property:"error"`
 
+	_ *core.QAbstractListModel `property:"panes"`
 	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`
 	_ *core.QAbstractListModel `property:"conversation"`
@@ -101,6 +104,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectFollowButton(follow)
 	uiBridge.ConnectLoadConversation(loadConversation)
 	uiBridge.ConnectLoadAccount(loadAccount)
+	uiBridge.ConnectClosePane(closePane)
 
 	profileBridge = NewProfileBridge(nil)
 
