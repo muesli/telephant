@@ -14,7 +14,7 @@ ApplicationWindow {
         color: Material.color(Material.Grey, Material.Shade900)
     }
 
-    minimumWidth: 600
+    minimumWidth: 364
     minimumHeight: 590
 
     Component.onCompleted: {

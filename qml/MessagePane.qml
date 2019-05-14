@@ -12,7 +12,7 @@ ColumnLayout {
     MessageList {
         Layout.fillHeight: true
         Layout.fillWidth: true
-        Layout.minimumWidth: 320
+        Layout.minimumWidth: 360
 
         id: messagePane
         anchors.margins: 16
