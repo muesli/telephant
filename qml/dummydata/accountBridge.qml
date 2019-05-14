@@ -10,5 +10,5 @@ QtObject {
     property int followerCount: 42
     property int postSizeLimit: 500
 
-    property ListModel messages: messageModel
+    property ListModel panes: paneModel
 }
