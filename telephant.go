@@ -244,18 +244,21 @@ func runApp(config Config) {
 // setupMastodon starts a new Mastodon client and sets up event handling & models for it
 func setupMastodon(config Account) {
 	tc = mastodon.NewAccount(config.Instance, config.Token, config.ClientID, config.ClientSecret)
-
 	postModel := NewMessageModel(nil)
+
+	// Notifications model must the first model to be added
+	// It will always be displayed right-most
 	{
 		var pane = NewPane(nil)
-		pane.Name = "Messages"
-		pane.Model = postModel
+		pane.Name = "Notifications"
+		pane.Sticky = true
+		pane.Model = notificationModel
 		paneModel.AddPane(pane)
 	}
 	{
 		var pane = NewPane(nil)
-		pane.Name = "Notifications"
-		pane.Model = notificationModel
+		pane.Name = "Messages"
+		pane.Model = postModel
 		paneModel.AddPane(pane)
 	}
 	accountBridge.SetPanes(paneModel)

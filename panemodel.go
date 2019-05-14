@@ -7,6 +7,7 @@ import (
 // Model Roles
 const (
 	PaneName = int(core.Qt__UserRole) + 1<<iota
+	PaneSticky
 	MsgModel
 )
 
@@ -27,14 +28,16 @@ type PaneModel struct {
 type Pane struct {
 	core.QObject
 
-	Name  string
-	Model *MessageModel
+	Name   string
+	Sticky bool
+	Model  *MessageModel
 }
 
 func (m *PaneModel) init() {
 	m.SetRoles(map[int]*core.QByteArray{
-		PaneName: core.NewQByteArray2("panename", -1),
-		MsgModel: core.NewQByteArray2("msgmodel", -1),
+		PaneName:   core.NewQByteArray2("panename", -1),
+		PaneSticky: core.NewQByteArray2("panesticky", -1),
+		MsgModel:   core.NewQByteArray2("msgmodel", -1),
 	})
 
 	m.ConnectData(m.data)
@@ -72,6 +75,10 @@ func (m *PaneModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		{
 			return core.NewQVariant14(p.Name)
 		}
+	case PaneSticky:
+		{
+			return core.NewQVariant11(p.Sticky)
+		}
 	case MsgModel:
 		{
 			return p.Model.ToVariant()
@@ -97,8 +104,14 @@ func (m *PaneModel) roleNames() map[int]*core.QByteArray {
 }
 
 func (m *PaneModel) addPane(p *Pane) {
-	m.BeginInsertRows(core.NewQModelIndex(), len(m.Panes()), len(m.Panes()))
-	m.SetPanes(append(m.Panes(), p))
+	// add pane before the last pane, which is always the notifications pane
+	if len(m.Panes()) == 0 {
+		m.BeginInsertRows(core.NewQModelIndex(), 0, 0)
+		m.SetPanes(append(m.Panes(), p))
+	} else {
+		m.BeginInsertRows(core.NewQModelIndex(), len(m.Panes())-1, len(m.Panes())-1)
+		m.SetPanes(append(m.Panes()[:len(m.Panes())-1], p, m.Panes()[len(m.Panes())-1]))
+	}
 	m.EndInsertRows()
 }
 

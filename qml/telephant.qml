@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import QtQuick.Controls 2.1
+import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
@@ -14,7 +14,7 @@ ApplicationWindow {
         color: Material.color(Material.Grey, Material.Shade900)
     }
 
-    minimumWidth: 790
+    minimumWidth: 600
     minimumHeight: 590
 
     Component.onCompleted: {
@@ -268,24 +268,33 @@ ApplicationWindow {
         }
     }
 
-    GridLayout {
-        id: maingrid
-        // columns: accountBridge.panes.length
-        rows: 1
+    ScrollView {
+        id: mainscroll
         anchors.fill: parent
-        anchors.margins: 0
-        columnSpacing: 0
-        rowSpacing: 0
+        ScrollBar.horizontal.policy: contentWidth > width ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+        contentWidth: Math.max(maingrid.implicitWidth, width)
 
-        Repeater {
-            model: accountBridge.panes
-            MessagePane {
-                Layout.row: 0
-                Layout.column: index
+        GridLayout {
+            id: maingrid
+            // columns: accountBridge.panes.length
+            rows: 1
+            anchors.fill: parent
+            anchors.margins: 0
+            columnSpacing: 0
+            rowSpacing: 0
 
-                idx: index
-                name: model.panename
-                messageModel: model.msgmodel
+            Repeater {
+                model: accountBridge.panes
+                MessagePane {
+                    Layout.row: 0
+                    Layout.column: index
+
+                    idx: index
+                    name: model.panename
+                    sticky: model.panesticky
+                    messageModel: model.msgmodel
+                }
             }
         }
     }

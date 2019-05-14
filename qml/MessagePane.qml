@@ -6,11 +6,13 @@ import QtQuick.Layouts 1.3
 ColumnLayout {
     property int idx
     property string name
+    property bool sticky
     property variant messageModel
 
     MessageList {
         Layout.fillHeight: true
         Layout.fillWidth: true
+        Layout.minimumWidth: 320
 
         id: messagePane
         anchors.margins: 16
@@ -33,6 +35,7 @@ ColumnLayout {
                 verticalAlignment: Label.AlignVCenter
             }
             Label {
+                visible: !sticky
                 z: 3
                 anchors.fill: parent
                 anchors.rightMargin: 24
