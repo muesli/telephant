@@ -214,11 +214,12 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: mainWindow.width / 3
+        width: drawerLayout.implicitWidth + 16
         height: mainWindow.height
         dragMargin: 0
 
         ColumnLayout {
+            id: drawerLayout
             anchors.fill: parent
 
             AccountSummary {
