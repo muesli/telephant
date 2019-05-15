@@ -54,7 +54,7 @@ Popup {
                     Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
 
                     font.pointSize: 12
-                    text: accountBridge.postSizeLimit - messageArea.text.length
+                    text: accountBridge.postSizeLimit - uiBridge.postLimitCount(messageArea.text)
                 }
 
                 Button {

@@ -376,6 +376,13 @@ func (mod *Account) LoadAccount(id string) (accounts.ProfileEvent, []accounts.Me
 	return p, r, nil
 }
 
+func (mod *Account) PostLimitCount(body string) int {
+	r := regexp.MustCompile(`https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,63}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)`)
+	body = r.ReplaceAllString(body, strings.Repeat(" ", 23))
+
+	return len(body)
+}
+
 // parseBody cleans up a post's content.
 func parseBody(s *mastodon.Status) string {
 	body := s.Content

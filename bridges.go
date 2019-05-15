@@ -12,6 +12,8 @@ type UIBridge struct {
 	_ func(instance string) bool                 `slot:"connectButton"`
 	_ func(code string, redirectURI string) bool `slot:"authButton"`
 
+	_ func(body string) int `slot:"postLimitCount"`
+
 	_ func(replyid string, message string) `slot:"postButton"`
 	_ func(id string)                      `slot:"deleteButton"`
 	_ func(id string)                      `slot:"shareButton"`
@@ -98,6 +100,7 @@ func setupQmlBridges() {
 	uiBridge = NewUIBridge(nil)
 	uiBridge.ConnectConnectButton(connectToInstance)
 	uiBridge.ConnectAuthButton(authInstance)
+	uiBridge.ConnectPostLimitCount(postLimitCount)
 	uiBridge.ConnectPostButton(reply)
 	uiBridge.ConnectDeleteButton(deletePost)
 	uiBridge.ConnectShareButton(share)

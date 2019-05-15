@@ -72,6 +72,10 @@ func authInstance(code, redirectURI string) bool {
 	return true
 }
 
+func postLimitCount(body string) int {
+	return tc.PostLimitCount(body)
+}
+
 // reply is used to post a new message
 // if replyid is > 0, it's send as a reply
 func reply(replyid string, message string) {
