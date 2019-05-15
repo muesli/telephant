@@ -262,6 +262,7 @@ func setupMastodon(config Account) {
 
 	// Notifications model must the first model to be added
 	// It will always be displayed right-most
+	paneModel.clear()
 	{
 		var pane = NewPane(nil)
 		pane.Name = "Notifications"
