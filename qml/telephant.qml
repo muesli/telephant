@@ -26,7 +26,7 @@ ApplicationWindow {
     Item {
         MessagePopup {
             id: messagePopup
-            width: mainWindow.width * 0.66
+            width: Math.min(mainWindow.width * 0.66, 500)
             // height: mainWindow.height * 0.8
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
@@ -34,7 +34,7 @@ ApplicationWindow {
 
         SharePopup {
             id: sharePopup
-            width: mainWindow.width * 0.66
+            width: Math.min(mainWindow.width * 0.66, 500)
             // height: mainWindow.height * 0.8
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
@@ -42,7 +42,7 @@ ApplicationWindow {
 
         DeletePopup {
             id: deletePopup
-            width: mainWindow.width * 0.66
+            width: Math.min(mainWindow.width * 0.66, 500)
             // height: mainWindow.height * 0.8
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
@@ -50,7 +50,7 @@ ApplicationWindow {
 
         ConversationPopup {
             id: conversationPopup
-            width: mainWindow.width * 0.8
+            width: Math.min(mainWindow.width * 0.8, 600)
             height: mainWindow.height * 0.8
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
@@ -58,7 +58,7 @@ ApplicationWindow {
 
         AccountPopup {
             id: accountPopup
-            width: mainWindow.width * 0.8
+            width: Math.min(mainWindow.width * 0.8, 600)
             height: mainWindow.height * 0.8
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
