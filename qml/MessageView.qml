@@ -297,7 +297,7 @@ ColumnLayout {
                             animationDuration: 200
                             sourceSize.height: 20
                             onClicked: function () {
-                                messagePopup.message = model
+                                messagePopup.message = message
                                 messagePopup.open()
                             }
                         }
