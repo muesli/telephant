@@ -13,6 +13,7 @@ type UIBridge struct {
 	_ func(code string, redirectURI string) bool `slot:"authButton"`
 
 	_ func(replyid string, message string) `slot:"postButton"`
+	_ func(id string)                      `slot:"deleteButton"`
 	_ func(id string)                      `slot:"shareButton"`
 	_ func(id string)                      `slot:"unshareButton"`
 	_ func(id string)                      `slot:"likeButton"`
@@ -98,6 +99,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectConnectButton(connectToInstance)
 	uiBridge.ConnectAuthButton(authInstance)
 	uiBridge.ConnectPostButton(reply)
+	uiBridge.ConnectDeleteButton(deletePost)
 	uiBridge.ConnectShareButton(share)
 	uiBridge.ConnectUnshareButton(unshare)
 	uiBridge.ConnectLikeButton(like)

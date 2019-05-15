@@ -331,6 +331,30 @@ ColumnLayout {
                                 }
                             }
                         }
+                        ImageButton {
+                            source: "images/menu.png"
+                            visible: accountBridge.username == message.author
+                            animationDuration: 200
+                            sourceSize.height: 20
+                            opacity: liked ? 1.0 : 0.3
+                            onClicked: function() {
+                                postMenu.open()
+                            }
+                            Menu {
+                                id: postMenu
+                                x: -width + parent.width
+                                y: parent.height
+                                transformOrigin: Menu.TopRight
+
+                                MenuItem {
+                                    text: qsTr("Delete")
+                                    onTriggered: function() {
+                                        deletePopup.message = message
+                                        deletePopup.open()
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

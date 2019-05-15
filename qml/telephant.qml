@@ -40,6 +40,14 @@ ApplicationWindow {
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
         }
 
+        DeletePopup {
+            id: deletePopup
+            width: mainWindow.width * 0.66
+            // height: mainWindow.height * 0.8
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
+        }
+
         ConversationPopup {
             id: conversationPopup
             width: mainWindow.width * 0.8

@@ -89,6 +89,15 @@ func reply(replyid string, message string) {
 	}
 }
 
+// deletePost deletes a post
+func deletePost(id string) {
+	log.Println("Deleting:", id)
+	if err := tc.DeletePost(id); err != nil {
+		accountBridge.SetError(err.Error())
+		log.Println("Error deleting:", err)
+	}
+}
+
 // share a post
 func share(id string) {
 	log.Println("Sharing:", id)

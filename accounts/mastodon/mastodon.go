@@ -188,6 +188,12 @@ func (mod *Account) Reply(replyid string, message string) error {
 	return err
 }
 
+// DeletePost deletes a post
+func (mod *Account) DeletePost(id string) error {
+	err := mod.client.DeleteStatus(context.Background(), mastodon.ID(id))
+	return err
+}
+
 // Share boosts a post
 func (mod *Account) Share(id string) error {
 	_, err := mod.client.Reblog(context.Background(), mastodon.ID(id))
