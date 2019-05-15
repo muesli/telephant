@@ -30,7 +30,7 @@ import QtQuick.Controls 2
 */
 MouseArea {
     id: root
-    propagateComposedEvents: true
+    // propagateComposedEvents: true
 
     property Flickable flickable
 
