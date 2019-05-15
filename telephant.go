@@ -246,6 +246,11 @@ func setupMastodon(config Account) {
 	tc = mastodon.NewAccount(config.Instance, config.Token, config.ClientID, config.ClientSecret)
 	postModel := NewMessageModel(nil)
 
+	accountBridge.SetUsername("Connecting...")
+	accountBridge.SetNotifications(notificationModel)
+	accountBridge.SetConversation(conversationModel)
+	accountBridge.SetAccountMessages(accountMessagesModel)
+
 	// Notifications model must the first model to be added
 	// It will always be displayed right-most
 	{
@@ -261,13 +266,21 @@ func setupMastodon(config Account) {
 		pane.Model = postModel
 		paneModel.AddPane(pane)
 	}
-	accountBridge.SetPanes(paneModel)
 
-	accountBridge.SetUsername("Connecting...")
-	accountBridge.SetMessages(postModel)
-	accountBridge.SetNotifications(notificationModel)
-	accountBridge.SetConversation(conversationModel)
-	accountBridge.SetAccountMessages(accountMessagesModel)
+	panes := tc.Panes()
+	for _, p := range panes {
+		model := NewMessageModel(nil)
+		evchan := make(chan interface{})
+
+		go handleEvents(evchan, model)
+		p.Stream(evchan)
+
+		var pane = NewPane(nil)
+		pane.Name = p.Title
+		pane.Model = model
+		paneModel.AddPane(pane)
+	}
+	accountBridge.SetPanes(paneModel)
 
 	evchan := make(chan interface{})
 	go handleEvents(evchan, postModel)
