@@ -22,6 +22,7 @@ type PaneModel struct {
 
 	_ func(*Pane)   `slot:"addPane"`
 	_ func(row int) `slot:"removePane"`
+	_ func()        `slot:"clear"`
 }
 
 // Pane represents a single pane
@@ -48,6 +49,7 @@ func (m *PaneModel) init() {
 
 	m.ConnectAddPane(m.addPane)
 	m.ConnectRemovePane(m.removePane)
+	m.ConnectClear(m.clear)
 }
 
 func (m *PaneModel) setData(index *core.QModelIndex, value *core.QVariant, role int) bool {
@@ -101,6 +103,12 @@ func (m *PaneModel) columnCount(parent *core.QModelIndex) int {
 
 func (m *PaneModel) roleNames() map[int]*core.QByteArray {
 	return m.Roles()
+}
+
+func (m *PaneModel) clear() {
+	m.BeginResetModel()
+	m.SetPanes([]*Pane{})
+	m.EndResetModel()
 }
 
 func (m *PaneModel) addPane(p *Pane) {
