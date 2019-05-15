@@ -68,7 +68,7 @@ ApplicationWindow {
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
             width: 340
-            height: 420
+            height: 500
         }
 
         SettingsDialog {

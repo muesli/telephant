@@ -33,7 +33,7 @@ Popup {
             Layout.alignment: Qt.AlignHCenter
             smooth: true
             source: "images/accounts/mastodon.svg"
-            sourceSize.height: 128
+            sourceSize.height: 96
         }
 
         SwipeView {
@@ -85,19 +85,37 @@ Popup {
                         anchors.margins: 16
 
                         Label {
-                            text: "<a href=\"" + settings.authURL + "\">Click here to request a new authorization code from your instance</a>"
+                            text: "You need to retrieve an authorization code from your instance:"
                             Layout.alignment: Qt.AlignCenter
                             Layout.fillWidth: true
-                            textFormat: Text.RichText
-                            onLinkActivated: Qt.openUrlExternally(link)
-                            font.pointSize: 12
                             wrapMode: Text.WordWrap
-
-                            MouseArea {
-                                anchors.fill: parent
-                                acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Label
-                                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        }
+                        TextArea {
+                            id: authURL
+                            Layout.fillWidth: true
+                            text: settings.authURL
+                            readOnly: true
+                        }
+                        RowLayout {
+                            Layout.alignment: Qt.AlignHCenter
+                            Button {
+                                highlighted: true
+                                text: qsTr("Open in Browser")
+                                onClicked: {
+                                    Qt.openUrlExternally(settings.authURL)
+                                }
                             }
+                            Button {
+                                highlighted: true
+                                text: qsTr("Copy URL")
+                                onClicked: {
+                                    authURL.selectAll()
+                                    authURL.copy()
+                                }
+                            }
+                        }
+                        Item {
+                            height: 16
                         }
 
                         TextField {
@@ -133,10 +151,6 @@ Popup {
 
             count: connectSwipeView.count
             currentIndex: connectSwipeView.currentIndex
-
-            // anchors.bottom: connectSwipeView.bottom
-            // anchors.horizontalCenter: parent.horizontalCenter
         }
-
     }
 }
