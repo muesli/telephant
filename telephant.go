@@ -16,7 +16,9 @@ import (
 )
 
 var (
-	config               Config
+	config     Config
+	configFile string
+
 	notificationModel    = NewMessageModel(nil)
 	conversationModel    = NewMessageModel(nil)
 	accountMessagesModel = NewMessageModel(nil)
@@ -68,6 +70,9 @@ func authInstance(code, redirectURI string) bool {
 	config.Account[0].ClientID = clientID
 	config.Account[0].ClientSecret = clientSecret
 	config.Account[0].Token = token
+	config.FirstRun = false
+	SaveConfig(configFile, config)
+
 	setupMastodon(config.Account[0])
 	return true
 }
@@ -323,7 +328,7 @@ func main() {
 	}
 	os.MkdirAll(configDir, 0700)
 
-	configFile, err := scope.ConfigPath("telephant.conf")
+	configFile, err = scope.ConfigPath("telephant.conf")
 	if err != nil {
 		panic(err)
 	}
