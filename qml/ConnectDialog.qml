@@ -9,7 +9,7 @@ Popup {
 
     modal: true
     focus: true
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+    closePolicy: Popup.CloseOnEscape
 
     property var reset: function() {
         connectSwipeView.currentIndex = 0
