@@ -190,7 +190,7 @@ ColumnLayout {
                     font.pointSize: 9
                     opacity: 0.4
                     text: message.createdat
-                    Layout.fillWidth: true
+                    width: implicitWidth + 1
                     horizontalAlignment: Text.AlignRight
 
                     MouseArea {
