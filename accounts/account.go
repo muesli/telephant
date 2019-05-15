@@ -20,3 +20,9 @@ type Account interface {
 	LoadConversation(id string) ([]MessageEvent, error)
 	LoadAccount(id string) (ProfileEvent, []MessageEvent, error)
 }
+
+type Pane struct {
+	Title  string
+	Sticky bool
+	Stream func(ch chan interface{}) error
+}

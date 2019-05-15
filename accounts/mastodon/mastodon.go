@@ -145,6 +145,27 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 	return nil
 }
 
+func (mod *Account) Panes() []accounts.Pane {
+	ll, err := mod.client.GetLists(context.Background())
+	if err != nil {
+		fmt.Println("Error retrieving lists:", err)
+	}
+
+	p := []accounts.Pane{}
+	for _, list := range ll {
+		// take a copy of the ID here, so the closure accesses an absolute value
+		id := string(list.ID)
+		p = append(p, accounts.Pane{
+			Title: "List: " + list.Title,
+			Stream: func(ch chan interface{}) error {
+				return mod.List(id, ch)
+			},
+		})
+	}
+
+	return p
+}
+
 // Logo returns the Mastodon logo.
 func (mod *Account) Logo() string {
 	return "mastodon.svg"
@@ -221,6 +242,42 @@ func (mod *Account) Tag(token string, ch chan interface{}) error {
 	}
 
 	s, err := mod.client.StreamingHashtag(context.Background(), token, false)
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		for {
+			select {
+			case <-mod.SigChan:
+				return
+			case item := <-s:
+				mod.handleStreamEvent(item, ch)
+			}
+		}
+	}()
+
+	return nil
+}
+
+// List starts a list stream
+func (mod *Account) List(id string, ch chan interface{}) error {
+	tt, err := mod.client.GetTimelineList(context.Background(), mastodon.ID(id), &mastodon.Pagination{
+		Limit: initialFeedCount,
+	})
+	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
+		return err
+	}
+	for i := len(tt) - 1; i >= 0; i-- {
+		ch <- mod.handleStatus(tt[i])
+	}
+
+	s, err := mod.client.StreamingList(context.Background(), mastodon.ID(id))
 	if err != nil {
 		return err
 	}
