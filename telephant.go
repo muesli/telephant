@@ -255,10 +255,15 @@ func setupMastodon(config Account) {
 	tc = mastodon.NewAccount(config.Instance, config.Token, config.ClientID, config.ClientSecret)
 	postModel := NewMessageModel(nil)
 
-	accountBridge.SetUsername("Connecting...")
+	accountBridge.SetUsername("Not connected...")
 	accountBridge.SetNotifications(notificationModel)
 	accountBridge.SetConversation(conversationModel)
 	accountBridge.SetAccountMessages(accountMessagesModel)
+	accountBridge.SetAvatar("qrc:/qml/images/telephant_logo.png")
+	accountBridge.SetPosts(0)
+	accountBridge.SetFollowCount(0)
+	accountBridge.SetFollowerCount(0)
+	accountBridge.SetPostSizeLimit(0)
 
 	// Notifications model must the first model to be added
 	// It will always be displayed right-most
