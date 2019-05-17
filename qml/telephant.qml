@@ -16,6 +16,8 @@ ApplicationWindow {
 
     minimumWidth: 364
     minimumHeight: 590
+    width: minimumWidth * 2
+    height: minimumWidth * 1.5
 
     Component.onCompleted: {
         if (settings.firstRun) {
