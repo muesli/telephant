@@ -3,6 +3,8 @@ import QtQuick.Controls 2.5
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
+import "componentCreator.js" as ComponentCreator
+
 ApplicationWindow {
     id: mainWindow
     visible: true
@@ -140,8 +142,7 @@ ApplicationWindow {
                 source: "images/post.png"
             }
             onClicked: {
-                messagePopup.message = null
-                messagePopup.open()
+                ComponentCreator.createMessagePopup(this, null).open();
             }
         }
         ToolButton {
@@ -214,8 +215,7 @@ ApplicationWindow {
                         drawer.close()
                         switch (model.sid) {
                         case 0:
-                            messagePopup.message = null
-                            messagePopup.open()
+                            ComponentCreator.createMessagePopup(this, null).open();
                             break
                         case 1:
                             Qt.quit()
