@@ -11,4 +11,5 @@ QtObject {
     property int postSizeLimit: 500
 
     property ListModel panes: paneModel
+    property string error: ""
 }
