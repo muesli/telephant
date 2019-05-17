@@ -9,6 +9,9 @@ Popup {
 
     modal: true
     // focus: true
+    width: Math.min(mainWindow.width * 0.8, 600)
+    height: mainWindow.height * 0.8
+    anchors.centerIn: mainWindow.overlay
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     Rectangle {

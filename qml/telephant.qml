@@ -26,46 +26,6 @@ ApplicationWindow {
     }
 
     Item {
-        MessagePopup {
-            id: messagePopup
-            width: Math.min(mainWindow.width * 0.66, 500)
-            // height: mainWindow.height * 0.8
-            x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
-        }
-
-        SharePopup {
-            id: sharePopup
-            width: Math.min(mainWindow.width * 0.66, 500)
-            // height: mainWindow.height * 0.8
-            x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
-        }
-
-        DeletePopup {
-            id: deletePopup
-            width: Math.min(mainWindow.width * 0.66, 500)
-            // height: mainWindow.height * 0.8
-            x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
-        }
-
-        ConversationPopup {
-            id: conversationPopup
-            width: Math.min(mainWindow.width * 0.8, 600)
-            height: mainWindow.height * 0.8
-            x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
-        }
-
-        AccountPopup {
-            id: accountPopup
-            width: Math.min(mainWindow.width * 0.8, 600)
-            height: mainWindow.height * 0.8
-            x: mainWindow.width / 2 - width / 2
-            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
-        }
-
         AboutDialog {
             id: aboutDialog
             x: (mainWindow.width - width) / 2

@@ -3,6 +3,8 @@ import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
+import "componentCreator.js" as ComponentCreator
+
 ColumnLayout {
     property var profile
 
@@ -25,7 +27,7 @@ ColumnLayout {
             onClicked: function() {
                 // Qt.openUrlExternally(profile.profileURL)
                 uiBridge.loadAccount(profile.profileID)
-                accountPopup.open()
+                ComponentCreator.createAccountPopup(this).open();
             }
         }
         ColumnLayout {

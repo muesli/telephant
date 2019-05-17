@@ -4,6 +4,8 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 import QtGraphicalEffects 1.0
 
+import "componentCreator.js" as ComponentCreator
+
 ColumnLayout {
     property bool fadeMedia
     property bool showActionButtons: true
@@ -36,7 +38,7 @@ ColumnLayout {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     uiBridge.loadAccount(message.actorid)
-                    accountPopup.open()
+                    ComponentCreator.createAccountPopup(this).open();
                 }
             }
         }
@@ -62,7 +64,7 @@ ColumnLayout {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     uiBridge.loadAccount(message.actorid)
-                    accountPopup.open()
+                    ComponentCreator.createAccountPopup(this).open();
                 }
             }
         }
@@ -85,7 +87,7 @@ ColumnLayout {
 
             onClicked: function() {
                 uiBridge.loadAccount(message.authorid)
-                accountPopup.open()
+                ComponentCreator.createAccountPopup(this).open();
             }
         }
         RowLayout {
@@ -108,7 +110,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            accountPopup.open()
+                            ComponentCreator.createAccountPopup(this).open();
                         }
                     }
                 }
@@ -124,7 +126,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            accountPopup.open()
+                            ComponentCreator.createAccountPopup(this).open();
                         }
                     }
                 }
@@ -163,7 +165,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            accountPopup.open()
+                            ComponentCreator.createAccountPopup(this).open();
                         }
                     }
                 }
@@ -182,7 +184,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            accountPopup.open()
+                            ComponentCreator.createAccountPopup(this).open();
                         }
                     }
                 }
@@ -222,7 +224,7 @@ ColumnLayout {
 
                             if (us[1] == "user") {
                                 uiBridge.loadAccount(us[us.length-1])
-                                accountPopup.open()
+                                ComponentCreator.createAccountPopup(this).open();
                             }
                             if (us[1] == "tag") {
                                 uiBridge.tag(us[us.length-1])
@@ -239,7 +241,7 @@ ColumnLayout {
 
                         onClicked: function() {
                             uiBridge.loadConversation(message.messageid)
-                            conversationPopup.open()
+                            ComponentCreator.createConversationPopup(this).open();
                         }
                     }
                 }
@@ -297,8 +299,7 @@ ColumnLayout {
                             animationDuration: 200
                             sourceSize.height: 20
                             onClicked: function () {
-                                messagePopup.message = message
-                                messagePopup.open()
+                                ComponentCreator.createMessagePopup(this, message).open();
                             }
                         }
                         ImageButton {
@@ -311,8 +312,7 @@ ColumnLayout {
                                     uiBridge.unshareButton(message.messageid)
                                     shared = false
                                 } else {
-                                    sharePopup.message = message
-                                    sharePopup.open()
+                                    ComponentCreator.createSharePopup(this, message).open();
                                 }
                             }
                         }
@@ -349,8 +349,7 @@ ColumnLayout {
                                 MenuItem {
                                     text: qsTr("Delete")
                                     onTriggered: function() {
-                                        deletePopup.message = message
-                                        deletePopup.open()
+                                        ComponentCreator.createDeletePopup(this, message).open();
                                     }
                                 }
                             }
