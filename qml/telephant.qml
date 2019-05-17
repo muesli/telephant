@@ -282,7 +282,7 @@ ApplicationWindow {
         anchors.fill: parent
         ScrollBar.horizontal.policy: contentWidth > width ? ScrollBar.AlwaysOn : ScrollBar.AlwaysOff
         ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-        contentWidth: Math.max(maingrid.implicitWidth, width)
+        contentWidth: Math.max(maingrid.implicitWidth, parent.width)
 
         GridLayout {
             id: maingrid
