@@ -71,6 +71,7 @@ ApplicationWindow {
                 }
 
                 Label {
+                    Layout.fillWidth: true
                     wrapMode: Label.Wrap
                     font.pointSize: 14
                     text: accountBridge.error
