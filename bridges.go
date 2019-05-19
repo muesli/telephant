@@ -48,7 +48,6 @@ type AccountBridge struct {
 	_ string `property:"error"`
 
 	_ *core.QAbstractListModel `property:"panes"`
-	_ *core.QAbstractListModel `property:"messages"`
 	_ *core.QAbstractListModel `property:"notifications"`
 	_ *core.QAbstractListModel `property:"conversation"`
 	_ *core.QAbstractListModel `property:"accountMessages"`
