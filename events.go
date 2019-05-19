@@ -79,6 +79,14 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 				log.Println("Error:", event.Message)
 				accountBridge.SetError(event.Message)
 			}
+		case accounts.Media:
+			{
+				log.Printf("Added attachment: %+v\n", event)
+				var p = NewAttachment(nil)
+				p.ID = event.ID
+				p.Preview = event.Preview
+				attachmentModel.AddAttachment(p)
+			}
 		case accounts.MessageEvent:
 			{
 				// spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}

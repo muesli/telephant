@@ -21,6 +21,40 @@ Popup {
         clip: true
         contentHeight: layout.height
 
+        BusyIndicator {
+            z: 1
+            id: busy
+            running: false
+            anchors.centerIn: parent
+        }
+
+        DropArea {
+            id: drop
+            anchors.fill: parent
+            enabled: true
+
+            onEntered:
+                console.log("entered")
+
+            onExited:
+                console.log("exited")
+
+            onDropped: {
+                console.log("dropped", drop.urls.length, "urls")
+
+                for (var i = 0; i < drop.urls.length; i++) {
+                    console.log(drop.urls[i])
+
+                    busy.running = true
+                    var media = uiBridge.uploadAttachment(drop.urls[i])
+                    /*if (media != '') {
+                        attachments.append({"id": media, "url": drop.urls[i]})
+                    }*/
+                }
+                drop.acceptProposedAction()
+            }
+        }
+
         ColumnLayout {
             id: layout
             width: parent.width
@@ -45,6 +79,37 @@ Popup {
                 selectByMouse: true
                 placeholderText: message != null ? qsTr("Post your reply") : qsTr("What's happening?")
                 wrapMode: TextArea.Wrap
+            }
+
+            Connections {
+                target: accountBridge.attachments
+                onRowsInserted: {
+                    busy.running = false
+                }
+                onRowsRemoved: {
+                }
+            }
+
+            Flow {
+                id: attachmentLayout
+                Layout.fillWidth: true
+                Repeater {
+                    model: accountBridge.attachments
+                    Image {
+                        smooth: true
+                        source: model.attachmentPreview
+                        sourceSize.height: 64
+
+                        MouseArea {
+                            anchors.fill: parent
+                            cursorShape: Qt.PointingHandCursor
+
+                            onClicked: function() {
+                                accountBridge.attachments.removeAttachment(index)
+                            }
+                        }
+                    }
+                }
             }
 
             RowLayout {

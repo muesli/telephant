@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/url"
 	"os"
 	"strings"
 
@@ -22,6 +23,7 @@ var (
 	notificationModel    = NewMessageModel(nil)
 	conversationModel    = NewMessageModel(nil)
 	accountMessagesModel = NewMessageModel(nil)
+	attachmentModel      = NewAttachmentModel(nil)
 	paneModel            = NewPaneModel(nil)
 )
 
@@ -84,18 +86,29 @@ func postLimitCount(body string) int {
 // reply is used to post a new message
 // if replyid is > 0, it's send as a reply
 func reply(replyid string, message string) {
+	var attachments []string
+	for _, v := range attachmentModel.Attachments() {
+		attachments = append(attachments, v.ID)
+	}
+
 	var err error
 	if replyid != "" {
-		log.Println("Sending reply to:", replyid, message)
-		err = tc.Reply(replyid, message)
+		log.Println("Sending reply to:", replyid, attachments, message)
+		err = tc.Reply(replyid, message, attachments)
 	} else {
-		log.Println("Posting:", message)
-		err = tc.Post(message)
+		log.Println("Posting:", attachments, message)
+		err = tc.Post(message, attachments)
 	}
 	if err != nil {
 		accountBridge.SetError(err.Error())
 		log.Println("Error posting:", err)
 	}
+}
+
+func uploadAttachment(pathurl string) {
+	u, _ := url.ParseRequestURI(pathurl)
+	log.Println("Uploding:", u.Path)
+	tc.UploadAttachment(u.Path)
 }
 
 // deletePost deletes a post
@@ -266,6 +279,7 @@ func setupMastodon(config Account) {
 
 	accountBridge.SetUsername("Not connected...")
 	accountBridge.SetNotifications(notificationModel)
+	accountBridge.SetAttachments(attachmentModel)
 	accountBridge.SetConversation(conversationModel)
 	accountBridge.SetAccountMessages(accountMessagesModel)
 	accountBridge.SetAvatar("qrc:/qml/images/telephant_logo.png")

@@ -21,6 +21,7 @@ type UIBridge struct {
 	_ func(id string)                      `slot:"likeButton"`
 	_ func(id string)                      `slot:"unlikeButton"`
 	_ func(id string, follow bool)         `slot:"followButton"`
+	_ func(url string)                     `slot:"uploadAttachment"`
 	_ func(id string)                      `slot:"loadConversation"`
 	_ func(id string)                      `slot:"loadAccount"`
 	_ func(token string)                   `slot:"tag"`
@@ -49,6 +50,7 @@ type AccountBridge struct {
 
 	_ *core.QAbstractListModel `property:"panes"`
 	_ *core.QAbstractListModel `property:"notifications"`
+	_ *core.QAbstractListModel `property:"attachments"`
 	_ *core.QAbstractListModel `property:"conversation"`
 	_ *core.QAbstractListModel `property:"accountMessages"`
 }
@@ -111,6 +113,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectLikeButton(like)
 	uiBridge.ConnectUnlikeButton(unlike)
 	uiBridge.ConnectFollowButton(follow)
+	uiBridge.ConnectUploadAttachment(uploadAttachment)
 	uiBridge.ConnectLoadConversation(loadConversation)
 	uiBridge.ConnectLoadAccount(loadAccount)
 	uiBridge.ConnectTag(tag)

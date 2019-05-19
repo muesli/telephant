@@ -172,20 +172,49 @@ func (mod *Account) Logo() string {
 }
 
 // Post posts a new status
-func (mod *Account) Post(message string) error {
-	_, err := mod.client.PostStatus(context.Background(), &mastodon.Toot{
+func (mod *Account) Post(message string, attachments []string) error {
+	t := &mastodon.Toot{
 		Status: message,
-	})
+	}
+	for _, v := range attachments {
+		t.MediaIDs = append(t.MediaIDs, mastodon.ID(v))
+	}
+
+	_, err := mod.client.PostStatus(context.Background(), t)
 	return err
 }
 
 // Reply posts a new reply-status
-func (mod *Account) Reply(replyid string, message string) error {
-	_, err := mod.client.PostStatus(context.Background(), &mastodon.Toot{
+func (mod *Account) Reply(replyid string, message string, attachments []string) error {
+	t := &mastodon.Toot{
 		Status:      message,
 		InReplyToID: mastodon.ID(replyid),
-	})
+	}
+	for _, v := range attachments {
+		t.MediaIDs = append(t.MediaIDs, mastodon.ID(v))
+	}
+
+	_, err := mod.client.PostStatus(context.Background(), t)
 	return err
+}
+
+func (mod *Account) UploadAttachment(url string) {
+	go func() {
+		a, err := mod.client.UploadMedia(context.Background(), url)
+		if err != nil {
+			ev := accounts.ErrorEvent{
+				Message:  err.Error(),
+				Internal: false,
+			}
+			mod.evchan <- ev
+			return
+		}
+
+		mod.evchan <- accounts.Media{
+			ID:      string(a.ID),
+			Preview: a.PreviewURL,
+		}
+	}()
 }
 
 // DeletePost deletes a post

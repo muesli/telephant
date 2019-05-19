@@ -36,6 +36,7 @@ type Follow struct {
 
 // Media describes a media item.
 type Media struct {
+	ID      string
 	Preview string
 	URL     string
 }

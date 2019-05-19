@@ -4,6 +4,8 @@ function createMessagePopup(parent, model) {
         "message": model
     })
 
+    accountBridge.attachments.clear()
+
     if (popup == null) {
         console.log("Error creating MessagePopup")
     }
