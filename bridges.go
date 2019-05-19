@@ -78,6 +78,10 @@ type ConfigBridge struct {
 	_ string `property:"redirectURL"`
 	_ string `property:"theme"`
 	_ string `property:"style"`
+	_ int    `property:"positionX"`
+	_ int    `property:"positionY"`
+	_ int    `property:"width"`
+	_ int    `property:"height"`
 }
 
 var (

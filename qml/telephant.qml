@@ -18,13 +18,28 @@ ApplicationWindow {
 
     minimumWidth: 364
     minimumHeight: 590
-    width: minimumWidth * 2
-    height: minimumWidth * 1.5
+    width: settings.width > 0 ? settings.width : minimumWidth * 2
+    height: settings.height > 0 ? settings.height : minimumWidth * 1.5
+    Binding on x {
+        when: settings.positionX > 0
+        value: settings.positionX
+    }
+    Binding on y {
+        when: settings.positionY > 0
+        value: settings.positionY
+    }
 
     Component.onCompleted: {
         if (settings.firstRun) {
             connectDialog.open()
         }
+    }
+    onClosing: function() {
+        console.log("Closing mainWindow")
+        settings.positionX = mainWindow.x
+        settings.positionY = mainWindow.y
+        settings.width = mainWindow.width
+        settings.height = mainWindow.height
     }
 
     Item {

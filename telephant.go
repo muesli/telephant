@@ -342,6 +342,10 @@ func main() {
 	configBridge.SetTheme(config.Theme)
 	configBridge.SetStyle(config.Style)
 	configBridge.SetFirstRun(config.FirstRun)
+	configBridge.SetPositionX(config.PositionX)
+	configBridge.SetPositionY(config.PositionY)
+	configBridge.SetWidth(config.Width)
+	configBridge.SetHeight(config.Height)
 
 	setupMastodon(config.Account[0])
 	runApp(config)
@@ -349,6 +353,10 @@ func main() {
 	// save config
 	config.Theme = configBridge.Theme()
 	config.Style = configBridge.Style()
+	config.PositionX = configBridge.PositionX()
+	config.PositionY = configBridge.PositionY()
+	config.Width = configBridge.Width()
+	config.Height = configBridge.Height()
 	config.FirstRun = false
 	SaveConfig(configFile, config)
 }

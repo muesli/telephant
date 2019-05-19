@@ -17,10 +17,14 @@ type Account struct {
 
 // Config holds telephant's config settings
 type Config struct {
-	Account  []Account
-	Theme    string
-	Style    string
-	FirstRun bool
+	Account   []Account
+	Theme     string
+	Style     string
+	PositionX int
+	PositionY int
+	Width     int
+	Height    int
+	FirstRun  bool
 }
 
 // LoadConfig returns the current config as a Config struct
