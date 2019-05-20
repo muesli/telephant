@@ -246,22 +246,30 @@ ColumnLayout {
                     }
                 }
 
-                ImageButton {
-                    visible: message.mediapreview != ""
-                    Layout.topMargin: 4
+                Flow {
+                    id: flowgrid
+                    visible: message.mediapreview.length > 0
                     Layout.fillWidth: true
-                    // Layout.maximumWidth: sourceSize.width
-                    Layout.maximumHeight: (accountBridge.username == message.author && (message.like || message.forward)) ?
-                        Math.min(384 / 3, paintedHeight + 8) :
-                        Math.min(384, paintedHeight + 8)
-                    source: message.mediapreview
-                    fillMode: Image.PreserveAspectFit
-                    verticalAlignment: Image.AlignBottom
-                    autoTransform: true
-                    opacity: fadeMedia ? 0.2 : 1.0
+                    Layout.topMargin: 4
 
-                    onClicked: function() {
-                        Qt.openUrlExternally(message.mediaurl)
+                    property int cols: message.mediapreview.length >= 2 ? Math.min(message.mediapreview.length, width / 140) : 1
+                    spacing: 4
+
+                    Repeater {
+                        model: message.mediapreview
+
+                        ImageButton {
+                            source: modelData
+                            height: Math.min(sourceSize.height, flowgrid.width / 2)
+                            width: Math.min(sourceSize.width, flowgrid.width / flowgrid.cols - flowgrid.spacing)
+                            fillMode: Image.PreserveAspectCrop
+                            autoTransform: true
+                            opacity: fadeMedia ? 0.2 : 1.0
+
+                            onClicked: function() {
+                                Qt.openUrlExternally(message.mediaurl[index])
+                            }
+                        }
                     }
                 }
 

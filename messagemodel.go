@@ -82,8 +82,8 @@ type Message struct {
 	Followed      bool
 	Following     bool
 	FollowedBy    bool
-	MediaPreview  string
-	MediaURL      string
+	MediaPreview  []string
+	MediaURL      []string
 	Editing       bool
 	Liked         bool
 	Shared        bool
@@ -248,11 +248,11 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		}
 	case MediaPreview:
 		{
-			return core.NewQVariant14(p.MediaPreview)
+			return core.NewQVariant19(p.MediaPreview)
 		}
 	case MediaURL:
 		{
-			return core.NewQVariant14(p.MediaURL)
+			return core.NewQVariant19(p.MediaURL)
 		}
 	case Editing:
 		{

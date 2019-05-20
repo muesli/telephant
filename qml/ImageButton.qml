@@ -13,7 +13,7 @@ Image {
     horizontalAlignment: Image.AlignHCenter
     verticalAlignment: Image.AlignVCenter
     opacity: 0.3
-    width: 0
+    // width: 0
     smooth: true
 
     states: State {
