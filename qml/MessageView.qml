@@ -263,6 +263,8 @@ ColumnLayout {
                             height: Math.min(sourceSize.height, flowgrid.width / 2)
                             width: Math.min(sourceSize.width, flowgrid.width / flowgrid.cols - flowgrid.spacing)
                             fillMode: Image.PreserveAspectCrop
+                            verticalAlignment: Image.AlignVCenter
+                            horizontalAlignment: Image.AlignHCenter
                             autoTransform: true
                             opacity: fadeMedia ? 0.2 : 1.0
 
