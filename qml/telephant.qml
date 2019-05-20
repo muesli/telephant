@@ -128,7 +128,7 @@ ApplicationWindow {
 
             ImageButton {
                 opacity: 1.0
-                rounded: true
+                roundness: 250
                 horizontalAlignment: Image.AlignHCenter
                 verticalAlignment: Image.AlignVCenter
                 source: accountBridge.avatar

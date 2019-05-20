@@ -82,7 +82,6 @@ ColumnLayout {
             width: 48
             fillMode: Image.PreserveAspectCrop
             roundness: 4
-            rounded: true
             opacity: 1.0
 
             onClicked: function() {
@@ -267,6 +266,7 @@ ColumnLayout {
                             horizontalAlignment: Image.AlignHCenter
                             autoTransform: true
                             opacity: fadeMedia ? 0.2 : 1.0
+                            roundness: 4
 
                             onClicked: function() {
                                 Qt.openUrlExternally(message.mediaurl[index])

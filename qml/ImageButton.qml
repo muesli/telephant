@@ -5,15 +5,13 @@ import QtGraphicalEffects 1.0
 Image {
     id: img
     property var onClicked: function () {}
-    property bool rounded: false
-    property int roundness: 250
+    property int roundness: 0
     property int animationDuration: 500
 
     fillMode: Image.Pad
     horizontalAlignment: Image.AlignHCenter
     verticalAlignment: Image.AlignVCenter
     opacity: 0.3
-    // width: 0
     smooth: true
 
     states: State {
@@ -42,15 +40,13 @@ Image {
         onClicked: parent.onClicked()
     }
 
-    layer.enabled: rounded
+    layer.enabled: roundness > 0
     layer.effect: OpacityMask {
         maskSource: Item {
             width: img.width
             height: img.height
             Rectangle {
-                anchors.centerIn: parent
-                width: Math.min(img.width, img.height)
-                height: width
+                anchors.fill: parent
                 radius: roundness
             }
         }
