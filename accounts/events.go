@@ -51,6 +51,7 @@ type MessageEvent struct {
 	Like         bool
 	Followed     bool
 	Notification bool
+	Notify       bool
 	Post         Post
 	Follow       Follow
 	Media        []Media

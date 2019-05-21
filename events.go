@@ -107,6 +107,34 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 
 				if event.Notification {
 					notificationModel.AddMessage(p)
+
+					if event.Notify {
+						title := "Telephant"
+						body := p.Body
+						if p.Mention {
+							body = fmt.Sprintf("%s mentioned you", p.Author)
+						}
+						if p.Followed {
+							body = fmt.Sprintf("%s followed you", p.Actor)
+						}
+						if p.Like {
+							body = fmt.Sprintf("%s liked your post", p.Actor)
+						}
+						if p.Forward {
+							body = fmt.Sprintf("%s shared your post", p.Actor)
+						}
+
+						/*
+							if body == "" {
+								spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
+								log.Println("Unknown notification received:", spw.Sdump(event))
+							}
+						*/
+
+						if body != "" {
+							notify(title, body)
+						}
+					}
 				} else {
 					messages.AddMessage(p)
 				}

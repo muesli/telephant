@@ -123,7 +123,7 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 		return err
 	}
 	for i := len(nn) - 1; i >= 0; i-- {
-		mod.handleNotification(nn[i])
+		mod.handleNotification(nn[i], false)
 	}
 
 	tt, err := mod.client.GetTimelineHome(context.Background(), &mastodon.Pagination{
@@ -448,13 +448,14 @@ func parseBody(s *mastodon.Status) string {
 }
 
 // handleNotification handles incoming notification events.
-func (mod *Account) handleNotification(n *mastodon.Notification) {
+func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 	var ev accounts.MessageEvent
 	if n.Status != nil {
 		ev = accounts.MessageEvent{
 			Account:      "mastodon",
 			Name:         "post",
 			Notification: true,
+			Notify:       notify,
 
 			Post: accounts.Post{
 				MessageID:  string(n.Status.ID),
@@ -536,6 +537,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification) {
 			Account:      "mastodon",
 			Name:         "follow",
 			Notification: true,
+			Notify:       notify,
 			Followed:     true,
 			Follow: accounts.Follow{
 				Account:    n.Account.Acct,
@@ -638,7 +640,7 @@ func (mod *Account) handleStreamEvent(item interface{}, ch chan interface{}) {
 
 	switch e := item.(type) {
 	case *mastodon.NotificationEvent:
-		mod.handleNotification(e.Notification)
+		mod.handleNotification(e.Notification, true)
 
 	case *mastodon.UpdateEvent:
 		ch <- mod.handleStatus(e.Status)
