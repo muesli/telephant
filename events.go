@@ -3,54 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
-	"strings"
 
 	"github.com/muesli/telephant/accounts"
 )
-
-// messageFromEvent creates a new Message object from an incoming MessageEvent.
-func messageFromEvent(event accounts.MessageEvent) *Message {
-	var p = NewMessage(nil)
-	p.MessageID = event.Post.MessageID
-	p.PostURL = event.Post.URL
-	p.Name = event.Post.AuthorName
-	p.Author = event.Post.Author
-	p.AuthorURL = event.Post.AuthorURL
-	p.AuthorID = event.Post.AuthorID
-	p.Avatar = event.Post.Avatar
-	p.Body = strings.TrimSpace(event.Post.Body)
-	p.CreatedAt = event.Post.CreatedAt
-	p.Reply = event.Reply
-	p.ReplyToID = event.Post.ReplyToID
-	p.ReplyToAuthor = event.Post.ReplyToAuthor
-	p.Forward = event.Forward
-	p.Mention = event.Mention
-	p.Like = event.Like
-	p.Followed = event.Followed
-	p.Actor = event.Post.Actor
-	p.ActorName = event.Post.ActorName
-	p.ActorID = event.Post.ActorID
-	p.Liked = event.Post.Liked
-	p.Shared = event.Post.Shared
-	if len(event.Media) > 0 {
-		for _, v := range event.Media {
-			p.MediaPreview = append(p.MediaPreview, v.Preview)
-			p.MediaURL = append(p.MediaURL, v.URL)
-		}
-	}
-
-	if p.Followed {
-		p.Actor = event.Follow.Account
-		p.ActorName = event.Follow.Name
-		p.Avatar = event.Follow.Avatar
-		p.AuthorURL = event.Follow.ProfileURL
-		p.AuthorID = event.Follow.ProfileID
-		p.Following = event.Follow.Following
-		p.FollowedBy = event.Follow.FollowedBy
-	}
-
-	return p
-}
 
 // handleEvents handles incoming events and puts them into the right models
 func handleEvents(eventsIn chan interface{}, messages *MessageModel) {

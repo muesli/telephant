@@ -53,40 +53,9 @@ type MessageModel struct {
 
 	_ func(*Message) `slot:"addMessage"`
 	_ func(*Message) `slot:"appendMessage"`
-	_ func(row int)  `slot:"removeMessage"`
+	_ func(int)      `slot:"removeMessage"`
+	_ func(string)   `slot:"removeMessageID"`
 	_ func()         `slot:"clear"`
-}
-
-// Message represents a single message
-type Message struct {
-	core.QObject
-
-	Name          string
-	MessageID     string
-	PostURL       string
-	Author        string
-	AuthorURL     string
-	AuthorID      string
-	Avatar        string
-	Body          string
-	CreatedAt     time.Time
-	Actor         string
-	ActorName     string
-	ActorID       string
-	Reply         bool
-	ReplyToID     string
-	ReplyToAuthor string
-	Forward       bool
-	Mention       bool
-	Like          bool
-	Followed      bool
-	Following     bool
-	FollowedBy    bool
-	MediaPreview  []string
-	MediaURL      []string
-	Editing       bool
-	Liked         bool
-	Shared        bool
 }
 
 func (m *MessageModel) init() {
@@ -161,6 +130,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	}
 
 	var p = m.Messages()[len(m.Messages())-1-index.Row()]
+	if p == nil {
+		return core.NewQVariant()
+	}
+
 	switch role {
 	case Name:
 		{
@@ -294,6 +267,7 @@ func (m *MessageModel) clear() {
 
 func (m *MessageModel) addMessage(p *Message) {
 	m.BeginInsertRows(core.NewQModelIndex(), 0, 0)
+	addMessage(m, p)
 	m.SetMessages(append(m.Messages(), p))
 	m.EndInsertRows()
 
@@ -304,6 +278,7 @@ func (m *MessageModel) addMessage(p *Message) {
 
 func (m *MessageModel) appendMessage(p *Message) {
 	m.BeginInsertRows(core.NewQModelIndex(), len(m.Messages()), len(m.Messages()))
+	addMessage(m, p)
 	m.SetMessages(append([]*Message{p}, m.Messages()...))
 	m.EndInsertRows()
 }
@@ -311,8 +286,19 @@ func (m *MessageModel) appendMessage(p *Message) {
 func (m *MessageModel) removeMessage(row int) {
 	trow := len(m.Messages()) - 1 - row
 	m.BeginRemoveRows(core.NewQModelIndex(), row, row)
+	removeMessage(m, m.Messages()[trow])
 	m.SetMessages(append(m.Messages()[:trow], m.Messages()[trow+1:]...))
 	m.EndRemoveRows()
+}
+
+func (m *MessageModel) removeMessageID(id string) {
+	for idx, v := range m.Messages() {
+		if v.MessageID == id {
+			trow := len(m.Messages()) - 1 - idx
+			m.removeMessage(trow)
+			break
+		}
+	}
 }
 
 func (m *MessageModel) updateMessageTime() {
