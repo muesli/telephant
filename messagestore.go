@@ -96,7 +96,7 @@ func deleteMessage(id string) {
 	mutex.RUnlock()
 
 	for _, v := range ref {
-		v.RemoveMessageID(id)
+		// v.RemoveMessageID(id)
 		for idx, m := range v.Messages() {
 			if m.MessageID == id {
 				trow := len(v.Messages()) - 1 - idx
