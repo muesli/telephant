@@ -112,16 +112,16 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 						title := "Telephant"
 						body := p.Body
 						if p.Mention {
-							body = fmt.Sprintf("%s mentioned you", p.Author)
+							body = fmt.Sprintf("%s mentioned you", p.Name)
 						}
 						if p.Followed {
-							body = fmt.Sprintf("%s followed you", p.Actor)
+							body = fmt.Sprintf("%s followed you", p.ActorName)
 						}
 						if p.Like {
-							body = fmt.Sprintf("%s liked your post", p.Actor)
+							body = fmt.Sprintf("%s liked your post", p.ActorName)
 						}
 						if p.Forward {
-							body = fmt.Sprintf("%s shared your post", p.Actor)
+							body = fmt.Sprintf("%s shared your post", p.ActorName)
 						}
 
 						/*
