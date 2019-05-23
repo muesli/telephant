@@ -644,6 +644,14 @@ func (mod *Account) handleStreamEvent(item interface{}, ch chan interface{}) {
 
 	case *mastodon.UpdateEvent:
 		ch <- mod.handleStatus(e.Status)
+
+	case *mastodon.DeleteEvent:
+		mod.evchan <- accounts.DeleteEvent{
+			ID: string(e.ID),
+		}
+
+	default:
+		fmt.Printf("Unknown event: %+v\n", item)
 	}
 }
 

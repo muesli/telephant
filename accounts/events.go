@@ -84,6 +84,10 @@ type LoginEvent struct {
 	PostSizeLimit int64
 }
 
+type DeleteEvent struct {
+	ID string
+}
+
 // ErrorEvent describes an error that occurred.
 type ErrorEvent struct {
 	Message  string

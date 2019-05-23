@@ -44,6 +44,10 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 				p.Preview = event.Preview
 				attachmentModel.AddAttachment(p)
 			}
+		case accounts.DeleteEvent:
+			{
+				deleteMessage(event.ID)
+			}
 		case accounts.MessageEvent:
 			{
 				// spw := &spew.ConfigState{Indent: "  ", DisableCapacities: true, DisablePointerAddresses: true}
