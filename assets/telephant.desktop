@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=telephant
+Comment=A lightweight but modern Mastodon client
+Exec=telephant
+Icon=telephant
+Type=Application
+Categories=Network;Qt;
+StartupWMClass=telephant
+Terminal=false
