@@ -20,7 +20,7 @@ A lightweight but modern Mastodon client, written in Go & QML.
 
 ### Packages & Installers
 
-- Arch Linux: [telephant-git AUR](https://aur.archlinux.org/packages/telephant-git/)
+- Arch Linux: [telephant-git](https://aur.archlinux.org/packages/telephant-git/)
 - [Linux Static 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Linux_64bit)
 - [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Windows_64bit.exe)
 
