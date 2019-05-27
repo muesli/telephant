@@ -20,8 +20,9 @@ A lightweight but modern Mastodon client, written in Go & QML.
 
 ### Packages & Installers
 
-- [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Windows_64bit.exe)
+- Arch Linux: [telephant-git AUR](https://aur.archlinux.org/packages/telephant-git/)
 - [Linux Static 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Linux_64bit)
+- [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1/telephant_0.1pre_Windows_64bit.exe)
 
 ### From Source
 
@@ -39,14 +40,12 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
     apt-get --no-install-recommends install build-essential libglib2.0-dev libglu1-mesa-dev libpulse-dev
     apt-get --no-install-recommends install libqt*5-dev qt*5-dev qt*5-doc-html qml-module-qtquick*
 
-#### Qt Bindings
-
-    export QT_PKG_CONFIG=true
-    go get -u -v github.com/therecipe/qt/cmd/...
     $(go env GOPATH)/bin/qtsetup -test=false
 
 #### Building Telephant
 
+    export QT_PKG_CONFIG=true
+    go get -u -v -tags=no_env github.com/therecipe/qt/cmd/...
     go get -d -u -v github.com/muesli/telephant
     cd $(go env GOPATH)/src/github.com/muesli/telephant
     $(go env GOPATH)/bin/qtdeploy build desktop .
