@@ -493,6 +493,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 
 	case "reblog":
 		ev.Forward = true
+		ev.Post.MessageID = n.Account.Acct + "-share-" + ev.Post.MessageID
 		ev.Post.Author = n.Status.Account.Acct
 		ev.Post.AuthorName = n.Status.Account.DisplayName
 		ev.Post.AuthorURL = n.Status.Account.URL
@@ -513,7 +514,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 
 	case "favourite":
 		ev.Like = true
-
+		ev.Post.MessageID = n.Account.Acct + "-like-" + ev.Post.MessageID
 		ev.Post.Author = n.Status.Account.Acct
 		ev.Post.AuthorName = n.Status.Account.DisplayName
 		ev.Post.AuthorURL = n.Status.Account.URL
