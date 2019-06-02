@@ -12,7 +12,7 @@ A lightweight but modern Mastodon client, written in Go & QML.
 - [x] Linux/macOS/Windows (Android & iOS should be working, but aren't tested yet)
 - [x] Media previews
 - [x] Shortened URL resolving
-- [ ] System notifications
+- [x] System notifications
 - [ ] Multiple accounts (work-in-progress)
 - [ ] Support for more networks
 
