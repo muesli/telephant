@@ -7,6 +7,8 @@ import "time"
 type Post struct {
 	MessageID     string
 	Body          string
+	Sensitive     bool
+	Warning       string
 	Author        string
 	AuthorURL     string
 	AuthorName    string

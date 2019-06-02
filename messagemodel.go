@@ -22,6 +22,8 @@ const (
 	AuthorID
 	Avatar
 	Body
+	Sensitive
+	Warning
 	CreatedAt
 	Actor
 	ActorName
@@ -68,6 +70,8 @@ func (m *MessageModel) init() {
 		AuthorID:      core.NewQByteArray2("authorid", -1),
 		Avatar:        core.NewQByteArray2("avatar", -1),
 		Body:          core.NewQByteArray2("body", -1),
+		Sensitive:     core.NewQByteArray2("sensitive", -1),
+		Warning:       core.NewQByteArray2("warning", -1),
 		CreatedAt:     core.NewQByteArray2("createdat", -1),
 		Actor:         core.NewQByteArray2("actor", -1),
 		ActorName:     core.NewQByteArray2("actorname", -1),
@@ -166,6 +170,14 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case Body:
 		{
 			return core.NewQVariant14(p.Body)
+		}
+	case Sensitive:
+		{
+			return core.NewQVariant11(p.Sensitive)
+		}
+	case Warning:
+		{
+			return core.NewQVariant14(p.Warning)
 		}
 	case CreatedAt:
 		{

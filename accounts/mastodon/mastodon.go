@@ -460,6 +460,8 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 			Post: accounts.Post{
 				MessageID:  string(n.Status.ID),
 				Body:       parseBody(n.Status),
+				Sensitive:  n.Status.Sensitive,
+				Warning:    n.Status.SpoilerText,
 				Author:     n.Account.Acct,
 				AuthorName: n.Account.DisplayName,
 				AuthorURL:  n.Account.URL,
@@ -575,6 +577,8 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		Post: accounts.Post{
 			MessageID:  string(s.ID),
 			Body:       parseBody(s),
+			Sensitive:  s.Sensitive,
+			Warning:    s.SpoilerText,
 			Author:     s.Account.Acct,
 			AuthorName: s.Account.DisplayName,
 			AuthorURL:  s.Account.URL,

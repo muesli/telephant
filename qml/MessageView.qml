@@ -9,6 +9,7 @@ import "componentCreator.js" as ComponentCreator
 ColumnLayout {
     property bool fadeMedia
     property bool showActionButtons: true
+    property bool showSensitiveContent: false
     property var message: model
 
     property bool following: message.following
@@ -210,7 +211,25 @@ ColumnLayout {
                 // anchors.bottom: parent.bottom
                 spacing: 4
                 Label {
-                    visible: message.body.length > 0
+                    visible: message.sensitive && message.warning.length > 0
+                    text: message.warning
+                    font.pointSize: 11
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+                }
+                Button {
+                    visible: message.sensitive && !showSensitiveContent
+                    Layout.alignment: Qt.AlignHCenter
+                    highlighted: true
+                    text: qsTr("Show Content")
+
+                    onClicked: {
+                        showSensitiveContent = !showSensitiveContent
+                    }
+                }
+
+                Label {
+                    visible: message.body.length > 0 && (!message.sensitive || showSensitiveContent)
                     text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + message.body
                     textFormat: Text.RichText
                     font.pointSize: 11
@@ -247,7 +266,7 @@ ColumnLayout {
 
                 Flow {
                     id: flowgrid
-                    visible: message.mediapreview.length > 0
+                    visible: message.mediapreview.length > 0 && (!message.sensitive || showSensitiveContent)
                     Layout.fillWidth: true
                     Layout.topMargin: 4
 

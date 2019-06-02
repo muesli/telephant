@@ -24,6 +24,8 @@ type Message struct {
 	AuthorID      string
 	Avatar        string
 	Body          string
+	Sensitive     bool
+	Warning       string
 	CreatedAt     time.Time
 	Actor         string
 	ActorName     string
@@ -139,6 +141,8 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 		p.AuthorID = event.Post.AuthorID
 		p.Avatar = event.Post.Avatar
 		p.Body = strings.TrimSpace(event.Post.Body)
+		p.Sensitive = event.Post.Sensitive
+		p.Warning = event.Post.Warning
 		p.CreatedAt = event.Post.CreatedAt
 		p.ReplyToID = event.Post.ReplyToID
 		p.ReplyToAuthor = event.Post.ReplyToAuthor
