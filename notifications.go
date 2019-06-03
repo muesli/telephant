@@ -14,10 +14,3 @@ func notify(title string, body string) {
 		fmt.Println("Error sending notification:", err)
 	}
 }
-
-func init() {
-	err := beeep.Beep(beeep.DefaultFreq, beeep.DefaultDuration)
-	if err != nil {
-		fmt.Println("Error initializing notifications:", err)
-	}
-}
