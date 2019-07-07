@@ -60,6 +60,54 @@ Follow the build instructions above, but instead of the last command, run:
 
 ![telephant Screenshot](/assets/screenshot.png)
 
+### Fully dockerized build
+
+A community-created dockerized build exists. Its advantage is you don't need to get the dependencies yourself or mess up a machine with it
+
+#### Usage:
+
+##### Prebuilt container image
+If you want to do a fresh build of telephant on an AMD64-machine, just run this docker command:
+```bash
+docker pull cryptkiddie2/telephant-builder:latest
+docker run -v /location/you/want/the/build/on/your/machine/in/:/result -it cryptkiddie2/telephant-builder:latest
+```
+
+Remember to change /location/you/want/the/build/on/your/machine/in/ to your needs but keep :/result as-is.
+
+The docker container will then fetch telephant from github and build it in a very short time
+
+##### Build an own docker image
+
+If you don't the image creator or dockerhub or want to build telephant on another processor architecture (i368, arm) this way is for you.
+The disadvantage is the long time it takes to install all required dependencies.
+
+Run those commands to create you own builder-image
+
+```bash
+cd YOUR_WORKING_DIRECTORY
+git clone https://github.com/CryptKid/telephant-docker/
+cd telephant-docker
+docker build . -t YOUR_IMAGE_NAME
+```
+
+then you can run as many builds as you want using 
+
+```bash
+docker run -v /location/you/want/the/build/on/your/machine/in/:/result -it YOUR_IMAGE_NAME
+```
+
+Replace the the keywords in UPPERCASE above with values of you choice.
+
+Examples values:
+
+| keyword                  | value                                |
+| ------------------------ | ------------------------------------ |
+| YOUR\_WORKING\_DIRECTORY | ~/builds/                            |
+| YOUR\_IMAGE\_NAME        | cryptkiddie2/telephant-builder:local | 
+
+Repository for docker-build related issues is [here](https://github.com/CryptKid/telephant-docker)
+
 ## Development
 
 [![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/telephant)
