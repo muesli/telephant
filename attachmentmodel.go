@@ -72,11 +72,11 @@ func (m *AttachmentModel) data(index *core.QModelIndex, role int) *core.QVariant
 	switch role {
 	case AttachmentID:
 		{
-			return core.NewQVariant14(p.ID)
+			return core.NewQVariant1(p.ID)
 		}
 	case AttachmentPreview:
 		{
-			return core.NewQVariant14(p.Preview)
+			return core.NewQVariant1(p.Preview)
 		}
 
 	default:

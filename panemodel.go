@@ -75,11 +75,11 @@ func (m *PaneModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	switch role {
 	case PaneName:
 		{
-			return core.NewQVariant14(p.Name)
+			return core.NewQVariant1(p.Name)
 		}
 	case PaneSticky:
 		{
-			return core.NewQVariant11(p.Sticky)
+			return core.NewQVariant1(p.Sticky)
 		}
 	case MsgModel:
 		{

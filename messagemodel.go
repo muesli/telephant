@@ -141,115 +141,115 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	switch role {
 	case Name:
 		{
-			return core.NewQVariant14(p.Name)
+			return core.NewQVariant1(p.Name)
 		}
 	case MessageID:
 		{
-			return core.NewQVariant14(p.MessageID)
+			return core.NewQVariant1(p.MessageID)
 		}
 	case PostURL:
 		{
-			return core.NewQVariant14(p.PostURL)
+			return core.NewQVariant1(p.PostURL)
 		}
 	case Author:
 		{
-			return core.NewQVariant14(p.Author)
+			return core.NewQVariant1(p.Author)
 		}
 	case AuthorURL:
 		{
-			return core.NewQVariant14(p.AuthorURL)
+			return core.NewQVariant1(p.AuthorURL)
 		}
 	case AuthorID:
 		{
-			return core.NewQVariant14(p.AuthorID)
+			return core.NewQVariant1(p.AuthorID)
 		}
 	case Avatar:
 		{
-			return core.NewQVariant14(p.Avatar)
+			return core.NewQVariant1(p.Avatar)
 		}
 	case Body:
 		{
-			return core.NewQVariant14(p.Body)
+			return core.NewQVariant1(p.Body)
 		}
 	case Sensitive:
 		{
-			return core.NewQVariant11(p.Sensitive)
+			return core.NewQVariant1(p.Sensitive)
 		}
 	case Warning:
 		{
-			return core.NewQVariant14(p.Warning)
+			return core.NewQVariant1(p.Warning)
 		}
 	case CreatedAt:
 		{
-			return core.NewQVariant14(humanize.Time(p.CreatedAt))
+			return core.NewQVariant1(humanize.Time(p.CreatedAt))
 		}
 	case Actor:
 		{
-			return core.NewQVariant14(p.Actor)
+			return core.NewQVariant1(p.Actor)
 		}
 	case ActorName:
 		{
-			return core.NewQVariant14(p.ActorName)
+			return core.NewQVariant1(p.ActorName)
 		}
 	case ActorID:
 		{
-			return core.NewQVariant14(p.ActorID)
+			return core.NewQVariant1(p.ActorID)
 		}
 	case Reply:
 		{
-			return core.NewQVariant11(p.Reply)
+			return core.NewQVariant1(p.Reply)
 		}
 	case ReplyToID:
 		{
-			return core.NewQVariant14(p.ReplyToID)
+			return core.NewQVariant1(p.ReplyToID)
 		}
 	case ReplyToAuthor:
 		{
-			return core.NewQVariant14(p.ReplyToAuthor)
+			return core.NewQVariant1(p.ReplyToAuthor)
 		}
 	case Forward:
 		{
-			return core.NewQVariant11(p.Forward)
+			return core.NewQVariant1(p.Forward)
 		}
 	case Mention:
 		{
-			return core.NewQVariant11(p.Mention)
+			return core.NewQVariant1(p.Mention)
 		}
 	case Like:
 		{
-			return core.NewQVariant11(p.Like)
+			return core.NewQVariant1(p.Like)
 		}
 	case Followed:
 		{
-			return core.NewQVariant11(p.Followed)
+			return core.NewQVariant1(p.Followed)
 		}
 	case Following:
 		{
-			return core.NewQVariant11(p.Following)
+			return core.NewQVariant1(p.Following)
 		}
 	case FollowedBy:
 		{
-			return core.NewQVariant11(p.FollowedBy)
+			return core.NewQVariant1(p.FollowedBy)
 		}
 	case MediaPreview:
 		{
-			return core.NewQVariant19(p.MediaPreview)
+			return core.NewQVariant1(p.MediaPreview)
 		}
 	case MediaURL:
 		{
-			return core.NewQVariant19(p.MediaURL)
+			return core.NewQVariant1(p.MediaURL)
 		}
 	case Editing:
 		{
-			return core.NewQVariant11(p.Editing)
+			return core.NewQVariant1(p.Editing)
 		}
 	case Liked:
 		{
-			return core.NewQVariant11(p.Liked)
+			return core.NewQVariant1(p.Liked)
 		}
 	case Shared:
 		{
-			return core.NewQVariant11(p.Shared)
+			return core.NewQVariant1(p.Shared)
 		}
 
 	default:
