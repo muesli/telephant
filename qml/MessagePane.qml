@@ -27,30 +27,27 @@ ColumnLayout {
 
             Label {
                 z: 3
-                anchors.fill: parent
-                anchors.leftMargin: 8
                 text: name
                 font.pointSize: 15
                 font.weight: Font.Light
                 verticalAlignment: Label.AlignVCenter
             }
-            Label {
+            TextButton {
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 8
+                anchors.rightMargin: 24
+                anchors.bottomMargin: 4
                 visible: !sticky
                 z: 3
-                anchors.fill: parent
-                anchors.rightMargin: 24
                 text: "Close"
                 font.pointSize: 10
                 font.weight: Font.Light
-                horizontalAlignment: Label.AlignRight
                 verticalAlignment: Label.AlignVCenter
 
-                MouseArea {
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        uiBridge.closePane(idx)
-                    }
+                onClicked: function() {
+                    uiBridge.closePane(idx)
                 }
             }
 
