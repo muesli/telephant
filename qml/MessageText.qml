@@ -11,13 +11,27 @@ TextEdit
     readOnly: true
     persistentSelection: true
     selectionColor: Material.accent
+    textFormat: Text.RichText
+
+    onLinkActivated: function(link) {
+        if (link.startsWith("telephant://")) {
+            var us = link.substr(12, link.length).split("/")
+            if (us[1] == "user") {
+                uiBridge.loadAccount(us[us.length-1])
+                ComponentCreator.createAccountPopup(this).open();
+            }
+            if (us[1] == "tag") {
+                uiBridge.tag(us[us.length-1])
+            }
+        } else
+            Qt.openUrlExternally(link)
+    }
 
     MouseArea {
         anchors.fill: parent
         // we don't want to eat clicks on the Label
         acceptedButtons: Qt.RightButton
-        cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.IBeamCursor
-        hoverEnabled: true
+        cursorShape: label.hoveredLink ? Qt.PointingHandCursor : Qt.IBeamCursor
         propagateComposedEvents: true
 
         onReleased: {

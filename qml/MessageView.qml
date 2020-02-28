@@ -236,27 +236,11 @@ ColumnLayout {
                 MessageText {
                     visible: message.body.length > 0 && (!message.sensitive || showSensitiveContent)
                     text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + message.body
-                    textFormat: Text.RichText
                     font.pointSize: 11
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.4 : 1.0
                     color: "white"
-
-                    onLinkActivated: function(link) {
-                        if (link.startsWith("telephant://")) {
-                            var us = link.substr(12, link.length).split("/")
-
-                            if (us[1] == "user") {
-                                uiBridge.loadAccount(us[us.length-1])
-                                ComponentCreator.createAccountPopup(this).open();
-                            }
-                            if (us[1] == "tag") {
-                                uiBridge.tag(us[us.length-1])
-                            }
-                        } else
-                            Qt.openUrlExternally(link)
-                    }
 
                     onClicked: function() {
                             uiBridge.loadConversation(message.messageid)
