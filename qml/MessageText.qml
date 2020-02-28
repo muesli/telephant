@@ -13,7 +13,6 @@ TextEdit
     selectionColor: Material.accent
 
     MouseArea {
-        id: ma1
         anchors.fill: parent
         // we don't want to eat clicks on the Label
         acceptedButtons: Qt.RightButton

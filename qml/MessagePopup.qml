@@ -4,9 +4,9 @@ import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
 
 Popup {
-    property var message
-
     id: popup
+
+    property var message
 
     modal: true
     focus: true
@@ -134,11 +134,13 @@ Popup {
                     onClicked: {
                         popup.close()
                         var msg = messageArea.text
-                        var msgid = "";
+                        var msgid = ""
+
                         if (message != null) {
                             msgid = message.messageid
                             msg = "@" + message.author + " " + msg
                         }
+
                         uiBridge.postButton(msgid, msg)
                         messageArea.clear()
                     }

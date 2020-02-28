@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"time"
 
 	humanize "github.com/dustin/go-humanize"
@@ -9,7 +10,7 @@ import (
 
 // maxMessageCount defines the max amount of messages stored in a model
 const (
-	maxMessageCount = 150
+	maxMessageCount = 80
 )
 
 // Model Roles
@@ -314,6 +315,7 @@ func (m *MessageModel) removeMessageID(id string) {
 }
 
 func (m *MessageModel) updateMessageTime() {
+	fmt.Println("Updating timelines...")
 	if len(m.Messages()) > 0 {
 		var fIndex = m.Index(0, 0, core.NewQModelIndex())
 		var lIndex = m.Index(len(m.Messages())-1, 0, core.NewQModelIndex())
