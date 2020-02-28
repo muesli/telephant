@@ -188,6 +188,10 @@ ColumnLayout {
                         }
                     }
                 }
+                Item {
+                    // spacer item
+                    Layout.fillWidth: true
+                }
                 Label {
                     font.pointSize: 9
                     opacity: 0.4
