@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
+import QtMultimedia 5.9
 
 Popup {
     property var url
@@ -10,18 +11,55 @@ Popup {
 
     modal: true
     focus: true
-    height: image.height + 16
-    width: image.width + 16
+    height: mediaItem.height + 16
+    width: mediaItem.width + 16
     anchors.centerIn: mainWindow.overlay
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-    Image {
-        id: image
-        height: Math.min(sourceSize.height, mainWindow.height * 0.8)
-        width: Math.min(sourceSize.width, mainWindow.width * 0.8)
-        anchors.centerIn: parent
-        smooth: true
-        fillMode: Image.PreserveAspectFit
-        source: url
+    Item {
+        id: mediaItem
+
+        Image {
+            id: image
+            height: Math.min(sourceSize.height, mainWindow.height * 0.8)
+            width: Math.min(sourceSize.width, mainWindow.width * 0.8)
+            anchors.centerIn: parent
+            smooth: true
+            fillMode: Image.PreserveAspectFit
+            source: visible ? url : ""
+            visible: !(url.endsWith(".webm") || url.endsWith(".mp4"))
+        }
+
+        Video {
+            id: video
+            // height: Math.min(sourceSize.height, mainWindow.height * 0.8)
+            // width: Math.min(sourceSize.width, mainWindow.width * 0.8)
+            width: metaData.resolution ? Math.min(metaData.resolution.width, mainWindow.width * 0.8) : 0
+            height: metaData.resolution ? Math.min(metaData.resolution.height, mainWindow.height * 0.8) : 0
+            autoLoad: true
+            autoPlay: false
+            loops: MediaPlayer.Infinite
+            anchors.centerIn: parent
+            fillMode: VideoOutput.PreserveAspectFit
+            source: visible ? url : ""
+            visible: url.endsWith(".webm") || url.endsWith(".mp4")
+
+            onStatusChanged: {
+                if(status == MediaPlayer.Loaded)
+                    video.play()
+            }
+
+/*
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (video.playbackState != MediaPlayer.PausedState) {
+                        video.play()
+                    } else {
+                        video.pause()
+                    }
+                }
+            }
+*/
+        }
     }
 }
