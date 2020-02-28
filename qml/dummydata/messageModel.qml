@@ -139,6 +139,9 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
     }
 
     ListElement {

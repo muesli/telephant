@@ -23,6 +23,9 @@ type Post struct {
 	CreatedAt     time.Time
 	Liked         bool
 	Shared        bool
+	RepliesCount  int64
+	LikesCount    int64
+	SharesCount   int64
 }
 
 // Follow describes an incoming follow event.

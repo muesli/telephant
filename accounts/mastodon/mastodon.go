@@ -460,17 +460,21 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 			Notify:       notify,
 
 			Post: accounts.Post{
-				MessageID:  string(n.Status.ID),
-				Body:       parseBody(n.Status),
-				Sensitive:  n.Status.Sensitive,
-				Warning:    n.Status.SpoilerText,
-				Author:     n.Account.Acct,
-				AuthorName: n.Account.DisplayName,
-				AuthorURL:  n.Account.URL,
-				AuthorID:   string(n.Account.ID),
-				Avatar:     n.Account.Avatar,
-				CreatedAt:  n.CreatedAt,
-				URL:        n.Status.URL,
+				MessageID:    string(n.Status.ID),
+				Body:         parseBody(n.Status),
+				Sensitive:    n.Status.Sensitive,
+				Warning:      n.Status.SpoilerText,
+				Author:       n.Account.Acct,
+				AuthorName:   n.Account.DisplayName,
+				AuthorURL:    n.Account.URL,
+				AuthorID:     string(n.Account.ID),
+				Avatar:       n.Account.Avatar,
+				CreatedAt:    n.CreatedAt,
+				PostID:       string(n.Status.ID),
+				URL:          n.Status.URL,
+				RepliesCount: n.Status.RepliesCount,
+				LikesCount:   n.Status.FavouritesCount,
+				SharesCount:  n.Status.ReblogsCount,
 			},
 		}
 		ev.Post.Liked, _ = n.Status.Favourited.(bool)
@@ -577,17 +581,21 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		Account: "mastodon",
 		Name:    "post",
 		Post: accounts.Post{
-			MessageID:  string(s.ID),
-			Body:       parseBody(s),
-			Sensitive:  s.Sensitive,
-			Warning:    s.SpoilerText,
-			Author:     s.Account.Acct,
-			AuthorName: s.Account.DisplayName,
-			AuthorURL:  s.Account.URL,
-			AuthorID:   string(s.Account.ID),
-			Avatar:     s.Account.Avatar,
-			CreatedAt:  s.CreatedAt,
-			URL:        s.URL,
+			MessageID:    string(s.ID),
+			Body:         parseBody(s),
+			Sensitive:    s.Sensitive,
+			Warning:      s.SpoilerText,
+			Author:       s.Account.Acct,
+			AuthorName:   s.Account.DisplayName,
+			AuthorURL:    s.Account.URL,
+			AuthorID:     string(s.Account.ID),
+			Avatar:       s.Account.Avatar,
+			CreatedAt:    s.CreatedAt,
+			PostID:       string(s.ID),
+			URL:          s.URL,
+			RepliesCount: s.RepliesCount,
+			LikesCount:   s.FavouritesCount,
+			SharesCount:  s.ReblogsCount,
 		},
 	}
 	ev.Post.Liked, _ = s.Favourited.(bool)
@@ -625,6 +633,9 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 
 		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
 		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)
+		ev.Post.RepliesCount = s.Reblog.RepliesCount
+		ev.Post.LikesCount = s.Reblog.FavouritesCount
+		ev.Post.SharesCount = s.Reblog.ReblogsCount
 
 		if strings.TrimSpace(ev.Post.AuthorName) == "" {
 			ev.Post.AuthorName = s.Reblog.Account.Username

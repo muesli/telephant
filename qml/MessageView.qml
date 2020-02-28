@@ -333,6 +333,16 @@ ColumnLayout {
                                 ComponentCreator.createMessagePopup(this, message).open();
                             }
                         }
+                        Label {
+                            text: message.repliescount
+                            font.pointSize: 9
+                            opacity: 0.4
+                        }
+                        Label {
+                            text: "·"
+                            font.pointSize: 9
+                            opacity: 0.4
+                        }
                         ImageButton {
                             source: "images/share.png"
                             animationDuration: 200
@@ -346,6 +356,16 @@ ColumnLayout {
                                     ComponentCreator.createSharePopup(this, message).open();
                                 }
                             }
+                        }
+                        Label {
+                            text: message.sharescount
+                            font.pointSize: 9
+                            opacity: 0.4
+                        }
+                        Label {
+                            text: "·"
+                            font.pointSize: 9
+                            opacity: 0.4
                         }
                         ImageButton {
                             source: liked ? "images/liked.png" : "images/like.png"
@@ -361,6 +381,11 @@ ColumnLayout {
                                     liked = true
                                 }
                             }
+                        }
+                        Label {
+                            text: message.likescount
+                            font.pointSize: 9
+                            opacity: 0.4
                         }
                         ImageButton {
                             source: "images/menu.png"

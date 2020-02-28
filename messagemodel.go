@@ -40,9 +40,12 @@ const (
 	FollowedBy
 	MediaPreview
 	MediaURL
-	Editing
 	Liked
 	Shared
+	RepliesCount
+	SharesCount
+	LikesCount
+	Editing
 )
 
 // MessageModel holds a collection of messages
@@ -88,9 +91,11 @@ func (m *MessageModel) init() {
 		FollowedBy:    core.NewQByteArray2("followedby", -1),
 		MediaPreview:  core.NewQByteArray2("mediapreview", -1),
 		MediaURL:      core.NewQByteArray2("mediaurl", -1),
-		Editing:       core.NewQByteArray2("editing", -1),
 		Liked:         core.NewQByteArray2("liked", -1),
 		Shared:        core.NewQByteArray2("shared", -1),
+		RepliesCount:  core.NewQByteArray2("repliescount", -1),
+		SharesCount:   core.NewQByteArray2("sharescount", -1),
+		LikesCount:    core.NewQByteArray2("likescount", -1),
 	})
 
 	m.ConnectData(m.data)
@@ -240,10 +245,6 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		{
 			return core.NewQVariant1(p.MediaURL)
 		}
-	case Editing:
-		{
-			return core.NewQVariant1(p.Editing)
-		}
 	case Liked:
 		{
 			return core.NewQVariant1(p.Liked)
@@ -251,6 +252,18 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case Shared:
 		{
 			return core.NewQVariant1(p.Shared)
+		}
+	case RepliesCount:
+		{
+			return core.NewQVariant1(p.RepliesCount)
+		}
+	case SharesCount:
+		{
+			return core.NewQVariant1(p.SharesCount)
+		}
+	case LikesCount:
+		{
+			return core.NewQVariant1(p.LikesCount)
 		}
 
 	default:

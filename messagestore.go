@@ -44,6 +44,9 @@ type Message struct {
 	Editing       bool
 	Liked         bool
 	Shared        bool
+	RepliesCount  int64
+	SharesCount   int64
+	LikesCount    int64
 }
 
 var (
@@ -151,6 +154,9 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 		p.ActorID = event.Post.ActorID
 		p.Liked = event.Post.Liked
 		p.Shared = event.Post.Shared
+		p.RepliesCount = event.Post.RepliesCount
+		p.SharesCount = event.Post.SharesCount
+		p.LikesCount = event.Post.LikesCount
 
 		// parse attachments
 		p.MediaPreview = []string{}
