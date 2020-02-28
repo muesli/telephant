@@ -14,8 +14,6 @@ ListModel {
         actor: "barneybogan@rempel.io"
         actorname: "Delaney Rempel"
         actorid: "1c85b394-9e92-4886-94a3-0c0ca95a8981"
-        mediapreview: ""
-        mediaurl: ""
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -27,6 +25,11 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 
     ListElement {
@@ -42,8 +45,6 @@ ListModel {
         actor: "randallschoen@keebler.info"
         actorname: "Brant Maggio"
         actorid: "c1fcdb89-f7a5-4ab8-8705-e670b19298f3"
-        mediapreview: ""
-        mediaurl: ""
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -55,6 +56,11 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: "Don't open this"
+        sensitive: true
     }
 
     ListElement {
@@ -70,8 +76,8 @@ ListModel {
         actor: "brendafritsch@witting.net"
         actorname: "Effie Reichel"
         actorid: "4b2fb645-9f9b-4000-a821-2da502b93acc"
-        mediapreview: "https://picsum.photos/256/256"
-        mediaurl: "https://www.seniormindshare.io/front-end/integrate"
+        mediapreview: [ListElement{url: "https://picsum.photos/512/512"}, ListElement{url: "https://picsum.photos/256/256"}]
+        mediaurl: [ListElement{url: "https://picsum.photos/512/512"}, ListElement{url: "https://picsum.photos/256/256"}]
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -83,5 +89,10 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 }

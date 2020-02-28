@@ -14,8 +14,8 @@ ListModel {
         actor: "tarynturcotte@johns.info"
         actorname: "Marjorie Stracke"
         actorid: "b9cc6d48-3a5a-4d4a-8b18-324fbd585013"
-        mediapreview: ""
-        mediaurl: ""
+        mediapreview: [ListElement{url: "https://picsum.photos/512/512"}, ListElement{url: "https://picsum.photos/256/256"}]
+        mediaurl: [ListElement{url: "https://picsum.photos/512/512"}, ListElement{url: "https://picsum.photos/256/256"}]
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -27,6 +27,11 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 
     ListElement {
@@ -42,8 +47,6 @@ ListModel {
         actor: "viviannegoyette@lemke.info"
         actorname: "Althea Stokes"
         actorid: "6fb5b42a-7ea7-4206-83f7-e92a0f4df537"
-        mediapreview: ""
-        mediaurl: ""
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -55,6 +58,11 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: "Don't open this"
+        sensitive: true
     }
 
     ListElement {
@@ -70,8 +78,6 @@ ListModel {
         actor: "busterbernier@hettinger.name"
         actorname: "Kelton Nikolaus"
         actorid: "44160d77-6291-4d73-9115-e50761d007ed"
-        mediapreview: ""
-        mediaurl: ""
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -83,6 +89,11 @@ ListModel {
         followedby: false
         liked: true
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 
     ListElement {
@@ -98,8 +109,6 @@ ListModel {
         actor: "annettawhite@barton.io"
         actorname: "Serenity Kovacek"
         actorid: "83ce5444-41ba-44be-ae85-774ed4c031c6"
-        mediapreview: ""
-        mediaurl: ""
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -111,6 +120,11 @@ ListModel {
         followedby: false
         liked: false
         shared: true
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 
     ListElement {
@@ -126,8 +140,6 @@ ListModel {
         actor: "herminawelch@lemke.biz"
         actorname: "Savanna Okuneva"
         actorid: "bb1da10c-b185-4471-9a13-670464d04a3a"
-        mediapreview: "https://picsum.photos/512/512"
-        mediaurl: "http://www.districtplatforms.name/matrix"
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -142,6 +154,8 @@ ListModel {
         repliescount: 1
         likescount: 2
         sharescount: 3
+        warning: ""
+        sensitive: false
     }
 
     ListElement {
@@ -157,8 +171,6 @@ ListModel {
         actor: "maeganwelch@hickle.io"
         actorname: "Zella Brakus"
         actorid: "dce88613-03dd-4465-a4d0-14c668c78894"
-        mediapreview: "https://picsum.photos/1024/512"
-        mediaurl: "https://www.futuresynergize.org/initiatives/benchmark"
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -170,6 +182,11 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 
     ListElement {
@@ -185,8 +202,6 @@ ListModel {
         actor: "alekgaylord@dicki.net"
         actorname: "Donna Hintz"
         actorid: "dbd54b62-6176-4daf-9e00-483cc6ae546c"
-        mediapreview: "https://picsum.photos/512/1024"
-        mediaurl: "http://www.globalmindshare.info/reintermediate/next-generation"
         reply: false
         replytoid: ""
         replytoauthor: ""
@@ -198,5 +213,10 @@ ListModel {
         followedby: false
         liked: false
         shared: false
+        repliescount: 1
+        likescount: 2
+        sharescount: 3
+        warning: ""
+        sensitive: false
     }
 }
