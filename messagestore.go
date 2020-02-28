@@ -66,7 +66,7 @@ func addMessage(model *MessageModel, m *Message) {
 }
 
 func removeMessage(model *MessageModel, m *Message) {
-	debugln("remove", m.MessageID)
+	// debugln("remove", m.MessageID)
 
 	mutex.RLock()
 	ref := modelReferences[m.MessageID]
