@@ -145,6 +145,7 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 	return nil
 }
 
+// Panes returns the panes this Mastodon account offers
 func (mod *Account) Panes() []accounts.Pane {
 	ll, err := mod.client.GetLists(context.Background())
 	if err != nil {
@@ -198,6 +199,7 @@ func (mod *Account) Reply(replyid string, message string, attachments []string) 
 	return err
 }
 
+// UploadAttachment uploads an attachment to Mastodon
 func (mod *Account) UploadAttachment(url string) {
 	go func() {
 		a, err := mod.client.UploadMedia(context.Background(), url)
