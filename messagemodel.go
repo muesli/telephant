@@ -192,6 +192,9 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 		}
 	case CreatedAt:
 		{
+			if time.Since(p.CreatedAt) < time.Minute {
+				return core.NewQVariant1("just now")
+			}
 			return core.NewQVariant1(humanize.Time(p.CreatedAt))
 		}
 	case Actor:
