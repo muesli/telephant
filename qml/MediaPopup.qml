@@ -17,11 +17,19 @@ Popup {
 
     Item {
         id: mediaItem
+        anchors.centerIn: parent
+        width: image.visible ?
+            image.width :
+            video.width
+
+        height: image.visible ?
+            image.height :
+            video.height
 
         Image {
             id: image
-            height: Math.min(sourceSize.height, mainWindow.height * 0.8)
             width: Math.min(sourceSize.width, mainWindow.width * 0.8)
+            height: Math.min(sourceSize.height, mainWindow.height * 0.8)
             anchors.centerIn: parent
             smooth: true
             fillMode: Image.PreserveAspectFit
@@ -31,8 +39,6 @@ Popup {
 
         Video {
             id: video
-            // height: Math.min(sourceSize.height, mainWindow.height * 0.8)
-            // width: Math.min(sourceSize.width, mainWindow.width * 0.8)
             width: metaData.resolution ? Math.min(metaData.resolution.width, mainWindow.width * 0.8) : 0
             height: metaData.resolution ? Math.min(metaData.resolution.height, mainWindow.height * 0.8) : 0
             autoLoad: true
@@ -44,7 +50,7 @@ Popup {
             visible: url.endsWith(".webm") || url.endsWith(".mp4")
 
             onStatusChanged: {
-                if(status == MediaPlayer.Loaded)
+                if (status == MediaPlayer.Loaded)
                     video.play()
             }
 
