@@ -18,6 +18,7 @@ type Message struct {
 
 	Name          string
 	MessageID     string
+	PostID        string
 	PostURL       string
 	Author        string
 	AuthorURL     string
@@ -137,6 +138,7 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 
 	if event.Post.MessageID != "" {
 		p.MessageID = event.Post.MessageID
+		p.PostID = event.Post.PostID
 		p.PostURL = event.Post.URL
 		p.Name = event.Post.AuthorName
 		p.Author = event.Post.Author

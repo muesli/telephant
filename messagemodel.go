@@ -17,6 +17,7 @@ const (
 const (
 	Name = int(core.Qt__UserRole) + 1<<iota
 	MessageID
+	PostID
 	PostURL
 	Author
 	AuthorURL
@@ -68,6 +69,7 @@ func (m *MessageModel) init() {
 	m.SetRoles(map[int]*core.QByteArray{
 		Name:          core.NewQByteArray2("name", -1),
 		MessageID:     core.NewQByteArray2("messageid", -1),
+		PostID:        core.NewQByteArray2("postid", -1),
 		PostURL:       core.NewQByteArray2("posturl", -1),
 		Author:        core.NewQByteArray2("author", -1),
 		AuthorURL:     core.NewQByteArray2("authorurl", -1),
@@ -152,6 +154,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case MessageID:
 		{
 			return core.NewQVariant1(p.MessageID)
+		}
+	case PostID:
+		{
+			return core.NewQVariant1(p.PostID)
 		}
 	case PostURL:
 		{

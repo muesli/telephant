@@ -203,7 +203,7 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            uiBridge.loadConversation(message.messageid)
+                            uiBridge.loadConversation(message.postid)
                             ComponentCreator.createConversationPopup(this).open();
                         }
                     }

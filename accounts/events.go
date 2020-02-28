@@ -19,6 +19,7 @@ type Post struct {
 	ReplyToID     string
 	ReplyToAuthor string
 	Avatar        string
+	PostID        string
 	URL           string
 	CreatedAt     time.Time
 	Liked         bool
