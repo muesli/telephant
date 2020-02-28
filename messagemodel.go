@@ -14,7 +14,7 @@ const (
 
 // Model Roles
 const (
-	Name = int(core.Qt__UserRole) + 1<<iota
+	Name = int(core.Qt__UserRole) + iota
 	MessageID
 	PostID
 	PostURL
