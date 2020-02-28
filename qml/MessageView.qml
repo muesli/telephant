@@ -285,7 +285,8 @@ ColumnLayout {
                             animationDuration: 200
 
                             onClicked: function() {
-                                Qt.openUrlExternally(message.mediaurl[index])
+                                ComponentCreator.createMediaPopup(this, message.mediaurl[index]).open();
+                                // Qt.openUrlExternally(message.mediaurl[index])
                             }
                         }
                     }

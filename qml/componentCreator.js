@@ -57,3 +57,15 @@ function createAccountPopup(parent) {
     }
     return popup
 }
+
+function createMediaPopup(parent, model) {
+    var component = Qt.createComponent("MediaPopup.qml")
+    var popup = component.createObject(parent, {
+        "url": model
+    })
+
+    if (popup == null) {
+        console.log("Error creating MediaPopup")
+    }
+    return popup
+}
