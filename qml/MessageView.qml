@@ -282,6 +282,7 @@ ColumnLayout {
                             autoTransform: true
                             opacity: fadeMedia ? 0.2 : 1.0
                             roundness: 4
+                            animationDuration: 200
 
                             onClicked: function() {
                                 Qt.openUrlExternally(message.mediaurl[index])
