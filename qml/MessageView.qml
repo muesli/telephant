@@ -328,7 +328,7 @@ ColumnLayout {
                         ImageButton {
                             source: "images/reply.png"
                             animationDuration: 200
-                            sourceSize.height: 20
+                            sourceSize.height: 16
                             onClicked: function () {
                                 ComponentCreator.createMessagePopup(this, message).open();
                             }
@@ -346,7 +346,7 @@ ColumnLayout {
                         ImageButton {
                             source: "images/share.png"
                             animationDuration: 200
-                            sourceSize.height: 20
+                            sourceSize.height: 16
                             opacity: shared ? 1.0 : 0.3
                             onClicked: function () {
                                 if (shared) {
@@ -370,7 +370,7 @@ ColumnLayout {
                         ImageButton {
                             source: liked ? "images/liked.png" : "images/like.png"
                             animationDuration: 200
-                            sourceSize.height: 20
+                            sourceSize.height: 16
                             opacity: liked ? 1.0 : 0.3
                             onClicked: function () {
                                 if (liked) {
@@ -391,7 +391,7 @@ ColumnLayout {
                             source: "images/menu.png"
                             visible: accountBridge.username == message.author
                             animationDuration: 200
-                            sourceSize.height: 20
+                            sourceSize.height: 16
                             opacity: liked ? 1.0 : 0.3
                             onClicked: function() {
                                 postMenu.open()
