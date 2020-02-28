@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"strings"
 	"sync"
@@ -57,7 +56,7 @@ var (
 )
 
 func addMessage(model *MessageModel, m *Message) {
-	fmt.Println("store", m.MessageID)
+	// debugln("store", m.MessageID)
 
 	mutex.Lock()
 	defer mutex.Unlock()
@@ -67,7 +66,7 @@ func addMessage(model *MessageModel, m *Message) {
 }
 
 func removeMessage(model *MessageModel, m *Message) {
-	fmt.Println("remove", m.MessageID)
+	debugln("remove", m.MessageID)
 
 	mutex.RLock()
 	ref := modelReferences[m.MessageID]
@@ -95,7 +94,7 @@ func removeMessage(model *MessageModel, m *Message) {
 }
 
 func deleteMessage(id string) {
-	fmt.Println("delete", id)
+	debugln("delete", id)
 
 	mutex.RLock()
 	ref := modelReferences[id]
@@ -106,14 +105,14 @@ func deleteMessage(id string) {
 		for idx, m := range v.Messages() {
 			if m.MessageID == id {
 				trow := len(v.Messages()) - 1 - idx
-				fmt.Println("Found message, deleting from model...", idx, trow)
+				debugln("Found message, deleting from model...", idx, trow)
 				v.RemoveMessage(trow)
 				break
 			}
 		}
 	}
 
-	fmt.Println("done deleting")
+	debugln("done deleting")
 }
 
 func getMessage(id string) *Message {

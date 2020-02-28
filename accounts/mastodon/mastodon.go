@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"regexp"
 	"strings"
 
@@ -149,7 +150,7 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 func (mod *Account) Panes() []accounts.Pane {
 	ll, err := mod.client.GetLists(context.Background())
 	if err != nil {
-		fmt.Println("Error retrieving lists:", err)
+		log.Println("Error retrieving lists:", err)
 	}
 
 	p := []accounts.Pane{}
@@ -346,7 +347,7 @@ func (mod *Account) LoadConversation(id string) ([]accounts.MessageEvent, error)
 		return r, err
 	}
 
-	fmt.Printf("Found %d ancestors and %d descendants\n", len(contexts.Ancestors), len(contexts.Descendants))
+	log.Printf("Found %d ancestors and %d descendants\n", len(contexts.Ancestors), len(contexts.Descendants))
 	for _, m := range contexts.Ancestors {
 		r = append(r, mod.handleStatus(m))
 	}
@@ -570,7 +571,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 		}
 
 	default:
-		fmt.Println("Unknown type:", n.Type)
+		log.Println("Unknown type:", n.Type)
 		return
 	}
 
@@ -672,7 +673,7 @@ func (mod *Account) handleStreamEvent(item interface{}, ch chan interface{}) {
 		}
 
 	default:
-		fmt.Printf("Unknown event: %+v\n", item)
+		log.Printf("Unknown event: %+v\n", item)
 	}
 }
 

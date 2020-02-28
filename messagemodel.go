@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	humanize "github.com/dustin/go-humanize"
@@ -334,7 +333,7 @@ func (m *MessageModel) removeMessageID(id string) {
 }
 
 func (m *MessageModel) updateMessageTime() {
-	fmt.Println("Updating timelines...")
+	debugln("Updating timelines...")
 	if len(m.Messages()) > 0 {
 		var fIndex = m.Index(0, 0, core.NewQModelIndex())
 		var lIndex = m.Index(len(m.Messages())-1, 0, core.NewQModelIndex())

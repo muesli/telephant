@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"log"
 	"net/url"
 	"os"
@@ -17,6 +17,8 @@ import (
 )
 
 var (
+	debug = flag.Bool("debug", true, "Enable debug output")
+
 	config     Config
 	configFile string
 
@@ -36,7 +38,7 @@ func connectToInstance(instance string) bool {
 	instance = addHTTPPrefixIfNeeded(instance)
 	tc, authURI, redirectURI, err = mastodon.RegisterAccount(instance)
 	if err != nil {
-		fmt.Println("Error registering app:", err)
+		log.Println("Error registering app:", err)
 		accountBridge.SetError(err.Error())
 		return false
 	}
@@ -44,8 +46,8 @@ func connectToInstance(instance string) bool {
 	configBridge.SetAuthURL(authURI)
 	configBridge.SetRedirectURL(redirectURI)
 
-	fmt.Println("auth uri:", authURI)
-	fmt.Println("redirect uri:", redirectURI)
+	log.Println("auth uri:", authURI)
+	log.Println("redirect uri:", redirectURI)
 	return true
 }
 
@@ -63,7 +65,7 @@ func addHTTPPrefixIfNeeded(instance string) string {
 func authInstance(code, redirectURI string) bool {
 	instance, token, clientID, clientSecret, err := tc.Authenticate(code, redirectURI)
 	if err != nil {
-		fmt.Println("Error authenticating with instance:", err)
+		log.Println("Error authenticating with instance:", err)
 		accountBridge.SetError(err.Error())
 		return false
 	}
@@ -186,7 +188,7 @@ func loadConversation(id string) {
 		return
 	}
 
-	fmt.Println("Found conversation posts:", len(messages))
+	debugln("Found conversation posts:", len(messages))
 	conversationModel.Clear()
 	for _, m := range messages {
 		p := messageFromEvent(m)
@@ -196,7 +198,7 @@ func loadConversation(id string) {
 
 // loadAccount loads an entire profile
 func loadAccount(id string) {
-	log.Println("Loading account:", id)
+	debugln("Loading account:", id)
 	profile, messages, err := tc.LoadAccount(id)
 	if err != nil {
 		log.Println("Error loading account:", err)
@@ -214,7 +216,7 @@ func loadAccount(id string) {
 	profileBridge.SetFollowing(profile.Following)
 	profileBridge.SetFollowedBy(profile.FollowedBy)
 
-	fmt.Println("Found account posts:", len(messages))
+	debugln("Found account posts:", len(messages))
 	accountMessagesModel.Clear()
 	for _, m := range messages {
 		p := messageFromEvent(m)
@@ -243,7 +245,7 @@ func tag(token string) {
 
 // closePane closes a pane
 func closePane(idx int64) {
-	fmt.Println("Closing pane", idx)
+	debugln("Closing pane", idx)
 	paneModel.RemovePane(int(idx))
 }
 
@@ -325,7 +327,15 @@ func setupMastodon(config Account) {
 	go tc.Run(evchan)
 }
 
+func debugln(s ...interface{}) {
+	if *debug {
+		log.Println(s...)
+	}
+}
+
 func main() {
+	flag.Parse()
+
 	core.QCoreApplication_SetApplicationName("Telephant")
 	core.QCoreApplication_SetOrganizationName("fribbledom.com")
 	core.QCoreApplication_SetAttribute(core.Qt__AA_EnableHighDpiScaling, true)

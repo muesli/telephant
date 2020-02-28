@@ -3,7 +3,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/gen2brain/beeep"
 )
@@ -11,6 +11,6 @@ import (
 func notify(title string, body string) {
 	err := beeep.Notify(title, body, "")
 	if err != nil {
-		fmt.Println("Error sending notification:", err)
+		log.Println("Error sending notification:", err)
 	}
 }
