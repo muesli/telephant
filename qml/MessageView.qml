@@ -199,7 +199,8 @@ ColumnLayout {
                         anchors.fill: parent
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
-                            Qt.openUrlExternally(message.posturl)
+                            uiBridge.loadConversation(message.messageid)
+                            ComponentCreator.createConversationPopup(this).open();
                         }
                     }
                 }
@@ -228,7 +229,7 @@ ColumnLayout {
                     }
                 }
 
-                Label {
+                MessageText {
                     visible: message.body.length > 0 && (!message.sensitive || showSensitiveContent)
                     text: "<style>a:link { visibility: hidden; text-decoration: none; color: " + Material.accent + "; }</style>" + message.body
                     textFormat: Text.RichText
@@ -236,6 +237,8 @@ ColumnLayout {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.4 : 1.0
+                    color: "white"
+
                     onLinkActivated: function(link) {
                         if (link.startsWith("telephant://")) {
                             var us = link.substr(12, link.length).split("/")
@@ -251,16 +254,9 @@ ColumnLayout {
                             Qt.openUrlExternally(link)
                     }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        // we don't want to eat clicks on the Label
-                        acceptedButtons: parent.hoveredLink ? Qt.NoButton : Qt.LeftButton
-                        cursorShape: Qt.PointingHandCursor
-
-                        onClicked: function() {
+                    onClicked: function() {
                             uiBridge.loadConversation(message.messageid)
                             ComponentCreator.createConversationPopup(this).open();
-                        }
                     }
                 }
 
