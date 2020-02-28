@@ -13,7 +13,6 @@ Popup {
     height: Math.min(mainWindow.height * 0.8, layout.implicitHeight + 32)
     width: Math.min(mainWindow.width * 0.66, 500)
     anchors.centerIn: mainWindow.overlay
-    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     Flickable {
         id: flickable
