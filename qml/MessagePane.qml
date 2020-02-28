@@ -26,6 +26,10 @@ ColumnLayout {
             height: 36
 
             Label {
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 8
                 z: 3
                 text: name
                 font.pointSize: 15
