@@ -431,7 +431,7 @@ func parseBody(s *mastodon.Status) string {
 		body = strings.Replace(body, u.URL, fmt.Sprintf("telephant://mastodon/user/%s", u.ID), -1)
 	}
 	for _, t := range s.Tags {
-		r = regexp.MustCompile("<a href=\"(.[^\"]*)/tags/" + t.Name + "\"")
+		r = regexp.MustCompile("<a href=\"(.[^\"]*)/tags/(?i)" + t.Name + "\"")
 		body = r.ReplaceAllString(body, "<a href=\"telephant://mastodon/tag/"+t.Name+"\"")
 	}
 	return body
