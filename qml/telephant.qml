@@ -9,9 +9,9 @@ ApplicationWindow {
     id: mainWindow
     visible: true
 
+    // flags: Qt.FramelessWindowHint
     Material.theme: settings.style == "Dark" ? Material.Dark : Material.Light
     Material.accent: Material.Purple
-    // flags: Qt.FramelessWindowHint
     background: Rectangle {
         color: Material.color(Material.Grey, Material.Shade900)
     }
@@ -35,7 +35,6 @@ ApplicationWindow {
         }
     }
     onClosing: function() {
-        console.log("Closing mainWindow")
         settings.positionX = mainWindow.x
         settings.positionY = mainWindow.y
         settings.width = mainWindow.width
