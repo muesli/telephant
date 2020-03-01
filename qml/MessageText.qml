@@ -2,6 +2,8 @@ import QtQuick 2.5
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.1
 
+import "componentCreator.js" as ComponentCreator
+
 TextEdit
 {
     property var onClicked: function () {}
