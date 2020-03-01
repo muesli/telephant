@@ -45,9 +45,10 @@ ApplicationWindow {
     Item {
         AboutDialog {
             id: aboutDialog
-            x: (mainWindow.width - width) / 2
-            y: mainWindow.height / 6
-            width: Math.min(mainWindow.width, mainWindow.height) / 3 * 2
+            x: mainWindow.width / 2 - width / 2
+            y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
+            width: 340
+            height: 340
         }
 
         ConnectDialog {

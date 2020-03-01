@@ -19,9 +19,17 @@ import QtQuick.Layouts 1.3
             }
 
             RowLayout {
+                Image {
+                    Layout.leftMargin: 8
+                    smooth: true
+                    source: "images/telephant_logo.png"
+                    sourceSize.height: 64
+                }
+
                 ColumnLayout {
+                    Layout.leftMargin: 8
                     Label {
-                        text: "<a style=\"text-decoration: none; color: white;\" href=\"https://mastodon.social/@telephant\">Telephant!</a>"
+                        text: "<a style=\"text-decoration: none; color: white;\" href=\"https://mastodon.social/@telephant\">Telephant</a>"
                         textFormat: Text.RichText
                         wrapMode: Label.Wrap
                         font.pointSize: 14
@@ -38,7 +46,7 @@ import QtQuick.Layouts 1.3
                         text: "Version 0.1"
                         textFormat: Text.RichText
                         wrapMode: Label.Wrap
-                        font.pointSize: 12
+                        font.pointSize: 10
                         onLinkActivated: Qt.openUrlExternally(link)
 
                         MouseArea {
@@ -48,17 +56,11 @@ import QtQuick.Layouts 1.3
                         }
                     }
                 }
-
-                Image {
-                    smooth: true
-                    source: "images/telephant_logo.png"
-                    sourceSize.height: 64
-                }
             }
 
             Label {
                 width: aboutDialog.availableWidth
-                text: qsTr("Telephant! is a light-weight but modern social media client")
+                text: qsTr("Telephant is a light-weight but slick Mastodon client")
                 textFormat: Text.RichText
                 wrapMode: Label.Wrap
                 font.pointSize: 12
