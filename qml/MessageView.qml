@@ -39,7 +39,7 @@ ColumnLayout {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     uiBridge.loadAccount(message.actorid)
-                    ComponentCreator.createAccountPopup(this).open();
+                    ComponentCreator.createAccountPopup(mainWindow).open();
                 }
             }
         }
@@ -65,7 +65,7 @@ ColumnLayout {
                 cursorShape: Qt.PointingHandCursor
                 onClicked: {
                     uiBridge.loadAccount(message.actorid)
-                    ComponentCreator.createAccountPopup(this).open();
+                    ComponentCreator.createAccountPopup(mainWindow).open();
                 }
             }
         }
@@ -87,7 +87,7 @@ ColumnLayout {
 
             onClicked: function() {
                 uiBridge.loadAccount(message.authorid)
-                ComponentCreator.createAccountPopup(this).open();
+                ComponentCreator.createAccountPopup(mainWindow).open();
             }
         }
         RowLayout {
@@ -110,7 +110,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            ComponentCreator.createAccountPopup(this).open();
+                            ComponentCreator.createAccountPopup(mainWindow).open();
                         }
                     }
                 }
@@ -126,7 +126,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            ComponentCreator.createAccountPopup(this).open();
+                            ComponentCreator.createAccountPopup(mainWindow).open();
                         }
                     }
                 }
@@ -165,7 +165,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            ComponentCreator.createAccountPopup(this).open();
+                            ComponentCreator.createAccountPopup(mainWindow).open();
                         }
                     }
                 }
@@ -184,7 +184,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadAccount(message.authorid)
-                            ComponentCreator.createAccountPopup(this).open();
+                            ComponentCreator.createAccountPopup(mainWindow).open();
                         }
                     }
                 }
@@ -204,7 +204,7 @@ ColumnLayout {
                         cursorShape: Qt.PointingHandCursor
                         onClicked: {
                             uiBridge.loadConversation(message.postid)
-                            ComponentCreator.createConversationPopup(this).open();
+                            ComponentCreator.createConversationPopup(mainWindow).open();
                         }
                     }
                 }
@@ -244,7 +244,7 @@ ColumnLayout {
 
                     onClicked: function() {
                             uiBridge.loadConversation(message.messageid)
-                            ComponentCreator.createConversationPopup(this).open();
+                            ComponentCreator.createConversationPopup(mainWindow).open();
                     }
                 }
 
@@ -273,7 +273,7 @@ ColumnLayout {
                             animationDuration: 200
 
                             onClicked: function() {
-                                ComponentCreator.createMediaPopup(this, message.mediaurl[index]).open();
+                                ComponentCreator.createMediaPopup(mainWindow, message.mediaurl[index]).open();
                                 // Qt.openUrlExternally(message.mediaurl[index])
                             }
                         }
@@ -314,7 +314,7 @@ ColumnLayout {
                             animationDuration: 200
                             sourceSize.height: 16
                             onClicked: function () {
-                                ComponentCreator.createMessagePopup(this, message).open();
+                                ComponentCreator.createMessagePopup(mainWindow, message).open();
                             }
                         }
                         Label {
@@ -337,7 +337,7 @@ ColumnLayout {
                                     uiBridge.unshareButton(message.messageid)
                                     shared = false
                                 } else {
-                                    ComponentCreator.createSharePopup(this, message).open();
+                                    ComponentCreator.createSharePopup(mainWindow, message).open();
                                 }
                             }
                         }
@@ -389,7 +389,7 @@ ColumnLayout {
                                 MenuItem {
                                     text: qsTr("Delete")
                                     onTriggered: function() {
-                                        ComponentCreator.createDeletePopup(this, message).open();
+                                        ComponentCreator.createDeletePopup(mainWindow, message).open();
                                     }
                                 }
                             }

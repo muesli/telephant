@@ -24,9 +24,8 @@ ColumnLayout {
             source: profile.avatar
             sourceSize.height: 64
             onClicked: function() {
-                // Qt.openUrlExternally(profile.profileURL)
                 uiBridge.loadAccount(profile.profileID)
-                ComponentCreator.createAccountPopup(this).open();
+                ComponentCreator.createAccountPopup(mainWindow).open();
             }
         }
         ColumnLayout {

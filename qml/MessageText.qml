@@ -20,7 +20,7 @@ TextEdit
             var us = link.substr(12, link.length).split("/")
             if (us[1] == "user") {
                 uiBridge.loadAccount(us[us.length-1])
-                ComponentCreator.createAccountPopup(this).open();
+                ComponentCreator.createAccountPopup(mainWindow).open();
             }
             if (us[1] == "tag") {
                 uiBridge.tag(us[us.length-1])
