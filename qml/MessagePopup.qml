@@ -112,6 +112,11 @@ Popup {
                 }
             }
 
+            Label {
+                text: "Attach files by dragging & dropping them."
+                font.pointSize: 9
+            }
+
             RowLayout {
                 Layout.alignment: Qt.AlignRight
 
