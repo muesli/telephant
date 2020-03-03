@@ -82,6 +82,7 @@ func setupMastodon(config Account) {
 		pane.ID = "notifications"
 		pane.Name = "Notifications"
 		pane.Sticky = true
+		pane.Default = true
 		pane.Model = notificationModel
 		paneModel.AddPane(pane)
 	}
@@ -89,12 +90,17 @@ func setupMastodon(config Account) {
 		var pane = NewPane(nil)
 		pane.ID = "home"
 		pane.Name = "Messages"
+		pane.Default = true
 		pane.Model = postModel
 		paneModel.AddPane(pane)
 	}
 
 	panes := tc.Panes()
 	for _, p := range panes {
+		if !p.Default {
+			continue
+		}
+
 		model := NewMessageModel(nil)
 		evchan := make(chan interface{})
 
@@ -104,6 +110,7 @@ func setupMastodon(config Account) {
 		var pane = NewPane(nil)
 		pane.ID = p.ID
 		pane.Name = p.Title
+		pane.Default = p.Default
 		pane.Model = model
 		paneModel.AddPane(pane)
 	}

@@ -9,6 +9,7 @@ const (
 	PaneID = int(core.Qt__UserRole) + iota
 	PaneName
 	PaneSticky
+	PaneDefault
 	MsgModel
 )
 
@@ -30,10 +31,11 @@ type PaneModel struct {
 type Pane struct {
 	core.QObject
 
-	ID     string
-	Name   string
-	Sticky bool
-	Model  *MessageModel
+	ID      string
+	Name    string
+	Sticky  bool
+	Default bool
+	Model   *MessageModel
 }
 
 func (m *PaneModel) init() {

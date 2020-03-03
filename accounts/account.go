@@ -22,8 +22,9 @@ type Account interface {
 }
 
 type Pane struct {
-	ID     string
-	Title  string
-	Sticky bool
-	Stream func(ch chan interface{}) error
+	ID      string
+	Title   string
+	Sticky  bool
+	Default bool
+	Stream  func(ch chan interface{}) error
 }
