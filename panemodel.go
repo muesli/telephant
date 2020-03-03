@@ -6,7 +6,8 @@ import (
 
 // Model Roles
 const (
-	PaneName = int(core.Qt__UserRole) + 1<<iota
+	PaneID = int(core.Qt__UserRole) + iota
+	PaneName
 	PaneSticky
 	MsgModel
 )
@@ -29,6 +30,7 @@ type PaneModel struct {
 type Pane struct {
 	core.QObject
 
+	ID     string
 	Name   string
 	Sticky bool
 	Model  *MessageModel

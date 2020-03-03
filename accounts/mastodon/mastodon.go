@@ -158,6 +158,7 @@ func (mod *Account) Panes() []accounts.Pane {
 		// take a copy of the ID here, so the closure accesses an absolute value
 		id := string(list.ID)
 		p = append(p, accounts.Pane{
+			ID:    "list_" + string(list.ID),
 			Title: "List: " + list.Title,
 			Stream: func(ch chan interface{}) error {
 				return mod.List(id, ch)

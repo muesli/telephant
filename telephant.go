@@ -79,6 +79,7 @@ func setupMastodon(config Account) {
 	paneModel.clear()
 	{
 		var pane = NewPane(nil)
+		pane.ID = "notifications"
 		pane.Name = "Notifications"
 		pane.Sticky = true
 		pane.Model = notificationModel
@@ -86,6 +87,7 @@ func setupMastodon(config Account) {
 	}
 	{
 		var pane = NewPane(nil)
+		pane.ID = "home"
 		pane.Name = "Messages"
 		pane.Model = postModel
 		paneModel.AddPane(pane)
@@ -100,6 +102,7 @@ func setupMastodon(config Account) {
 		p.Stream(evchan)
 
 		var pane = NewPane(nil)
+		pane.ID = p.ID
 		pane.Name = p.Title
 		pane.Model = model
 		paneModel.AddPane(pane)
