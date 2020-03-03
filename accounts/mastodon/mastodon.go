@@ -148,18 +148,38 @@ func (mod *Account) Run(eventChan chan interface{}) error {
 
 // Panes returns the panes this Mastodon account offers
 func (mod *Account) Panes() []accounts.Pane {
+	p := []accounts.Pane{}
+
+	p = append(p, accounts.Pane{
+		ID:      "local",
+		Title:   "Local Timeline",
+		Default: false,
+		Stream: func(ch chan interface{}) error {
+			return mod.PublicTimeline(true, ch)
+		},
+	})
+	p = append(p, accounts.Pane{
+		ID:      "federated",
+		Title:   "Federated Timeline",
+		Default: false,
+		Stream: func(ch chan interface{}) error {
+			return mod.PublicTimeline(false, ch)
+		},
+	})
+
+	// lists
 	ll, err := mod.client.GetLists(context.Background())
 	if err != nil {
 		log.Println("Error retrieving lists:", err)
 	}
 
-	p := []accounts.Pane{}
 	for _, list := range ll {
 		// take a copy of the ID here, so the closure accesses an absolute value
 		id := string(list.ID)
 		p = append(p, accounts.Pane{
-			ID:    "list_" + string(list.ID),
-			Title: "List: " + list.Title,
+			ID:      "list_" + string(list.ID),
+			Title:   "List: " + list.Title,
+			Default: true,
 			Stream: func(ch chan interface{}) error {
 				return mod.List(id, ch)
 			},
@@ -300,6 +320,42 @@ func (mod *Account) Tag(token string, ch chan interface{}) error {
 	}
 
 	s, err := mod.client.StreamingHashtag(context.Background(), token, false)
+	if err != nil {
+		return err
+	}
+
+	go func() {
+		for {
+			select {
+			case <-mod.SigChan:
+				return
+			case item := <-s:
+				mod.handleStreamEvent(item, ch)
+			}
+		}
+	}()
+
+	return nil
+}
+
+// PublicTimeline starts a stream for public timelines
+func (mod *Account) PublicTimeline(local bool, ch chan interface{}) error {
+	tt, err := mod.client.GetTimelinePublic(context.Background(), local, &mastodon.Pagination{
+		Limit: initialFeedCount,
+	})
+	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
+		return err
+	}
+	for i := len(tt) - 1; i >= 0; i-- {
+		ch <- mod.handleStatus(tt[i])
+	}
+
+	s, err := mod.client.StreamingPublic(context.Background(), local)
 	if err != nil {
 		return err
 	}
