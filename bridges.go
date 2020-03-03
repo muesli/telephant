@@ -24,6 +24,7 @@ type UIBridge struct {
 	_ func(url string)                     `slot:"uploadAttachment"`
 	_ func(id string)                      `slot:"loadConversation"`
 	_ func(id string)                      `slot:"loadAccount"`
+	_ func(token string)                   `slot:"search"`
 	_ func(token string)                   `slot:"tag"`
 
 	_ func(idx int64) `slot:"closePane"`
@@ -116,6 +117,7 @@ func setupQmlBridges() {
 	uiBridge.ConnectUploadAttachment(uploadAttachment)
 	uiBridge.ConnectLoadConversation(loadConversation)
 	uiBridge.ConnectLoadAccount(loadAccount)
+	uiBridge.ConnectSearch(search)
 	uiBridge.ConnectTag(tag)
 	uiBridge.ConnectClosePane(closePane)
 

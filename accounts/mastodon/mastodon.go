@@ -263,6 +263,25 @@ func (mod *Account) Unfollow(id string) error {
 	return err
 }
 
+// Search starts a search
+func (mod *Account) Search(token string, ch chan interface{}) error {
+	tt, err := mod.client.Search(context.Background(), token, true)
+	if err != nil {
+		ev := accounts.ErrorEvent{
+			Message:  err.Error(),
+			Internal: false,
+		}
+		mod.evchan <- ev
+		return err
+	}
+
+	for _, s := range tt.Statuses {
+		ch <- mod.handleStatus(s)
+	}
+
+	return nil
+}
+
 // Tag starts a hashtag stream
 func (mod *Account) Tag(token string, ch chan interface{}) error {
 	tt, err := mod.client.GetTimelineHashtag(context.Background(), token, false, &mastodon.Pagination{
