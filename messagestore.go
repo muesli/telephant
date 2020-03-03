@@ -115,6 +115,20 @@ func deleteMessage(id string) {
 	debugln("done deleting")
 }
 
+func updateMessage(id string) {
+	debugln("update", id)
+
+	mutex.RLock()
+	ref := modelReferences[id]
+	mutex.RUnlock()
+
+	for _, v := range ref {
+		v.updateMessage(id)
+	}
+
+	debugln("done updating")
+}
+
 func getMessage(id string) *Message {
 	mutex.RLock()
 	defer mutex.RUnlock()

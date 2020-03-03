@@ -335,6 +335,17 @@ func (m *MessageModel) removeMessageID(id string) {
 	}
 }
 
+func (m *MessageModel) updateMessage(id string) {
+	for _, v := range m.Messages() {
+		if v.MessageID == id {
+			var fIndex = m.Index(0, 0, core.NewQModelIndex())
+			var lIndex = m.Index(len(m.Messages())-1, 0, core.NewQModelIndex())
+			m.DataChanged(fIndex, lIndex, []int{})
+			break
+		}
+	}
+}
+
 func (m *MessageModel) updateMessageTime() {
 	debugln("Updating timelines...")
 	if len(m.Messages()) > 0 {

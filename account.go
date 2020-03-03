@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/url"
 	"strings"
@@ -108,6 +109,15 @@ func share(id string) {
 		accountBridge.SetError(err.Error())
 		log.Println("Error sharing:", err)
 	}
+
+	m := getMessage(id)
+	if m == nil {
+		fmt.Println("Could not retrieve message from store:", id)
+		return
+	}
+	m.Shared = true
+	m.SharesCount++
+	updateMessage(id)
 }
 
 // unshare a post
@@ -117,6 +127,15 @@ func unshare(id string) {
 		accountBridge.SetError(err.Error())
 		log.Println("Error unsharing:", err)
 	}
+
+	m := getMessage(id)
+	if m == nil {
+		fmt.Println("Could not retrieve message from store:", id)
+		return
+	}
+	m.Shared = false
+	m.SharesCount--
+	updateMessage(id)
 }
 
 // like a post
@@ -126,6 +145,15 @@ func like(id string) {
 		accountBridge.SetError(err.Error())
 		log.Println("Error liking:", err)
 	}
+
+	m := getMessage(id)
+	if m == nil {
+		fmt.Println("Could not retrieve message from store:", id)
+		return
+	}
+	m.Liked = true
+	m.LikesCount++
+	updateMessage(id)
 }
 
 // unlike a post
@@ -135,6 +163,15 @@ func unlike(id string) {
 		accountBridge.SetError(err.Error())
 		log.Println("Error unliking:", err)
 	}
+
+	m := getMessage(id)
+	if m == nil {
+		fmt.Println("Could not retrieve message from store:", id)
+		return
+	}
+	m.Liked = false
+	m.LikesCount--
+	updateMessage(id)
 }
 
 // follow changes the relationship to another user
