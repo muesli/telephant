@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.3
+import QtQuick.Dialogs 1.3
 
 Popup {
     id: popup
@@ -14,6 +15,29 @@ Popup {
     width: Math.min(mainWindow.width * 0.66, 500)
     anchors.centerIn: mainWindow.overlay
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+    FileDialog {
+        id: imageFileDialog
+        title: "Please choose an image"
+        folder: shortcuts.home
+        nameFilters: [ "Image files (*.jpg *.jpeg *.png *.gif)", "All files (*)" ]
+        selectExisting: true
+        selectMultiple: true
+
+        onAccepted: {
+            console.log("chose", imageFileDialog.fileUrls.length)
+
+            for (var i = 0; i < imageFileDialog.fileUrls.length; i++) {
+                console.log(imageFileDialog.fileUrls[i])
+
+                busy.running = true
+                var media = uiBridge.uploadAttachment(imageFileDialog.fileUrls[i])
+            }
+        }
+        onRejected: {
+            console.log("Canceled")
+        }
+    }
 
     Flickable {
         id: flickable
@@ -47,9 +71,11 @@ Popup {
 
                     busy.running = true
                     var media = uiBridge.uploadAttachment(drop.urls[i])
-                    /*if (media != '') {
+                    /*
+                    if (media != '') {
                         attachments.append({"id": media, "url": drop.urls[i]})
-                    }*/
+                    }
+                    */
                 }
                 drop.acceptProposedAction()
             }
@@ -112,9 +138,12 @@ Popup {
                 }
             }
 
-            Label {
+            TextButton {
                 text: "Attach files by dragging & dropping them."
                 font.pointSize: 9
+                onClicked: function() {
+                    imageFileDialog.open()
+                }
             }
 
             RowLayout {
