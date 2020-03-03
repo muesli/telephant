@@ -108,6 +108,7 @@ func share(id string) {
 	if err := tc.Share(id); err != nil {
 		accountBridge.SetError(err.Error())
 		log.Println("Error sharing:", err)
+		return
 	}
 
 	m := getMessage(id)
@@ -126,6 +127,7 @@ func unshare(id string) {
 	if err := tc.Unshare(id); err != nil {
 		accountBridge.SetError(err.Error())
 		log.Println("Error unsharing:", err)
+		return
 	}
 
 	m := getMessage(id)
@@ -144,6 +146,7 @@ func like(id string) {
 	if err := tc.Like(id); err != nil {
 		accountBridge.SetError(err.Error())
 		log.Println("Error liking:", err)
+		return
 	}
 
 	m := getMessage(id)
@@ -162,6 +165,7 @@ func unlike(id string) {
 	if err := tc.Unlike(id); err != nil {
 		accountBridge.SetError(err.Error())
 		log.Println("Error unliking:", err)
+		return
 	}
 
 	m := getMessage(id)
