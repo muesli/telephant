@@ -7,6 +7,7 @@ ListView {
     id: view
     spacing: 12
     clip: true
+    cacheBuffer: 10000
 
     ScrollBar.vertical: ScrollBar {
         width: 12
