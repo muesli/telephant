@@ -19,7 +19,7 @@ ApplicationWindow {
     minimumWidth: 364
     minimumHeight: 590
     width: settings.width > 0 ? settings.width : minimumWidth * 2
-    height: settings.height > 0 ? settings.height : minimumWidth * 1.5
+    height: settings.height > 0 ? settings.height : minimumWidth * 1.75
     Binding on x {
         when: settings.positionX > 0
         value: settings.positionX
@@ -54,7 +54,7 @@ ApplicationWindow {
             id: connectDialog
             x: mainWindow.width / 2 - width / 2
             y: mainWindow.height / 2 - height / 2 - mainWindow.header.height
-            width: 340
+            width: Math.min(460, mainWindow.width - 16)
             height: 500
         }
 
