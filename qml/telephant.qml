@@ -212,6 +212,35 @@ ApplicationWindow {
             AccountSummary {
                 profile: accountBridge
             }
+
+            TextField {
+                id: search
+                Layout.fillWidth: true
+                Layout.topMargin: 16
+                Layout.bottomMargin: 8
+                Layout.leftMargin: 24
+                Layout.rightMargin: 24
+                leftInset: -8
+                rightInset: -8
+                selectByMouse: true
+                placeholderText: "Search..."
+                font.pointSize: 10
+
+                color: "#cccccc"
+                background: Rectangle {
+                    color: "#212121"
+                    border.color: "#111111"
+                    border.width: 1
+                    radius: 4
+                }
+
+                Keys.onReturnPressed: {
+                    drawer.close()
+                    uiBridge.search(search.text)
+                    event.accepted = true
+                }
+            }
+
             ToolSeparator {
                 Layout.fillWidth: true
                 orientation: Qt.Horizontal
@@ -234,7 +263,7 @@ ApplicationWindow {
                             ComponentCreator.createMessagePopup(this, null).open();
                             break
                         case 1:
-                            Qt.quit()
+                            mainWindow.close()
                             break
                         }
                     }
