@@ -1,11 +1,25 @@
+function loadComponent(qml) {
+    var component = Qt.createComponent(qml)
+    if (component.status != Component.Ready &&
+        component.status == Component.Error) {
+        console.debug("Error loading component (" + qml + "): " + component.errorString())
+        return null
+    }
+
+    return component;
+}
+
 function createMessagePopup(parent, model) {
-    var component = Qt.createComponent("MessagePopup.qml")
-    var popup = component.createObject(parent, {
-        "message": model
-    })
+    var component = loadComponent("MessagePopup.qml")
+    if (component == null) {
+        return null
+    }
 
     accountBridge.attachments.clear()
 
+    var popup = component.createObject(parent, {
+        "message": model
+    })
     if (popup == null) {
         console.log("Error creating MessagePopup")
     }
@@ -13,11 +27,14 @@ function createMessagePopup(parent, model) {
 }
 
 function createSharePopup(parent, model) {
-    var component = Qt.createComponent("SharePopup.qml")
+    var component = loadComponent("SharePopup.qml")
+    if (component == null) {
+        return null
+    }
+
     var popup = component.createObject(parent, {
         "message": model
     })
-
     if (popup == null) {
         console.log("Error creating SharePopup")
     }
@@ -25,11 +42,14 @@ function createSharePopup(parent, model) {
 }
 
 function createDeletePopup(parent, model) {
-    var component = Qt.createComponent("DeletePopup.qml")
+    var component = loadComponent("DeletePopup.qml")
+    if (component == null) {
+        return null
+    }
+
     var popup = component.createObject(parent, {
         "message": model
     })
-
     if (popup == null) {
         console.log("Error creating DeletePopup")
     }
@@ -37,11 +57,14 @@ function createDeletePopup(parent, model) {
 }
 
 function createConversationPopup(parent, model) {
-    var component = Qt.createComponent("ConversationPopup.qml")
+    var component = loadComponent("ConversationPopup.qml")
+    if (component == null) {
+        return null
+    }
+
     var popup = component.createObject(parent, {
         "message": model
     })
-
     if (popup == null) {
         console.log("Error creating ConversationPopup")
     }
@@ -49,9 +72,12 @@ function createConversationPopup(parent, model) {
 }
 
 function createAccountPopup(parent) {
-    var component = Qt.createComponent("AccountPopup.qml")
-    var popup = component.createObject(parent, {})
+    var component = loadComponent("AccountPopup.qml")
+    if (component == null) {
+        return null
+    }
 
+    var popup = component.createObject(parent, {})
     if (popup == null) {
         console.log("Error creating AccountPopup")
     }
@@ -59,11 +85,14 @@ function createAccountPopup(parent) {
 }
 
 function createMediaPopup(parent, model) {
-    var component = Qt.createComponent("MediaPopup.qml")
+    var component = loadComponent("MediaPopup.qml")
+    if (component == null) {
+        return null
+    }
+
     var popup = component.createObject(parent, {
         "url": model
     })
-
     if (popup == null) {
         console.log("Error creating MediaPopup")
     }
