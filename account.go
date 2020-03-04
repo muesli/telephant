@@ -50,10 +50,13 @@ func authInstance(code, redirectURI string) bool {
 		return false
 	}
 
-	config.Account[0].Instance = instance
-	config.Account[0].ClientID = clientID
-	config.Account[0].ClientSecret = clientSecret
-	config.Account[0].Token = token
+	config.Account = append(config.Account, Account{
+		Instance:     instance,
+		ClientID:     clientID,
+		ClientSecret: clientSecret,
+		Token:        token,
+	})
+
 	config.FirstRun = false
 	SaveConfig(configFile, config)
 

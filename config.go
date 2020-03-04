@@ -35,7 +35,7 @@ func LoadConfig(configFile string) Config {
 			Theme:    "Material",
 			Style:    "Dark",
 			FirstRun: true,
-			Account:  []Account{{}},
+			Account:  []Account{},
 		})
 		//log.Fatal("Config file is missing, but a template was created for you! Please edit ", configFile)
 	}

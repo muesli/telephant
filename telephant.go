@@ -165,7 +165,9 @@ func main() {
 	configBridge.SetWidth(config.Width)
 	configBridge.SetHeight(config.Height)
 
-	setupMastodon(config.Account[0])
+	if len(config.Account) > 0 {
+		setupMastodon(config.Account[0])
+	}
 	runApp(config)
 
 	// save config
