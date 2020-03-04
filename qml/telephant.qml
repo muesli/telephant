@@ -201,7 +201,7 @@ ApplicationWindow {
 
     Drawer {
         id: drawer
-        width: drawerLayout.implicitWidth + 16
+        width: drawerLayout.implicitWidth + 64
         height: mainWindow.height
         dragMargin: 0
 
