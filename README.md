@@ -39,6 +39,7 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
 
     apt-get --no-install-recommends install build-essential libglib2.0-dev libglu1-mesa-dev libpulse-dev
     apt-get --no-install-recommends install libqt*5-dev qt*5-dev qt*5-doc-html qml-module-qtquick*
+    apt-get install qml-module-qtmultimedia qml-module-qt-labs-folderlistmodel qml-module-qt-labs-settings
 
 #### Building Telephant
 
