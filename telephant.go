@@ -139,7 +139,7 @@ func main() {
 	setupQmlBridges()
 
 	// load config
-	scope := gap.NewScope(gap.User, "fribbledom.com", "telephant")
+	scope := gap.NewScope(gap.User, "telephant")
 	configDir, err := scope.ConfigPath("")
 	if err != nil {
 		panic(err)
