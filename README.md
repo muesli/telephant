@@ -1,5 +1,10 @@
-Telephant!
-==========
+Telephant
+=========
+
+[![Latest Release](https://img.shields.io/github/release/muesli/telephant.svg)](https://github.com/muesli/telephant/releases)
+[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/telephant)
+[![Build Status](https://travis-ci.org/muesli/telephant.svg?branch=master)](https://travis-ci.org/muesli/telephant)
+[![Go ReportCard](http://goreportcard.com/badge/muesli/telephant)](http://goreportcard.com/report/muesli/telephant)
 
 A lightweight but modern Mastodon client, written in Go & QML.
 
@@ -75,9 +80,3 @@ Follow the build instructions above, but instead of the last command, run:
     ./deploy/linux/telephant
 
 ![telephant Screenshot](/assets/screenshot.png)
-
-## Development
-
-[![GoDoc](https://godoc.org/github.com/golang/gddo?status.svg)](https://godoc.org/github.com/muesli/telephant)
-[![Build Status](https://travis-ci.org/muesli/telephant.svg?branch=master)](https://travis-ci.org/muesli/telephant)
-[![Go ReportCard](http://goreportcard.com/badge/muesli/telephant)](http://goreportcard.com/report/muesli/telephant)
