@@ -13,6 +13,7 @@ A lightweight but modern Mastodon client, written in Go & QML.
 - [x] Media previews
 - [x] Shortened URL resolving
 - [x] System notifications
+- [ ] Direct messages
 - [ ] Multiple accounts (work-in-progress)
 - [ ] Support for more networks
 
