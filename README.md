@@ -18,11 +18,25 @@ A lightweight but modern Mastodon client, written in Go & QML.
 
 ## Installation
 
-### Packages & Installers
+### Packages & Binaries
 
 - Arch Linux: [telephant-git](https://aur.archlinux.org/packages/telephant-git/)
-- [Linux Static 64bit](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Linux_64bit)
-- [Windows 64bit](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Windows_64bit.exe)
+- [Ubuntu 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Ubuntu_64bit)
+- [Linux Static 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Linux_64bit)
+- [Windows 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Windows_64bit.exe)
+
+#### Ubuntu
+
+You need to install the following dependencies to run the Ubuntu binary:
+
+```bash
+apt install libqt5gui5 libqt5qml5 libqt5quickcontrols2-5 libqt5multimedia5-plugins \
+            qml-module-qtquick2 qml-module-qtmultimedia qml-module-qtquick-layouts \
+            qml-module-qtquick-controls qml-module-qtquick-controls2 \
+            qml-module-qtquick-window2 qml-module-qtgraphicaleffects \
+            qml-module-qtquick-dialogs qml-module-qt-labs-folderlistmodel \
+            qml-module-qt-labs-settings
+```
 
 ### From Source
 
