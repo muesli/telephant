@@ -348,7 +348,7 @@ func (m *MessageModel) updateMessage(id string) {
 }
 
 func (m *MessageModel) updateMessageTime() {
-	debugln("Updating timelines...")
+	// debugln("Updating timestamps...")
 	if len(m.Messages()) > 0 {
 		var fIndex = m.Index(0, 0, core.NewQModelIndex())
 		var lIndex = m.Index(len(m.Messages())-1, 0, core.NewQModelIndex())
