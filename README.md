@@ -51,13 +51,9 @@ See the [install instructions](http://golang.org/doc/install.html).
 
 You will also need Qt5 and its development headers installed.
 
-#### Dependencies
+#### Dependencies (Ubuntu example)
 
-Before you can build Telephant you need to install the [Go/Qt bindings](https://github.com/therecipe/qt/wiki/Installation#regular-installation).
-
-#### Qt5 dependencies (Ubuntu example)
-
-    apt-get --no-install-recommends install build-essential libglib2.0-dev libglu1-mesa-dev libpulse-dev
+    apt-get --no-install-recommends install build-essential git libglib2.0-dev libglu1-mesa-dev libpulse-dev
     apt-get --no-install-recommends install libqt*5-dev qt*5-dev qt*5-doc-html qml-module-qtquick*
     apt-get install qml-module-qtmultimedia qml-module-qt-labs-folderlistmodel qml-module-qt-labs-settings
 
@@ -69,7 +65,7 @@ Before you can build Telephant you need to install the [Go/Qt bindings](https://
     cd $(go env GOPATH)/src/github.com/muesli/telephant
     $(go env GOPATH)/bin/qtdeploy build desktop .
 
-#### Within a Docker container
+### Within a Docker Container
 
 Follow the build instructions above, but instead of the last command, run:
 

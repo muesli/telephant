@@ -63,17 +63,6 @@ func setupMastodon(config Account) {
 	tc = mastodon.NewAccount(config.Instance, config.Token, config.ClientID, config.ClientSecret)
 	postModel := NewMessageModel(nil)
 
-	accountBridge.SetUsername("Not connected...")
-	accountBridge.SetNotifications(notificationModel)
-	accountBridge.SetAttachments(attachmentModel)
-	accountBridge.SetConversation(conversationModel)
-	accountBridge.SetAccountMessages(accountMessagesModel)
-	accountBridge.SetAvatar("qrc:/qml/images/telephant_logo.png")
-	accountBridge.SetPosts(0)
-	accountBridge.SetFollowCount(0)
-	accountBridge.SetFollowerCount(0)
-	accountBridge.SetPostSizeLimit(0)
-
 	// Notifications model must the first model to be added
 	// It will always be displayed right-most
 	paneModel.clear()
@@ -114,7 +103,6 @@ func setupMastodon(config Account) {
 		pane.Model = model
 		paneModel.AddPane(pane)
 	}
-	accountBridge.SetPanes(paneModel)
 
 	evchan := make(chan interface{})
 	go handleEvents(evchan, postModel)
@@ -164,6 +152,18 @@ func main() {
 	configBridge.SetPositionY(config.PositionY)
 	configBridge.SetWidth(config.Width)
 	configBridge.SetHeight(config.Height)
+
+	accountBridge.SetUsername("Not connected...")
+	accountBridge.SetNotifications(notificationModel)
+	accountBridge.SetAttachments(attachmentModel)
+	accountBridge.SetConversation(conversationModel)
+	accountBridge.SetAccountMessages(accountMessagesModel)
+	accountBridge.SetAvatar("qrc:/qml/images/telephant_logo.png")
+	accountBridge.SetPosts(0)
+	accountBridge.SetFollowCount(0)
+	accountBridge.SetFollowerCount(0)
+	accountBridge.SetPostSizeLimit(0)
+	accountBridge.SetPanes(paneModel)
 
 	if len(config.Account) > 0 {
 		setupMastodon(config.Account[0])
