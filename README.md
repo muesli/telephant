@@ -71,7 +71,7 @@ Follow the build instructions above, but instead of the last command, run:
 
     $(go env GOPATH)/bin/qtdeploy -docker build linux
 
-#### Run it
+### Run it
 
     ./deploy/linux/telephant
 
