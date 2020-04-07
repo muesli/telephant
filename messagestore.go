@@ -33,6 +33,8 @@ type Message struct {
 	Reply         bool
 	ReplyToID     string
 	ReplyToAuthor string
+	MentionIDs    []string
+	MentionNames  []string
 	Forward       bool
 	Mention       bool
 	Like          bool
@@ -176,11 +178,16 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 		// parse attachments
 		p.MediaPreview = []string{}
 		p.MediaURL = []string{}
-		if len(event.Media) > 0 {
-			for _, v := range event.Media {
-				p.MediaPreview = append(p.MediaPreview, v.Preview)
-				p.MediaURL = append(p.MediaURL, v.URL)
-			}
+		for _, v := range event.Media {
+			p.MediaPreview = append(p.MediaPreview, v.Preview)
+			p.MediaURL = append(p.MediaURL, v.URL)
+		}
+
+		p.MentionIDs = []string{}
+		p.MentionNames = []string{}
+		for _, v := range event.Post.Mentions {
+			p.MentionIDs = append(p.MentionIDs, v.ID)
+			p.MentionNames = append(p.MentionNames, v.Name)
 		}
 	}
 

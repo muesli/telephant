@@ -32,6 +32,9 @@ const (
 	Reply
 	ReplyToID
 	ReplyToAuthor
+	MentionIDs
+	MentionNames
+	Mentions
 	Forward
 	Mention
 	Like
@@ -84,6 +87,9 @@ func (m *MessageModel) init() {
 		Reply:         core.NewQByteArray2("reply", -1),
 		ReplyToID:     core.NewQByteArray2("replytoid", -1),
 		ReplyToAuthor: core.NewQByteArray2("replytoauthor", -1),
+		MentionIDs:    core.NewQByteArray2("mentionids", -1),
+		MentionNames:  core.NewQByteArray2("mentionnames", -1),
+		Mentions:      core.NewQByteArray2("mentions", -1),
 		Forward:       core.NewQByteArray2("forward", -1),
 		Mention:       core.NewQByteArray2("mention", -1),
 		Like:          core.NewQByteArray2("like", -1),
@@ -220,6 +226,22 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case ReplyToAuthor:
 		{
 			return core.NewQVariant1(p.ReplyToAuthor)
+		}
+	case MentionIDs:
+		{
+			return core.NewQVariant1(p.MentionIDs)
+		}
+	case MentionNames:
+		{
+			return core.NewQVariant1(p.MentionNames)
+		}
+	case Mentions:
+		{
+			var s string
+			for _, v := range p.MentionNames {
+				s += "@" + v + " "
+			}
+			return core.NewQVariant1(s)
 		}
 	case Forward:
 		{
