@@ -526,6 +526,23 @@ func parseBody(s *mastodon.Status) string {
 	*/
 }
 
+func (mod *Account) parseMentions(m []mastodon.Mention) []accounts.User {
+	var u []accounts.User
+	for _, v := range m {
+		if v.ID == mod.self.ID {
+			continue
+		}
+
+		u = append(u, accounts.User{
+			ID:   string(v.ID),
+			Name: v.Acct,
+			URL:  v.URL,
+		})
+	}
+
+	return u
+}
+
 // handleNotification handles incoming notification events.
 func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 	var ev accounts.MessageEvent
@@ -549,6 +566,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 				CreatedAt:    n.CreatedAt,
 				PostID:       string(n.Status.ID),
 				URL:          n.Status.URL,
+				Mentions:     mod.parseMentions(n.Status.Mentions),
 				RepliesCount: n.Status.RepliesCount,
 				LikesCount:   n.Status.FavouritesCount,
 				SharesCount:  n.Status.ReblogsCount,
@@ -672,6 +690,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 			CreatedAt:    s.CreatedAt,
 			PostID:       string(s.ID),
 			URL:          s.URL,
+			Mentions:     mod.parseMentions(s.Mentions),
 			RepliesCount: s.RepliesCount,
 			LikesCount:   s.FavouritesCount,
 			SharesCount:  s.ReblogsCount,
@@ -710,6 +729,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 		ev.Post.Actor = s.Account.Acct
 		ev.Post.ActorName = s.Account.DisplayName
 		ev.Post.ActorID = string(s.Account.ID)
+		ev.Post.Mentions = mod.parseMentions(s.Reblog.Mentions)
 
 		ev.Post.Liked, _ = s.Reblog.Favourited.(bool)
 		ev.Post.Shared, _ = s.Reblog.Reblogged.(bool)

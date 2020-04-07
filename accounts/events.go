@@ -21,12 +21,20 @@ type Post struct {
 	Avatar        string
 	PostID        string
 	URL           string
+	Mentions      []User
 	CreatedAt     time.Time
 	Liked         bool
 	Shared        bool
 	RepliesCount  int64
 	LikesCount    int64
 	SharesCount   int64
+}
+
+// User describes a user object
+type User struct {
+	ID   string
+	Name string
+	URL  string
 }
 
 // Follow describes an incoming follow event.
