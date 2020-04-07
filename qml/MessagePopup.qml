@@ -104,6 +104,7 @@ Popup {
                 focus: true
                 selectByMouse: true
                 placeholderText: message != null ? qsTr("Post your reply") : qsTr("What's happening?")
+                text: message.mentions
                 wrapMode: TextArea.Wrap
             }
 
