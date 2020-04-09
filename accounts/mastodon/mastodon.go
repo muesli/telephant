@@ -38,10 +38,13 @@ func NewAccount(instance, token, clientID, clientSecret string) *Account {
 		ClientSecret: clientSecret,
 	}
 
-	return &Account{
+	a := &Account{
 		config: mconfig,
 		client: mastodon.NewClient(mconfig),
 	}
+
+	a.self, _ = a.client.GetAccountCurrentUser(context.Background())
+	return a
 }
 
 // RegisterAccount registers the app with an instance and retrieves an
