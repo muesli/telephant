@@ -27,9 +27,9 @@ A lightweight but modern Mastodon client, written in Go & QML.
 ### Packages & Binaries
 
 - Arch Linux: [telephant-git](https://aur.archlinux.org/packages/telephant-git/)
-- [Ubuntu 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Ubuntu_64bit)
-- [Linux Static 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Linux_64bit)
-- [Windows 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc2/telephant_0.1rc2_Windows_64bit.exe)
+- [Ubuntu 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc3/telephant_0.1rc3_Ubuntu_64bit)
+- [Linux Static 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc3/telephant_0.1rc3_Linux_64bit)
+- [Windows 64bit Binary](https://github.com/muesli/telephant/releases/download/v0.1-rc3/telephant_0.1rc3_Windows_64bit.exe)
 
 #### Ubuntu
 
