@@ -6,7 +6,7 @@ Telephant
 [![Build Status](https://travis-ci.org/muesli/telephant.svg?branch=master)](https://travis-ci.org/muesli/telephant)
 [![Go ReportCard](http://goreportcard.com/badge/muesli/telephant)](http://goreportcard.com/report/muesli/telephant)
 
-A lightweight but modern Mastodon client, written in Go & QML.
+A lightweight but modern Mastodon client for the desktop, written in Go & QML.
 
 ![telephant logo](/assets/telephant.png)
 
