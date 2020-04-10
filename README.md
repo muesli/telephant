@@ -33,6 +33,9 @@ A lightweight but modern Mastodon client, written in Go & QML.
 
 #### Ubuntu
 
+Note that `Telephant` requires Qt >=5.12 installed. This means it currently
+doesn't support Ubuntu <19.04 or Linux Mint.
+
 You need to install the following dependencies to run the Ubuntu binary:
 
 ```bash
@@ -49,7 +52,7 @@ apt install libqt5gui5 libqt5qml5 libqt5quickcontrols2-5 libqt5multimedia5-plugi
 Make sure you have a working Go environment (Go 1.9 or higher is required).
 See the [install instructions](http://golang.org/doc/install.html).
 
-You will also need Qt5 and its development headers installed.
+You will also need Qt5 >=5.12 and its development headers installed.
 
 #### Dependencies (Ubuntu example)
 
