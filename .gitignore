@@ -29,3 +29,6 @@ deploy/
 # Config files
 chirp.conf
 telephant.conf
+
+# DS_Store :(
+.DS_Store
