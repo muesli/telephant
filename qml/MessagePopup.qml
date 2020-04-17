@@ -85,15 +85,23 @@ Popup {
             id: layout
             width: parent.width
 
-            MessageView {
-                showActionButtons: false
-                visible: message != null
-                message: popup.message
+            Loader {
+                Layout.fillWidth: true
+                Layout.preferredHeight: item !== null ? item.implicitHeight : 0
+
+                sourceComponent: message !== null ? messageViewComponent : null
+                Component {
+                    id: messageViewComponent
+                    MessageView {
+                        showActionButtons: false
+                        message: popup.message
+                    }
+                }
             }
 
             Label {
-                visible: message != null
-                text: qsTr("Replying to %1").arg(message.name)
+                visible: message !== null
+                text: message !== null ? qsTr("Replying to %1").arg(message.name) : ""
                 opacity: 0.3
             }
 
@@ -103,8 +111,8 @@ Popup {
                 Layout.minimumHeight: 128
                 focus: true
                 selectByMouse: true
-                placeholderText: message != null ? qsTr("Post your reply") : qsTr("What's happening?")
-                text: message.mentions
+                placeholderText: message !== null ? qsTr("Post your reply") : qsTr("What's happening?")
+                text: message !== null ? message.mentions : ""
                 wrapMode: TextArea.Wrap
             }
 
