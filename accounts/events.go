@@ -64,12 +64,14 @@ type MessageEvent struct {
 	Forward      bool
 	Mention      bool
 	Like         bool
+	Reaction     bool
 	Followed     bool
 	Notification bool
 	Notify       bool
 	Post         Post
 	Follow       Follow
 	Media        []Media
+	Emoji        string
 }
 
 // ProfileEvent describes a profile event.

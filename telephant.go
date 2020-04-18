@@ -116,6 +116,7 @@ func debugln(s ...interface{}) {
 }
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Llongfile)
 	flag.Parse()
 
 	core.QCoreApplication_SetApplicationName("Telephant")

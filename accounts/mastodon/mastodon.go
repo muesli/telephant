@@ -9,7 +9,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/mattn/go-mastodon"
+	"github.com/tachiniererin/go-mastodon"
 
 	"github.com/muesli/telephant/accounts"
 )
@@ -670,6 +670,30 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 			ev.Follow.Name = n.Account.Username
 		}
 
+	case "pleroma:emoji_reaction":
+		ev.Reaction = true
+		ev.Post.MessageID = n.Account.Acct + "-reaction-" + ev.Post.MessageID
+		ev.Post.PostID = string(n.Status.ID)
+		ev.Post.Author = n.Status.Account.Acct
+		ev.Post.AuthorName = n.Status.Account.DisplayName
+		ev.Post.AuthorURL = n.Status.Account.URL
+		ev.Post.AuthorID = string(n.Status.Account.ID)
+		ev.Post.Avatar = n.Status.Account.Avatar
+		ev.Post.Actor = n.Account.Acct
+		ev.Post.ActorName = n.Account.DisplayName
+		ev.Post.ActorID = string(n.Account.ID)
+
+		if strings.TrimSpace(ev.Post.AuthorName) == "" {
+			ev.Post.AuthorName = n.Status.Account.Username
+		}
+		if strings.TrimSpace(ev.Post.ActorName) == "" {
+			ev.Post.ActorName = n.Account.Username
+		}
+
+		log.Printf("%s reacted with %s", ev.Post.ActorName, n.Emoji)
+
+		ev.Emoji = n.Emoji
+
 	default:
 		log.Println("Unknown type:", n.Type)
 		return
@@ -774,6 +798,8 @@ func (mod *Account) handleStreamEvent(item interface{}, ch chan interface{}) {
 		mod.evchan <- accounts.DeleteEvent{
 			ID: string(e.ID),
 		}
+	case error:
+		log.Printf("Error while streaming: %v", item)
 
 	default:
 		log.Printf("Unknown event: %+v\n", item)
@@ -782,7 +808,7 @@ func (mod *Account) handleStreamEvent(item interface{}, ch chan interface{}) {
 
 // handleStream handles all connected Mastodon API streams.
 func (mod *Account) handleStream() {
-	timeline, err := mod.client.StreamingUser(context.Background())
+	timeline, err := mod.client.NewWSClient().StreamingWSUser(context.Background())
 	if err != nil {
 		panic(err)
 	}
