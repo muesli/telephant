@@ -70,7 +70,7 @@ func postLimitCount(body string) int {
 
 // reply is used to post a new message
 // if replyid is > 0, it's send as a reply
-func reply(replyid string, message string) {
+func reply(replyid string, message string, visibility string) {
 	var attachments []string
 	for _, v := range attachmentModel.Attachments() {
 		attachments = append(attachments, v.ID)
@@ -78,11 +78,11 @@ func reply(replyid string, message string) {
 
 	var err error
 	if replyid != "" {
-		log.Println("Sending reply to:", replyid, attachments, message)
-		err = tc.Reply(replyid, message, attachments)
+		log.Println("Sending reply to:", replyid, attachments, message, visibility)
+		err = tc.Reply(replyid, message, visibility, attachments)
 	} else {
-		log.Println("Posting:", attachments, message)
-		err = tc.Post(message, attachments)
+		log.Println("Posting:", attachments, message, visibility)
+		err = tc.Post(message, visibility, attachments)
 	}
 	if err != nil {
 		accountBridge.SetError(err.Error())

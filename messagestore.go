@@ -49,6 +49,9 @@ type Message struct {
 	RepliesCount  int64
 	SharesCount   int64
 	LikesCount    int64
+	Visibility    string
+	Reaction      bool
+	Emoji         string
 }
 
 var (
@@ -174,6 +177,9 @@ func messageFromEvent(event accounts.MessageEvent) *Message {
 		p.RepliesCount = event.Post.RepliesCount
 		p.SharesCount = event.Post.SharesCount
 		p.LikesCount = event.Post.LikesCount
+		p.Visibility = event.Post.Visibility
+		p.Reaction = event.Reaction
+		p.Emoji = event.Emoji
 
 		// parse attachments
 		p.MediaPreview = []string{}

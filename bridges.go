@@ -14,18 +14,18 @@ type UIBridge struct {
 
 	_ func(body string) int `slot:"postLimitCount"`
 
-	_ func(replyid string, message string) `slot:"postButton"`
-	_ func(id string)                      `slot:"deleteButton"`
-	_ func(id string)                      `slot:"shareButton"`
-	_ func(id string)                      `slot:"unshareButton"`
-	_ func(id string)                      `slot:"likeButton"`
-	_ func(id string)                      `slot:"unlikeButton"`
-	_ func(id string, follow bool)         `slot:"followButton"`
-	_ func(url string)                     `slot:"uploadAttachment"`
-	_ func(id string)                      `slot:"loadConversation"`
-	_ func(id string)                      `slot:"loadAccount"`
-	_ func(token string)                   `slot:"search"`
-	_ func(token string)                   `slot:"tag"`
+	_ func(replyid string, message string, visibility string) `slot:"postButton"`
+	_ func(id string)                                         `slot:"deleteButton"`
+	_ func(id string)                                         `slot:"shareButton"`
+	_ func(id string)                                         `slot:"unshareButton"`
+	_ func(id string)                                         `slot:"likeButton"`
+	_ func(id string)                                         `slot:"unlikeButton"`
+	_ func(id string, follow bool)                            `slot:"followButton"`
+	_ func(url string)                                        `slot:"uploadAttachment"`
+	_ func(id string)                                         `slot:"loadConversation"`
+	_ func(id string)                                         `slot:"loadAccount"`
+	_ func(token string)                                      `slot:"search"`
+	_ func(token string)                                      `slot:"tag"`
 
 	_ func(idx int64) `slot:"closePane"`
 

@@ -15,11 +15,12 @@ ColumnLayout {
     property bool following: message.following
     property bool liked: message.liked
     property bool shared: message.shared
+    property bool reacted: message.reaction
 
     clip: true
 
     RowLayout {
-        visible: message.forward && !message.like
+        visible: message.forward && !message.like && !message.reaction
         Item {
             width: 32
         }
@@ -45,7 +46,7 @@ ColumnLayout {
         }
     }
     RowLayout {
-        visible: message.like
+        visible: message.like && !message.reaction
         Item {
             width: 32
         }
@@ -58,6 +59,33 @@ ColumnLayout {
         Label {
             font.pointSize: 10
             text: qsTr("%1 liked").arg(message.actorname)
+            opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.8 : 0.3
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    uiBridge.loadAccount(message.actorid)
+                    ComponentCreator.createAccountPopup(mainWindow).open();
+                }
+            }
+        }
+    }
+
+    RowLayout {
+        visible: message.reaction
+        Item {
+            width: 32
+        }
+        Image {
+            smooth: true
+            source: "images/reaction.svg"
+            sourceSize.height: 14
+            opacity: 0.5
+        }
+        Label {
+            font.pointSize: 10
+            text: qsTr("%1 reacted with %2").arg(message.actorname).arg(message.emoji)
             opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.8 : 0.3
 
             MouseArea {
@@ -308,6 +336,22 @@ ColumnLayout {
                         Item {
                             // spacer item
                             Layout.fillWidth: true
+                        }
+                        ImageButton {
+                            source: {
+                                switch (message.visibility) {
+                                    case "direct":
+                                        return "images/scope-private.svg"
+                                    case "private":
+                                        return "images/scope-followers.svg"
+                                    case "unlisted":
+                                        return "images/scope-unlisted.svg"
+                                    default:
+                                        return "images/scope-public.svg"
+                                }
+                            }
+                            animationDuration: 200
+                            sourceSize.height: 16                            
                         }
                         ImageButton {
                             source: "images/reply.png"
