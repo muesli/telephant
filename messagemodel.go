@@ -49,6 +49,7 @@ const (
 	SharesCount
 	LikesCount
 	Editing
+	Visibility
 )
 
 // MessageModel holds a collection of messages
@@ -103,6 +104,7 @@ func (m *MessageModel) init() {
 		RepliesCount:  core.NewQByteArray2("repliescount", -1),
 		SharesCount:   core.NewQByteArray2("sharescount", -1),
 		LikesCount:    core.NewQByteArray2("likescount", -1),
+		Visibility:    core.NewQByteArray2("visibility", -1),
 	})
 
 	m.ConnectData(m.data)
@@ -294,6 +296,10 @@ func (m *MessageModel) data(index *core.QModelIndex, role int) *core.QVariant {
 	case LikesCount:
 		{
 			return core.NewQVariant1(p.LikesCount)
+		}
+	case Visibility:
+		{
+			return core.NewQVariant1(p.Visibility)
 		}
 
 	default:

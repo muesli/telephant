@@ -198,9 +198,10 @@ func (mod *Account) Logo() string {
 }
 
 // Post posts a new status
-func (mod *Account) Post(message string, attachments []string) error {
+func (mod *Account) Post(message string, visibility string, attachments []string) error {
 	t := &mastodon.Toot{
-		Status: message,
+		Status:     message,
+		Visibility: visibility,
 	}
 	for _, v := range attachments {
 		t.MediaIDs = append(t.MediaIDs, mastodon.ID(v))
@@ -211,9 +212,10 @@ func (mod *Account) Post(message string, attachments []string) error {
 }
 
 // Reply posts a new reply-status
-func (mod *Account) Reply(replyid string, message string, attachments []string) error {
+func (mod *Account) Reply(replyid string, message string, visibility string, attachments []string) error {
 	t := &mastodon.Toot{
 		Status:      message,
+		Visibility:  visibility,
 		InReplyToID: mastodon.ID(replyid),
 	}
 	for _, v := range attachments {
@@ -573,6 +575,7 @@ func (mod *Account) handleNotification(n *mastodon.Notification, notify bool) {
 				RepliesCount: n.Status.RepliesCount,
 				LikesCount:   n.Status.FavouritesCount,
 				SharesCount:  n.Status.ReblogsCount,
+				Visibility:   n.Status.Visibility,
 			},
 		}
 		ev.Post.Liked, _ = n.Status.Favourited.(bool)
@@ -697,6 +700,7 @@ func (mod *Account) handleStatus(s *mastodon.Status) accounts.MessageEvent {
 			RepliesCount: s.RepliesCount,
 			LikesCount:   s.FavouritesCount,
 			SharesCount:  s.ReblogsCount,
+			Visibility:   s.Visibility,
 		},
 	}
 	ev.Post.Liked, _ = s.Favourited.(bool)

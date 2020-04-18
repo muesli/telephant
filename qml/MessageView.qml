@@ -310,6 +310,22 @@ ColumnLayout {
                             Layout.fillWidth: true
                         }
                         ImageButton {
+                            source: {
+                                switch (message.visibility) {
+                                    case "direct":
+                                        return "images/scope-private.svg"
+                                    case "private":
+                                        return "images/scope-followers.svg"
+                                    case "unlisted":
+                                        return "images/scope-unlisted.svg"
+                                    default:
+                                        return "images/scope-public.svg"
+                                }
+                            }
+                            animationDuration: 200
+                            sourceSize.height: 16                            
+                        }
+                        ImageButton {
                             source: "images/reply.png"
                             animationDuration: 200
                             sourceSize.height: 16

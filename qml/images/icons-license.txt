@@ -1,0 +1,1 @@
+The scope-* icons are part of the Material Icons from https://material.io/ and licensed under Apache 2.0.

@@ -8,6 +8,7 @@ Popup {
     id: popup
 
     property var message
+    property var visibility
 
     modal: true
     focus: true
@@ -15,6 +16,14 @@ Popup {
     width: Math.min(mainWindow.width * 0.66, 500)
     anchors.centerIn: mainWindow.overlay
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+
+    Component.onCompleted: {
+        if (message != null) {
+            visibility = message.visibility
+        } else {
+            visibility = "public"
+        }
+    }
 
     FileDialog {
         id: imageFileDialog
@@ -156,7 +165,62 @@ Popup {
             }
 
             RowLayout {
-                Layout.alignment: Qt.AlignRight
+                RoundButton {
+                    id: scopePrivateButton
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                    highlighted: visibility === "direct"
+                    
+                    icon.name: "scope-private"
+                    icon.source: "images/scope-private.svg"
+
+                    onClicked: {
+                        visibility = "direct"
+                    }
+                }
+
+                RoundButton {
+                    id: scopeFollowersButton
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                    highlighted: visibility === "private"
+                    
+                    icon.name: "scope-followers"
+                    icon.source: "images/scope-followers.svg"
+
+                    onClicked: {
+                        visibility = "private"
+                    }
+                }
+
+                RoundButton {
+                    id: scopeUnlistedButton
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                    highlighted: visibility === "unlisted"
+                    
+                    icon.name: "scope-unlisted"
+                    icon.source: "images/scope-unlisted.svg"
+
+                    onClicked: {
+                        visibility = "unlisted"
+                    }
+                }
+
+                RoundButton {
+                    id: scopePublicButton
+                    Layout.alignment: Qt.AlignBottom | Qt.AlignRight
+                    highlighted: visibility === "public"
+                    
+                    icon.name: "scope-public"
+                    icon.source: "images/scope-public.svg"
+
+                    onClicked: {
+                        visibility = "public"
+                    }
+                }
+
+                Item {
+                    // fills all the empty space so the following items align right
+                    Layout.fillWidth: true
+                }
 
                 Label {
                     id: remCharsLabel
@@ -184,10 +248,10 @@ Popup {
                             msg = "@" + message.author + " " + msg
                         }
 
-                        uiBridge.postButton(msgid, msg)
+                        uiBridge.postButton(msgid, msg, visibility)
                         messageArea.clear()
                     }
-                }
+                }                
             }
         }
     }
