@@ -28,6 +28,7 @@ type Post struct {
 	RepliesCount  int64
 	LikesCount    int64
 	SharesCount   int64
+	Visibility    string
 }
 
 // User describes a user object
