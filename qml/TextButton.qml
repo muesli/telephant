@@ -1,5 +1,5 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.1
+import QtQuick 2.13
+import QtQuick.Controls 2.13
 
 Label {
     id: label

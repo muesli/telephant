@@ -145,6 +145,12 @@ func main() {
 	if config.Style == "" {
 		config.Style = "Dark"
 	}
+	if config.FontFamily == "" {
+		config.FontFamily = "Noto Sans"
+	}
+	if config.EmojiFont == "" {
+		config.EmojiFont = "Noto Color Emoji"
+	}
 	configBridge.SetTheme(config.Theme)
 	configBridge.SetStyle(config.Style)
 	configBridge.SetFirstRun(config.FirstRun)
@@ -152,6 +158,8 @@ func main() {
 	configBridge.SetPositionY(config.PositionY)
 	configBridge.SetWidth(config.Width)
 	configBridge.SetHeight(config.Height)
+	configBridge.SetFontfamily(config.FontFamily)
+	configBridge.SetEmojifont(config.EmojiFont)
 
 	accountBridge.SetUsername("Not connected...")
 	accountBridge.SetNotifications(notificationModel)
@@ -178,5 +186,7 @@ func main() {
 	config.Width = configBridge.Width()
 	config.Height = configBridge.Height()
 	config.FirstRun = false
+	config.FontFamily = configBridge.Fontfamily()
+	config.EmojiFont = configBridge.Emojifont()
 	SaveConfig(configFile, config)
 }

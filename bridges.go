@@ -85,6 +85,8 @@ type ConfigBridge struct {
 	_ int    `property:"positionY"`
 	_ int    `property:"width"`
 	_ int    `property:"height"`
+	_ string `property:"fontfamily"`
+	_ string `property:"emojifont"`
 }
 
 var (

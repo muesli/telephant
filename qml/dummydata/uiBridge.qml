@@ -1,4 +1,4 @@
-import QtQuick 2.4
+import QtQuick 2.13
 
 QtObject {
     function connectButton(instance) {
