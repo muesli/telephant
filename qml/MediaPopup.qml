@@ -1,8 +1,8 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
-import QtMultimedia 5.9
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
+import QtQuick.Layouts 1.11
+import QtMultimedia 5.13
 
 Popup {
     property var url

@@ -1,8 +1,8 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
+import QtQuick.Layouts 1.11
+import QtGraphicalEffects 1.12
 
 import "componentCreator.js" as ComponentCreator
 
@@ -33,6 +33,7 @@ ColumnLayout {
             font.pointSize: 10
             text: qsTr("%1 shared").arg(message.actorname)
             opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.8 : 0.3
+            textFormat: Text.RichText
 
             MouseArea {
                 anchors.fill: parent
@@ -59,6 +60,7 @@ ColumnLayout {
             font.pointSize: 10
             text: qsTr("%1 liked").arg(message.actorname)
             opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.8 : 0.3
+            textFormat: Text.RichText
 
             MouseArea {
                 anchors.fill: parent
@@ -101,7 +103,7 @@ ColumnLayout {
                     font.pointSize: 11
                     font.bold: true
                     text: qsTr("%1 followed you").arg(message.actorname)
-                    textFormat: Text.PlainText
+                    textFormat: Text.RichText
                     Layout.fillWidth: true
                     elide: Text.ElideRight
 
@@ -117,7 +119,7 @@ ColumnLayout {
                 Label {
                     font.pointSize: 11
                     text: message.actor
-                    textFormat: Text.PlainText
+                    textFormat: Text.RichText
                     Layout.fillWidth: true
                     elide: Text.ElideRight
 
@@ -154,7 +156,7 @@ ColumnLayout {
                     font.pointSize: 11
                     font.bold: true
                     text: message.name
-                    textFormat: Text.PlainText
+                    textFormat: Text.RichText
                     elide: Text.ElideRight
                     opacity: (accountBridge.username == message.author && (message.like || message.forward)) ? 0.4 : 1.0
                     Layout.fillWidth: true
@@ -174,7 +176,7 @@ ColumnLayout {
                     font.pointSize: 9
                     opacity: 0.4
                     text: "@" + message.author
-                    textFormat: Text.PlainText
+                    textFormat: Text.RichText
                     elide: Text.ElideRight
                     Layout.fillWidth: true
                     Layout.maximumWidth: implicitWidth + 1

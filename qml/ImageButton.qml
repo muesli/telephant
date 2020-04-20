@@ -1,6 +1,6 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.1
-import QtGraphicalEffects 1.0
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtGraphicalEffects 1.12
 
 Image {
     id: img

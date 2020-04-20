@@ -3,9 +3,26 @@ package main
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/muesli/telephant/accounts"
+	"github.com/tachiniererin/bananasplit"
 )
+
+func addEmojiFont(body string) string {
+	runeRange := map[string][]bananasplit.RuneRange{"emoji": bananasplit.EmojiRange}
+	bodyParts := bananasplit.SplitByRanges(body, runeRange)
+	var mon strings.Builder
+	for _, part := range bodyParts {
+		if part.Type == "emoji" {
+			mon.WriteString(fmt.Sprintf(`<font face="%s">%s</font>`, config.EmojiFont, part.Text))
+		} else {
+			mon.WriteString(part.Text)
+		}
+	}
+
+	return mon.String()
+}
 
 // handleEvents handles incoming events and puts them into the right models
 func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
@@ -22,7 +39,7 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 			{
 				log.Println("Account login succeeded:", event.Username, event.Name, event.Avatar)
 				accountBridge.SetUsername(event.Username)
-				accountBridge.SetName(event.Name)
+				accountBridge.SetName(addEmojiFont(event.Name))
 				accountBridge.SetAvatar(event.Avatar)
 				accountBridge.SetProfileURL(event.ProfileURL)
 				accountBridge.SetProfileID(event.ProfileID)
@@ -54,6 +71,9 @@ func handleEvents(eventsIn chan interface{}, messages *MessageModel) {
 				// log.Println("Message received:", spw.Sdump(event))
 
 				p := messageFromEvent(event)
+				p.Name = addEmojiFont(p.Name)
+				p.ActorName = addEmojiFont(p.ActorName)
+				p.Body = addEmojiFont(p.Body)
 
 				// markup links
 				/*

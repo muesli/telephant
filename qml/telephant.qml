@@ -1,7 +1,7 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
+import QtQuick.Layouts 1.11
 
 import "componentCreator.js" as ComponentCreator
 
@@ -15,6 +15,8 @@ ApplicationWindow {
     background: Rectangle {
         color: Material.color(Material.Grey, Material.Shade900)
     }
+
+    font.family: settings.fontfamily
 
     minimumWidth: 364
     minimumHeight: 590

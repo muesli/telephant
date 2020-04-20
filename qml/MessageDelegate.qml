@@ -1,8 +1,8 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.1
-import QtQuick.Controls.Material 2.1
-import QtQuick.Layouts 1.3
-import QtGraphicalEffects 1.0
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Controls.Material 2.13
+import QtQuick.Layouts 1.11
+import QtGraphicalEffects 1.12
 
 ColumnLayout {
     property bool fadeMedia
