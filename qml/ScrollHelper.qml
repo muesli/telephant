@@ -17,8 +17,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-import QtQuick 2.13
-import QtQuick.Controls 2.13
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 /*
 * The MouseArea + interactive: false + maximumFlickVelocity are required
