@@ -1,0 +1,36 @@
+name: build
+on: [push, pull_request]
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.13.x, 1.14.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    env:
+      GO111MODULE: "on"
+      QT_PKG_CONFIG: "true"
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Install Qt packages
+        run: |
+          sudo apt-get update
+          sudo apt-get --no-install-recommends install build-essential git libglib2.0-dev libglu1-mesa-dev libpulse-dev
+          sudo apt-get --no-install-recommends install libqt*5-dev qt*5-dev qt*5-doc-html qml-module-qtquick*
+          sudo apt-get install qml-module-qtmultimedia qml-module-qt-labs-folderlistmodel qml-module-qt-labs-settings
+
+      - name: Install Qt bindings
+        run: go get -v -tags=no_env github.com/therecipe/qt/cmd/...
+
+      #    - name: Vendor Go modules
+      #      run: go mod vendor
+
+      - name: Build
+        run: $(go env GOPATH)/bin/qtdeploy build desktop
